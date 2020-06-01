@@ -17,8 +17,8 @@ class BaseController(cement.Controller):
     class Meta:
         label = 'base'
         description = ("BioSimulations-compliant command-line interface to the "
-                       "<MySimulator> simulation program <https://url.for.my.simulator>.")
-        help = "<my-simulator>"
+                       "cobrapy simulation program <https://opencobra.github.io/cobrapy>.")
+        help = "cobrapy"
         arguments = [
             (['-i', '--archive'], dict(type=str,
                                        required=True,
@@ -27,7 +27,7 @@ class BaseController(cement.Controller):
                                        default='.',
                                        help='Directory to save outputs')),
             (['-v', '--version'], dict(action='version',
-                                       version=my_simulator.__version__)),
+                                       version=Biosimulations_cobrapy.__version__)),
         ]
 
     @cement.ex(hide=True)
@@ -39,7 +39,7 @@ class BaseController(cement.Controller):
 class App(cement.App):
     """ Command line application """
     class Meta:
-        label = '<my-simulator>'
+        label = 'cobrapy'
         base_controller = 'base'
         handlers = [
             BaseController,
