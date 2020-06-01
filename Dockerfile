@@ -1,3 +1,6 @@
+# Build image:
+#   docker build --tag aa3641/biosimulations_cobrapy:0.17.1 --tag aa3641/biosimulations_cobrapy:latest .
+
 # Base OS
 FROM python:3.7
 
