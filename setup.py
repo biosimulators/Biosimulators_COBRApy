@@ -15,7 +15,7 @@ except (subprocess.CalledProcessError, AssertionError):
 import os
 import pkg_utils
 
-name = '<my_simulator>'
+name = 'Biosimulations_cobrapy'
 dirname = os.path.dirname(__file__)
 
 # get package metadata
@@ -26,14 +26,14 @@ setuptools.setup(
     name=name,
     version=md.version,
     description=("BioSimulations-compliant command-line interface to "
-                 "the <MySimulator> simulation program <https://url.for.my.simulator>."),
+                 "the cobrapy simulation program <https://opencobra.github.io/cobrapy/>."),
     long_description=md.long_description,
-    url="https://github.com/<organization>/<repository>",
-    download_url="https://github.com/<organization>/<repository>",
-    author='<Authors of MySimulator>',
-    author_email="<authors@url.for.my.simulator>",
-    license="<License, e.g., MIT>",
-    keywords='<space separated list of key words>',
+    url="https://github.com/reproducible-biomedical-modeling/" + name,
+    download_url='https://github.com/reproducible-biomedical-modeling/' + name,
+    author='Center for Reproducible Biomedical Modeling',
+    author_email="info@reproduciblebiomodels.org",
+    license="MIT",
+    keywords='systems biology modeling simulation',
     packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
     install_requires=md.install_requires,
     extras_require=md.extras_require,
@@ -47,7 +47,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            '<my-simulator> = <my_simulator>.__main__:main',
+            'cobrapy = Biosimulations_cobrapy.__main__:main',
         ],
     },
 )
