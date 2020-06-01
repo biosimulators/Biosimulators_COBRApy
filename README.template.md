@@ -1,4 +1,4 @@
-# my_simulator
+# Biosimulations_cobrapy
 BioSimulations-compliant command-line interface to [cobrapy](https://opencobra.github.io/cobrapy/) simulation program.
 
 ## Contents
