@@ -1,10 +1,10 @@
 {
-  "id": "id_of_simulator",
-  "name": "Name of simulator",
-  "version": "1.0.0",
-  "description": "Description of simulator.",
-  "url": "https://url.for.simulator/",
-  "dockerHubImageId": "organization/repository:tag",
+  "id": "cobrapy",
+  "name": "cobrapy",
+  "version": "0.17.1",
+  "description": "cobrapy is a python package that provides a simple interface to metabolic constraint-based reconstruction and analysis.",
+  "url": "https://opencobra.github.io/cobrapy/",
+  "dockerHubImageId": "aa3641/biosimulations_cobrapy:0.17.1",
   "format": {
     "name": "Docker Image",
     "version": "1.2",
@@ -12,28 +12,42 @@
   },
   "authors": [
     {
-      "firstName": "John",
-      "middleName": "C",
-      "lastName": "Doe"
+      "firstName": "Ali",
+      "lastName": "Ibrahim"
     },
     {
-      "firstName": "Jane",
-      "middleName": "D",
-      "lastName": "Doe"
+      "firstName": "Joshua",
+      "middleName": "A",
+      "lastName": "Lerman"
+    },
+    {
+      "firstName": "Bernhard",
+      "middleName": "O",
+      "lastName": "Palsson"
+    },
+    {
+      "firstName": "Daniel",
+      "middleName": "R",
+      "lastName": "Hyduke"
     }
   ],
   "references": [
     {
-      "title": "title",
-      "authors": "John C Doe, Jane D Doe & Jack E Doe",
-      "journal": "journal",
-      "volume": 10,
-      "pages": "1-10",
-      "year": 2020,
-      "doi": "XX.XXX/XXXXX"
+      "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
+      "authors": "Ali Ebrahim, Joshua A Lerman, Bernhard O Palsson & Daniel R Hyduke",
+      "journal": "BMC Systems Biology",
+      "volume": 7,
+      "article number": "74",
+      "year": 2013,
+      "doi": "10.1186/1752-0509-7-74"
     }
   ],
-  "license": "MIT",
+  "license": "GPL",
+  
+  
+  
+  
+  
   "algorithms": [
     {
       "id": "cvode",
