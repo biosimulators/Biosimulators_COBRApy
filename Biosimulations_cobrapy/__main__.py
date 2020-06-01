@@ -1,6 +1,6 @@
 """ BioSimulations-compliant command-line interface to the `cobrapy <https://opencobra.github.io/cobrapy>`_ simulation program.
 
-:Author: Author name <email@organization>
+:Author: Azraf Anwar <aa3641@columbia.edu>
 :Date: 2020-06-01
 :Copyright: 2020, Center for Reproducible Biomedical Modeling
 :License: MIT
