@@ -1,13 +1,13 @@
-""" BioSimulations-compliant command-line interface to the `MySimulator <https://url.for.my.simulator>`_ simulation program.
+""" BioSimulations-compliant command-line interface to the `cobrapy <https://opencobra.github.io/cobrapy>`_ simulation program.
 
 :Author: Author name <email@organization>
-:Date: YYYY-MM-DD
-:Copyright: YYYY, Owner
-:License: <License, e.g., MIT>
+:Date: 2020-06-01
+:Copyright: 2020, Center for Reproducible Biomedical Modeling
+:License: MIT
 """
 
 from .core import exec_combine_archive
-import my_simulator
+import Biosimulations_cobrapy
 import cement
 
 
