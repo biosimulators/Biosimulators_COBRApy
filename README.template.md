@@ -1,5 +1,5 @@
 # my_simulator
-BioSimulations-compliant command-line interface to the [MySimulator](https://<url.for.my.simulator>/) simulation program.
+BioSimulations-compliant command-line interface to [cobrapy](https://opencobra.github.io/cobrapy/) simulation program.
 
 ## Contents
 * [Installation](#installation)
@@ -12,19 +12,19 @@ BioSimulations-compliant command-line interface to the [MySimulator](https://<ur
 
 ### Install Python package
 ```
-pip install git+https://github.com/<organization>/<repository>
+pip install git+https://github.com/AzrafAnwar/Biosimulations_cobrapy
 ```
 
 ### Install Docker image
 ```
-docker pull <organization>/<repository>
+docker pull aa3641/biosimulations_cobrapy
 ```
 
 ## Local usage
 ```
-usage: <my-simulator> [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
+usage: cobrapy [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
-BioSimulations-compliant command-line interface to the <MySimulator> simulation program <https://url.for.my.simulator>.
+BioSimulations-compliant command-line interface to the cobrapy simulation program <https://opencobra.github.io/cobrapy/>.
 
 optional arguments:
   -h, --help            show this help message and exit
