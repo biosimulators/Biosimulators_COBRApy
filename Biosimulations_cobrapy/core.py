@@ -7,7 +7,7 @@
 """
 
 from Biosimulations_utils.simulation.data_model import Simulation  # noqa: F401
-import Biosimulations_utils.simulator.utils.exec_simulations_in_archive
+from Biosimulations_utils.simulator.utils import exec_simulations_in_archive
 import os
 
 
