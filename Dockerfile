@@ -11,6 +11,7 @@ RUN apt-get update -y \
         python3-pip \
     && pip3 install -U pip \
     && pip3 install -U setuptools \
+    && pip3 install biosimulations_utils \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
