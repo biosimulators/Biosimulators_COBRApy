@@ -51,10 +51,10 @@ docker run \
 ```
 
 ## License
-This package is released under the [<License name (e.g., MIT)> license](LICENSE).
+This package is released under the [<MIT> license](LICENSE).
 
 ## Development team
-This package was developed by [<authors>](<https://url.for.authors>).
+This template was developed by the [Center for Reproducible Biomedical Modeling](http://reproduciblebiomodels.org) and the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York.
 
 ## Questions and comments
-Please contact the [<authors>](mailto:<authors@url.for.authors>) with any questions or comments.
+Please contact the [Center for Reproducible Biomedical Modeling](mailto:info@reproduciblebiomodels.org) with any questions or comments.
