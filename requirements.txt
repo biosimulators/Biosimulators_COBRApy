@@ -1,4 +1,2 @@
 cement
 Biosimulations_utils
-python_libcombine
-cobrapy
