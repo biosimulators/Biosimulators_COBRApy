@@ -1,5 +1,5 @@
 # Build image:
-#   docker build --tag aa3641/biosimulations_cobrapy:0.17.1 --tag aa3641/biosimulations_cobrapy:latest .
+#   docker build --tag crbm/biosimulations_cobrapy:0.17.1 --tag crbm/biosimulations_cobrapy:latest .
 
 # Base OS
 FROM ubuntu
