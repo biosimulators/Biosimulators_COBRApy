@@ -51,7 +51,7 @@
         "ontology": "KISAO",
         "id": "0000437",
         "name": "flux balance analysis"
-        "description": "Flux balance analysis is a mathematical approach for analyzing the flow of metabolites through a metabolic network."
+        "description":"Flux balance analysis is a mathematical approach for analyzing the flow of metabolites through a metabolic network."
       },
       "ontologyTerms": [],
       "modelingFrameworks": [
