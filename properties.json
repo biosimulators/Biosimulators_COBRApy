@@ -51,7 +51,7 @@
         "ontology": "KISAO",
         "id": "0000437",
         "name": "flux balance analysis"
-        "description":"Flux balance analysis is a mathematical approach for analyzing the flow of metabolites through a metabolic network."
+        "description": "Flux balance analysis is a mathematical approach for analyzing the flow of metabolites through a metabolic network."
       },
       "ontologyTerms": [],
       "modelingFrameworks": [
@@ -76,11 +76,93 @@
           "sedUrn": "urn:sedml:language:sbml"
         }
       ],
-      "simulationFormats": [],
-      "archiveFormats": [],
+      "simulationFormats": [
+        {
+          "id": "SED-ML",
+          "name": "Simulation Experiment Description Markup Language",
+          "version": "L1V3",
+          "edamId": "format_3685",
+          "url": "https://sed-ml.org",
+          "specUrl": "http://identifiers.org/combine.specifications/sed-ml",
+          "mimeType": "application/xml",
+          "extension": "sedml"
+        }
+      ],
+      "archiveFormats": [
+        {
+          "id": "COMBINE",
+          "name": "COMBINE",
+          "version": "V1",
+          "edamId": "format_3686",
+          "url": "https://combinearchive.org/",
+          "specUrl": "http://identifiers.org/combine.specifications/omex",
+          "mimeType": "application/zip",
+          "extension": "omex"
+        }
+      ],
       "references": [],
       "parameters": []
-    }
+    },
+    {
+      
+    "id": "fva",
+      "name": "flux variability analysis",
+      "kisaoTerm": {
+        "ontology": "KISAO",
+        "id": "0000437",
+        "name": "flux balance analysis"
+        "description": "Flux balance analysis is a mathematical approach for analyzing the flow of metabolites through a metabolic network."
+      },
+      "ontologyTerms": [],
+      "modelingFrameworks": [
+        {
+          "ontology": "SBO",
+          "id": "0000624",
+          "name": "flux balance framework",
+          "description": "Modelling approach, typically used for metabolic models, where the flow of metabolites (flux) through a network can be calculated. This approach will generally produce a set of solutions (solution space), which may be reduced using objective functions and constraints on individual fluxes.",
+          "iri": "http://biomodels.net/SBO/SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "id": "SBML",
+          "name": "Systems Biology Markup Language",
+          "version": "L3V2",
+          "edamId": "format_2585",
+          "url": "http://sbml.org",
+          "specUrl": "http://identifiers.org/combine.specifications/sbml",
+          "mimeType": "application/sbml+xml",
+          "extension": "xml",
+          "sedUrn": "urn:sedml:language:sbml"
+        }
+      ],
+      "simulationFormats": [
+        {
+          "id": "SED-ML",
+          "name": "Simulation Experiment Description Markup Language",
+          "version": "L1V3",
+          "edamId": "format_3685",
+          "url": "https://sed-ml.org",
+          "specUrl": "http://identifiers.org/combine.specifications/sed-ml",
+          "mimeType": "application/xml",
+          "extension": "sedml"
+        }
+      ],
+      "archiveFormats": [
+        {
+          "id": "COMBINE",
+          "name": "COMBINE",
+          "version": "V1",
+          "edamId": "format_3686",
+          "url": "https://combinearchive.org/",
+          "specUrl": "http://identifiers.org/combine.specifications/omex",
+          "mimeType": "application/zip",
+          "extension": "omex"
+        }
+      ],
+      "references": [],
+      "parameters": []
+    }, 
   ],
   "created": "2020-01-01T12:00:00Z",
   "updated": "2020-01-01T12:00:00Z"
