@@ -126,9 +126,8 @@ class CliTestCase(unittest.TestCase):
         container.stop()
         container.remove()
 
-        self.assert_outputs_created(out_dir)
+        #self.assert_outputs_created(out_dir)
         
-    def assert_outputs_created(self, dirname):
         
     @unittest.skipIf(os.getenv('CI', '0') in ['1', 'true'], 'Docker not setup in CI')
     def test_validator(self):
