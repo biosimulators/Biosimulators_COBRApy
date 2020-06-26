@@ -4,7 +4,7 @@
   "version": "0.17.1",
   "description": "cobrapy is a python package that provides a simple interface to metabolic constraint-based reconstruction and analysis.",
   "url": "https://opencobra.github.io/cobrapy/",
-  "dockerHubImageId": "aa3641/biosimulations_cobrapy:0.17.1",
+  "dockerHubImageId": "crbm/biosimulations_cobrapy:0.17.1",
   "format": {
     "name": "Docker Image",
     "version": "1.2",
@@ -104,14 +104,13 @@
       "parameters": []
     },
     {
-      
     "id": "fva",
       "name": "flux variability analysis",
       "kisaoTerm": {
         "ontology": "KISAO",
-        "id": "0000437",
-        "name": "flux balance analysis"
-        "description": "Flux balance analysis is a mathematical approach for analyzing the flow of metabolites through a metabolic network."
+        "id": "0000###",
+        "name": "flux variability analysis"
+        "description": "FVA (or flux variability analysis) finds the ranges of each metabolic flux at the optimum."
       },
       "ontologyTerms": [],
       "modelingFrameworks": [
@@ -161,8 +160,294 @@
         }
       ],
       "references": [],
-      "parameters": []
-    }, 
+      "parameters": [
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "model",
+            "description": "The model for which to run the analysis. It will not be modified."
+          },
+          "id": "model",
+          "name": "model",
+          "type": "cobra.Model"
+        },
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "reaction list",
+            "description": "The reactions for which to obtain min/max fluxes. If None will use all reactions in the model (default)."
+          },
+          "id": "reaction_list",
+          "name": "reaction_list",
+          "type": "list of cobra.Reaction or str"
+          "default": None
+        },
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "loopless setting",
+            "description": "Whether to return only loopless solutions for FVA."
+          },
+          "id": "loopless",
+          "name": "loopless",
+          "type": "Boolean"
+          "default": False
+        },
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "fraction of optimum",
+            "description": "Requires that the objective value is at least the fraction times maximum objective value. A value of 0.85 for instance means that the objective has to be at least at 85% percent of its maximum."
+          },
+          "id": "fraction_of_optimum",
+          "name": "fraction_of_optimum",
+          "type": "float"
+          "default": 1.0
+        },        
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "pFBA Factor",
+            "description": "Add an additional constraint to the model that requires the total sum of absolute fluxes must not be larger than this value times the smallest possible sum of absolute fluxes"
+          },
+          "id": "pfba_factor",
+          "name": "pfba_factor",
+          "type": "float"
+          "default": None
+        },
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "number of parallel processes",
+            "description": "The number of parallel processes to run. If not explicitly passed, will be set from the global configuration singleton."
+          },
+          "id": "processes",
+          "name": "processes",
+          "type": "int"
+          "default": None
+        }
+      ]
+    },
+    {
+    "id": "pfba",
+      "name": "parsimonious enzyme usage flux balance analysis",
+      "kisaoTerm": {
+        "ontology": "KISAO",
+        "id": "0000###",
+        "name": "parsimonious enzyme usage flux balance analysis"
+        "description": "pFBA adds the minimization of all fluxes the the objective of the model. This approach is motivated by the idea that high fluxes have a higher enzyme turn-over and that since producing enzymes is costly, the cell will try to minimize overall flux while still maximizing the original objective function, e.g. the growth rate."
+      },
+      "ontologyTerms": [],
+      "modelingFrameworks": [
+        {
+          "ontology": "SBO",
+          "id": "0000624",
+          "name": "flux balance framework",
+          "description": "Modelling approach, typically used for metabolic models, where the flow of metabolites (flux) through a network can be calculated. This approach will generally produce a set of solutions (solution space), which may be reduced using objective functions and constraints on individual fluxes.",
+          "iri": "http://biomodels.net/SBO/SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "id": "SBML",
+          "name": "Systems Biology Markup Language",
+          "version": "L3V2",
+          "edamId": "format_2585",
+          "url": "http://sbml.org",
+          "specUrl": "http://identifiers.org/combine.specifications/sbml",
+          "mimeType": "application/sbml+xml",
+          "extension": "xml",
+          "sedUrn": "urn:sedml:language:sbml"
+        }
+      ],
+      "simulationFormats": [
+        {
+          "id": "SED-ML",
+          "name": "Simulation Experiment Description Markup Language",
+          "version": "L1V3",
+          "edamId": "format_3685",
+          "url": "https://sed-ml.org",
+          "specUrl": "http://identifiers.org/combine.specifications/sed-ml",
+          "mimeType": "application/xml",
+          "extension": "sedml"
+        }
+      ],
+      "archiveFormats": [
+        {
+          "id": "COMBINE",
+          "name": "COMBINE",
+          "version": "V1",
+          "edamId": "format_3686",
+          "url": "https://combinearchive.org/",
+          "specUrl": "http://identifiers.org/combine.specifications/omex",
+          "mimeType": "application/zip",
+          "extension": "omex"
+        }
+      ],
+      "references": [],    
+      "parameters": [
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "model",
+            "description": "The model for which to run the analysis. It will not be modified."
+          },
+          "id": "model",
+          "name": "model",
+          "type": "cobra.Model"
+        },
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "fraction of optimum",
+            "description": "Requires that the objective value is at least the fraction times maximum objective value. A value of 0.85 for instance means that the objective has to be at least at 85% percent of its maximum."
+          },
+          "id": "fraction_of_optimum",
+          "name": "fraction_of_optimum",
+          "type": "float"
+          "default": 1.0
+        },         
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "objective",
+            "description": "A desired objective to use during optimization in addition to the pFBA objective. Dictionaries (reaction as key, coefficient as value) can be used for linear objectives."
+          },
+          "id": "objective",
+          "name": "objective",
+          "type": "dict or model.problem.Objective"
+          "default": None
+        },         
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "reactions",
+            "description": "List of reactions or reaction identifiers. Implies return_frame to be true. Only return fluxes for the given reactions. Faster than fetching all fluxes if only a few are needed."
+          },
+          "id": "reactions",
+          "name": "reactions",
+          "type": "iterable"
+          "default": None
+        }
+      ] 
+    },
+    {
+    "id": "geometric fba",
+      "name": "geometric flux balance analysis",
+      "kisaoTerm": {
+        "ontology": "KISAO",
+        "id": "0000###",
+        "name": "geometric flux balance analysis"
+        "description": "Geometric FBA formulates the problem as a polyhedron and then solves it by bounding the convex hull of the polyhedron. The bounding forms a box around the convex hull which reduces with every iteration and extracts a unique solution in this way."
+      },
+      "ontologyTerms": [],
+      "modelingFrameworks": [
+        {
+          "ontology": "SBO",
+          "id": "0000624",
+          "name": "flux balance framework",
+          "description": "Modelling approach, typically used for metabolic models, where the flow of metabolites (flux) through a network can be calculated. This approach will generally produce a set of solutions (solution space), which may be reduced using objective functions and constraints on individual fluxes.",
+          "iri": "http://biomodels.net/SBO/SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "id": "SBML",
+          "name": "Systems Biology Markup Language",
+          "version": "L3V2",
+          "edamId": "format_2585",
+          "url": "http://sbml.org",
+          "specUrl": "http://identifiers.org/combine.specifications/sbml",
+          "mimeType": "application/sbml+xml",
+          "extension": "xml",
+          "sedUrn": "urn:sedml:language:sbml"
+        }
+      ],
+      "simulationFormats": [
+        {
+          "id": "SED-ML",
+          "name": "Simulation Experiment Description Markup Language",
+          "version": "L1V3",
+          "edamId": "format_3685",
+          "url": "https://sed-ml.org",
+          "specUrl": "http://identifiers.org/combine.specifications/sed-ml",
+          "mimeType": "application/xml",
+          "extension": "sedml"
+        }
+      ],
+      "archiveFormats": [
+        {
+          "id": "COMBINE",
+          "name": "COMBINE",
+          "version": "V1",
+          "edamId": "format_3686",
+          "url": "https://combinearchive.org/",
+          "specUrl": "http://identifiers.org/combine.specifications/omex",
+          "mimeType": "application/zip",
+          "extension": "omex"
+        }
+      ],
+      "references": [],    
+      "parameters": [
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "model",
+            "description": "The model for which to run the analysis. It will not be modified."
+          },
+          "id": "model",
+          "name": "model",
+          "type": "cobra.Model"
+        },              
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000209",
+            "name": "relative tolerance",
+            "description": "This parameter is a numeric value specifying the desired relative tolerance the user wants to achieve."
+          },
+          "id": "epsilon",
+          "name": "epsilon",
+          "type": "float"
+          "default": 1e-06
+        },          
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000486",
+            "name": "maximum iterations",
+            "description": "For algorithms that iterate to a solution (steady state finders in particular), a limit on the number of iterations that should be performed."
+          },
+          "id": "max_tries",
+          "name": "max_tries",
+          "type": "int"
+          "default": 200
+        },      
+        {
+          "kisaoTerm": {
+            "ontology": "KISAO",
+            "id": "0000###",
+            "name": "number of parallel processes",
+            "description": "The number of parallel processes to run. If not explicitly passed, will be set from the global configuration singleton."
+          },
+          "id": "processes",
+          "name": "processes",
+          "type": "int"
+          "default": None
+        }   
+      ] 
+    },
   ],
   "created": "2020-01-01T12:00:00Z",
   "updated": "2020-01-01T12:00:00Z"
