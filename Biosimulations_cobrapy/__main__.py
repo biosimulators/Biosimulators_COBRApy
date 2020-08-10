@@ -1,4 +1,4 @@
-""" BioSimulations-compliant command-line interface to the `cobrapy <https://opencobra.github.io/cobrapy>`_ simulation program.
+""" BioSimulations-compliant command-line interface to the `COBRApy <https://opencobra.github.io/cobrapy>`_ simulation program.
 
 :Author: Azraf Anwar <aa3641@columbia.edu>
 :Date: 2020-06-01
@@ -17,7 +17,7 @@ class BaseController(cement.Controller):
     class Meta:
         label = 'base'
         description = ("BioSimulations-compliant command-line interface to the "
-                       "cobrapy simulation program <https://opencobra.github.io/cobrapy>.")
+                       "COBRApy simulation program <https://opencobra.github.io/cobrapy>.")
         help = "cobrapy"
         arguments = [
             (['-i', '--archive'], dict(type=str,
