@@ -1,5 +1,5 @@
-# Biosimulations_COBRApy
-BioSimulations-compliant command-line interface to [cobrapy](https://opencobra.github.io/cobrapy/) simulation program.
+# Biosimulators_COBRApy
+BioSimulators-compliant command-line interface and Docker image for the [COBRApy](https://opencobra.github.io/cobrapy/) simulation program.
 
 ## Contents
 * [Installation](#installation)
@@ -12,19 +12,19 @@ BioSimulations-compliant command-line interface to [cobrapy](https://opencobra.g
 
 ### Install Python package
 ```
-pip install git+https://github.com/reproducible-biomedical-modeling/Biosimulations_COBRApy
+pip install git+https://github.com/biosimulators/Biosimulators_COBRApy
 ```
 
 ### Install Docker image
 ```
-docker pull crbm/biosimulations_cobrapy
+docker pull biosimulators/cobrapy
 ```
 
 ## Local usage
 ```
 usage: cobrapy [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
-BioSimulations-compliant command-line interface to the COBRApy simulation program <https://opencobra.github.io/cobrapy/>.
+BioSimulators-compliant command-line interface to the COBRApy simulation program <https://opencobra.github.io/cobrapy/>.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -45,7 +45,7 @@ docker run \
   --rm \
   --mount type=bind,source="$(pwd)"/tests/fixtures,target=/root/in,readonly \
   --mount type=bind,source="$(pwd)"/tests/results,target=/root/out \
-  crbm/biosimulations_cobrapy:latest \
+  biosimulators/cobrapy:latest \
     -i /root/in/BIOMD0000000297.omex \
     -o /root/out
 ```
@@ -57,4 +57,4 @@ This package is released under the [MIT license](LICENSE).
 This package was developed by the [Center for Reproducible Biomedical Modeling](http://reproduciblebiomodels.org) and the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai.
 
 ## Questions and comments
-Please contact the [Center for Reproducible Biomedical Modeling](mailto:info@reproduciblebiomodels.org) with any questions or comments.
+Please contact the [BioSimulators Team](mailto:info@biosimulators.org) with any questions or comments.
