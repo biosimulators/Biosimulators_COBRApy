@@ -1,16 +1,16 @@
 {
   "id": "cobrapy",
-  "name": "cobrapy",
+  "name": "COBRApy",
   "version": "0.17.1",
   "description": "COBRApy is a Python package that provides a simple interface to metabolic constraint-based reconstruction and analysis.",
   "url": "https://opencobra.github.io/cobrapy/",
-  "dockerHubImageId": "biosimulators/cobrapy:0.17.1",
+  "image": "docker.io/biosimulators/biosimulators-cobrapy:0.17.1",
   "format": {
-    "name": "Docker Image",
-    "version": "1.2",
-    "spec_url": "https://github.com/moby/moby/blob/master/image/spec/v1.2.md"
+    "namespace": "EDAM",
+    "id": "format_3973"
   },
-  "authors": [{
+  "authors": [
+    {
       "firstName": "Ali",
       "lastName": "Ibrahim"
     },
@@ -30,176 +30,145 @@
       "lastName": "Hyduke"
     }
   ],
-  "references": [{
-    "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
-    "authors": "Ali Ebrahim, Joshua A Lerman, Bernhard O Palsson & Daniel R Hyduke",
-    "journal": "BMC Systems Biology",
-    "volume": 7,
-    "pages": "74",
-    "year": 2013,
-    "doi": "10.1186/1752-0509-7-74"
-  }],
-  "license": "GPL",
-  "algorithms": [{
+  "references": {
+    "identifiers": [],
+    "citations": [
+      {
+        "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
+        "authors": "Ali Ebrahim, Joshua A Lerman, Bernhard O Palsson & Daniel R Hyduke",
+        "journal": "BMC Systems Biology",
+        "volume": 7,
+        "pages": "74",
+        "year": 2013,
+        "doi": "10.1186/1752-0509-7-74"
+      }
+    ]
+  },
+  "license": { "namespace": "SPDX", "id": "GPL-3.0-or-later" },
+  "algorithms": [
+    {
       "id": "fba",
       "name": "flux balance analysis",
-      "kisaoTerm": {
-        "ontology": "KISAO",
-        "id": "0000437",
-        "name": "flux balance analysis",
-        "description": "Flux balance analysis is a mathematical approach for analyzing the flow of metabolites through a metabolic network."
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000437"
       },
-      "ontologyTerms": [],
-      "modelingFrameworks": [{
-        "ontology": "SBO",
-        "id": "0000624",
-        "name": "flux balance framework",
-        "description": "Modelling approach, typically used for metabolic models, where the flow of metabolites (flux) through a network can be calculated. This approach will generally produce a set of solutions (solution space), which may be reduced using objective functions and constraints on individual fluxes.",
-        "iri": "http://biomodels.net/SBO/SBO_0000624"
-      }],
-      "modelFormats": [{
-        "id": "SBML",
-        "name": "Systems Biology Markup Language",
-        "version": "L3V2",
-        "edamId": "format_2585",
-        "url": "http://sbml.org",
-        "specUrl": "http://identifiers.org/combine.specifications/sbml",
-        "mimeType": "application/sbml+xml",
-        "extension": "xml",
-        "sedUrn": "urn:sedml:language:sbml"
-      }],
-      "simulationFormats": [{
-        "id": "SED-ML",
-        "name": "Simulation Experiment Description Markup Language",
-        "version": "L1V3",
-        "edamId": "format_3685",
-        "url": "https://sed-ml.org",
-        "specUrl": "http://identifiers.org/combine.specifications/sed-ml",
-        "mimeType": "application/xml",
-        "extension": "sedml"
-      }],
-      "archiveFormats": [{
-        "id": "COMBINE",
-        "name": "COMBINE",
-        "version": "V1",
-        "edamId": "format_3686",
-        "url": "https://combinearchive.org/",
-        "specUrl": "http://identifiers.org/combine.specifications/omex",
-        "mimeType": "application/zip",
-        "extension": "omex"
-      }],
-      "references": [{
-        "title": "What is flux balance analysis?",
-        "authors": "Jeffrey D. Orth, Ines Thiele & Bernhard Ø. Palsson",
-        "journal": "Nature Biotechnology",
-        "volume": 28,
-        "issue": 3,
-        "pages": "245-248",
-        "year": 2010,
-        "doi": "10.1038/nbt.1614"
-      }],
+      "modelingFrameworks": [
+        {
+          "namespace": "SBO",
+          "id": "SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_2585"
+        }
+      ],
+      "simulationFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3685"
+        }
+      ],
+      "archiveFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3686"
+        }
+      ],
+      "citations": [
+        {
+          "title": "What is flux balance analysis?",
+          "authors": "Jeffrey D. Orth, Ines Thiele & Bernhard Ø. Palsson",
+          "journal": "Nature Biotechnology",
+          "volume": 28,
+          "issue": 3,
+          "pages": "245-248",
+          "year": 2010,
+          "doi": "10.1038/nbt.1614"
+        }
+      ],
       "parameters": []
     },
     {
       "id": "fva",
       "name": "flux variability analysis",
-      "kisaoTerm": {
-        "ontology": "KISAO",
-        "id": "0000###",
-        "name": "flux variability analysis",
-        "description": "FVA (or flux variability analysis) finds the ranges of each metabolic flux at the optimum."
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000526"
       },
-      "ontologyTerms": [],
-      "modelingFrameworks": [{
-        "ontology": "SBO",
-        "id": "0000624",
-        "name": "flux balance framework",
-        "description": "Modelling approach, typically used for metabolic models, where the flow of metabolites (flux) through a network can be calculated. This approach will generally produce a set of solutions (solution space), which may be reduced using objective functions and constraints on individual fluxes.",
-        "iri": "http://biomodels.net/SBO/SBO_0000624"
-      }],
-      "modelFormats": [{
-        "id": "SBML",
-        "name": "Systems Biology Markup Language",
-        "version": "L3V2",
-        "edamId": "format_2585",
-        "url": "http://sbml.org",
-        "specUrl": "http://identifiers.org/combine.specifications/sbml",
-        "mimeType": "application/sbml+xml",
-        "extension": "xml",
-        "sedUrn": "urn:sedml:language:sbml"
-      }],
-      "simulationFormats": [{
-        "id": "SED-ML",
-        "name": "Simulation Experiment Description Markup Language",
-        "version": "L1V3",
-        "edamId": "format_3685",
-        "url": "https://sed-ml.org",
-        "specUrl": "http://identifiers.org/combine.specifications/sed-ml",
-        "mimeType": "application/xml",
-        "extension": "sedml"
-      }],
-      "archiveFormats": [{
-        "id": "COMBINE",
-        "name": "COMBINE",
-        "version": "V1",
-        "edamId": "format_3686",
-        "url": "https://combinearchive.org/",
-        "specUrl": "http://identifiers.org/combine.specifications/omex",
-        "mimeType": "application/zip",
-        "extension": "omex"
-      }],
-      "references": [{
-        "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
-        "authors": "R. Mahadevan & C. H. Schilling",
-        "journal": "Metabolic Engineering",
-        "volume": 5,
-        "issue": 4,
-        "pages": "264-276",
-        "year": 2003,
-        "doi": "10.1016/j.ymben.2003.09.002"
-      }],
-      "parameters": [{
-          "kisaoTerm": {
-            "ontology": "KISAO",
-            "id": "0000###",
-            "name": "reactions",
-            "description": "List of reactions to compute the variability of."
+      "modelingFrameworks": [
+        {
+          "namespace": "SBO",
+          "id": "SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_2585"
+        }
+      ],
+      "simulationFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3685"
+        }
+      ],
+      "archiveFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3686"
+        }
+      ],
+      "citations": [
+        {
+          "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
+          "authors": "R. Mahadevan & C. H. Schilling",
+          "journal": "Metabolic Engineering",
+          "volume": 5,
+          "issue": 4,
+          "pages": "264-276",
+          "year": 2003,
+          "doi": "10.1016/j.ymben.2003.09.002"
+        }
+      ],
+      "parameters": [
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "0000534"
           },
           "id": "reaction_list",
           "name": "reaction_list",
-          "type": "list of cobra.Reaction or str",
-          "default": []
+          "type": "string",
+          "value": ""
         },
         {
-          "kisaoTerm": {
-            "ontology": "KISAO",
-            "id": "0000###",
-            "name": "loopless",
-            "description": "Whether to return only loopless solutions for FVA."
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "0000532"
           },
           "id": "loopless",
           "name": "loopless",
           "type": "Boolean",
-          "default": false
+          "value": false
         },
         {
-          "kisaoTerm": {
-            "ontology": "KISAO",
-            "id": "0000###",
-            "name": "fraction of optimum",
-            "description": "Requires that the objective value is at least the fraction times maximum objective value. A value of 0.85 for instance means that the objective has to be at least at 85% percent of its maximum."
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "0000531"
           },
           "id": "fraction_of_optimum",
           "name": "fraction_of_optimum",
           "type": "float",
-          "default": 1.0
+          "value": 1.0
         },
         {
-          "kisaoTerm": {
-            "ontology": "KISAO",
-            "id": "0000###",
-            "name": "pFBA Factor",
-            "description": "Add an additional constraint to the model that requires the total sum of absolute fluxes must not be larger than this value times the smallest possible sum of absolute fluxes"
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "0000533"
           },
           "id": "pfba_factor",
           "name": "pfba_factor",
@@ -207,11 +176,9 @@
           "default": null
         },
         {
-          "kisaoTerm": {
-            "ontology": "KISAO",
-            "id": "0000###",
-            "name": "parallelism",
-            "description": "The parallelism to run. If not explicitly passed, will be set from the global configuration singleton."
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "0000529"
           },
           "id": "processes",
           "name": "processes",
@@ -223,148 +190,117 @@
     {
       "id": "pfba",
       "name": "parsimonious enzyme usage flux balance analysis",
-      "kisaoTerm": {
-        "ontology": "KISAO",
-        "id": "0000###",
-        "name": "parsimonious enzyme usage flux balance analysis",
-        "description": "pFBA adds the minimization of all fluxes the the objective of the model. This approach is motivated by the idea that high fluxes have a higher enzyme turn-over and that since producing enzymes is costly, the cell will try to minimize overall flux while still maximizing the original objective function, e.g. the growth rate."
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000528"
       },
-      "ontologyTerms": [],
-      "modelingFrameworks": [{
-        "ontology": "SBO",
-        "id": "0000624",
-        "name": "flux balance framework",
-        "description": "Modelling approach, typically used for metabolic models, where the flow of metabolites (flux) through a network can be calculated. This approach will generally produce a set of solutions (solution space), which may be reduced using objective functions and constraints on individual fluxes.",
-        "iri": "http://biomodels.net/SBO/SBO_0000624"
-      }],
-      "modelFormats": [{
-        "id": "SBML",
-        "name": "Systems Biology Markup Language",
-        "version": "L3V2",
-        "edamId": "format_2585",
-        "url": "http://sbml.org",
-        "specUrl": "http://identifiers.org/combine.specifications/sbml",
-        "mimeType": "application/sbml+xml",
-        "extension": "xml",
-        "sedUrn": "urn:sedml:language:sbml"
-      }],
-      "simulationFormats": [{
-        "id": "SED-ML",
-        "name": "Simulation Experiment Description Markup Language",
-        "version": "L1V3",
-        "edamId": "format_3685",
-        "url": "https://sed-ml.org",
-        "specUrl": "http://identifiers.org/combine.specifications/sed-ml",
-        "mimeType": "application/xml",
-        "extension": "sedml"
-      }],
-      "archiveFormats": [{
-        "id": "COMBINE",
-        "name": "COMBINE",
-        "version": "V1",
-        "edamId": "format_3686",
-        "url": "https://combinearchive.org/",
-        "specUrl": "http://identifiers.org/combine.specifications/omex",
-        "mimeType": "application/zip",
-        "extension": "omex"
-      }],
-      "references": [{
-        "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
-        "authors": "Nathan E Lewis, Kim K Hixson, Tom M Conrad, Joshua A Lerman, Pep Charusanti, Ashoka D Polpitiya, Joshua N Adkins, Gunnar Schramm, Samuel O Purvine, Daniel Lopez‐Ferrer, Karl K Weitz, Roland Eils, Rainer König, Richard D Smith & Bernhard Ø Palsson",
-        "journal": "Molecular Systems Biology",
-        "volume": 6,
-        "pages": "390",
-        "year": 2010,
-        "doi": "10.1038/msb.2010.47"
-      }],
-      "parameters": [{
-        "kisaoTerm": {
-          "ontology": "KISAO",
-          "id": "0000###",
-          "name": "fraction of optimum",
-          "description": "Requires that the objective value is at least the fraction times maximum objective value. A value of 0.85 for instance means that the objective has to be at least at 85% percent of its maximum."
-        },
-        "id": "fraction_of_optimum",
-        "name": "fraction_of_optimum",
-        "type": "float",
-        "default": 1.0
-      }]
+
+      "modelingFrameworks": [
+        {
+          "namespace": "SBO",
+          "id": "SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_2585"
+        }
+      ],
+      "simulationFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3685"
+        }
+      ],
+      "archiveFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3686"
+        }
+      ],
+      "citations": [
+        {
+          "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
+          "authors": "Nathan E Lewis, Kim K Hixson, Tom M Conrad, Joshua A Lerman, Pep Charusanti, Ashoka D Polpitiya, Joshua N Adkins, Gunnar Schramm, Samuel O Purvine, Daniel Lopez‐Ferrer, Karl K Weitz, Roland Eils, Rainer König, Richard D Smith & Bernhard Ø Palsson",
+          "journal": "Molecular Systems Biology",
+          "volume": 6,
+          "pages": "390",
+          "year": 2010,
+          "doi": "10.1038/msb.2010.47"
+        }
+      ],
+      "parameters": [
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "0000531"
+          },
+          "id": "fraction_of_optimum",
+          "name": "fraction_of_optimum",
+          "type": "float",
+          "value": 1.0
+        }
+      ]
     },
     {
       "id": "geometric fba",
       "name": "geometric flux balance analysis",
-      "kisaoTerm": {
-        "ontology": "KISAO",
-        "id": "0000###",
-        "name": "geometric flux balance analysis",
-        "description": "Geometric FBA formulates the problem as a polyhedron and then solves it by bounding the convex hull of the polyhedron. The bounding forms a box around the convex hull which reduces with every iteration and extracts a unique solution in this way."
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000527"
       },
-      "ontologyTerms": [],
-      "modelingFrameworks": [{
-        "ontology": "SBO",
-        "id": "0000624",
-        "name": "flux balance framework",
-        "description": "Modelling approach, typically used for metabolic models, where the flow of metabolites (flux) through a network can be calculated. This approach will generally produce a set of solutions (solution space), which may be reduced using objective functions and constraints on individual fluxes.",
-        "iri": "http://biomodels.net/SBO/SBO_0000624"
-      }],
-      "modelFormats": [{
-        "id": "SBML",
-        "name": "Systems Biology Markup Language",
-        "version": "L3V2",
-        "edamId": "format_2585",
-        "url": "http://sbml.org",
-        "specUrl": "http://identifiers.org/combine.specifications/sbml",
-        "mimeType": "application/sbml+xml",
-        "extension": "xml",
-        "sedUrn": "urn:sedml:language:sbml"
-      }],
-      "simulationFormats": [{
-        "id": "SED-ML",
-        "name": "Simulation Experiment Description Markup Language",
-        "version": "L1V3",
-        "edamId": "format_3685",
-        "url": "https://sed-ml.org",
-        "specUrl": "http://identifiers.org/combine.specifications/sed-ml",
-        "mimeType": "application/xml",
-        "extension": "sedml"
-      }],
-      "archiveFormats": [{
-        "id": "COMBINE",
-        "name": "COMBINE",
-        "version": "V1",
-        "edamId": "format_3686",
-        "url": "https://combinearchive.org/",
-        "specUrl": "http://identifiers.org/combine.specifications/omex",
-        "mimeType": "application/zip",
-        "extension": "omex"
-      }],
-      "references": [{
-        "title": "Flux balance analysis: A geometric perspective",
-        "authors": "Kieran Smallbone & Evangelos Simeonidis",
-        "journal": "Journal of Theoretical Biology",
-        "volume": 258,
-        "pages": "311-315",
-        "year": 2009,
-        "doi": "10.1016/j.jtbi.2009.01.027"
-      }],
-      "parameters": [{
-          "kisaoTerm": {
-            "ontology": "KISAO",
-            "id": "0000209",
-            "name": "relative tolerance",
-            "description": "This parameter is a numeric value specifying the desired relative tolerance the user wants to achieve."
+
+      "modelingFrameworks": [
+        {
+          "namespace": "SBO",
+          "id": "SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_2585"
+        }
+      ],
+      "simulationFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3685"
+        }
+      ],
+      "archiveFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3686"
+        }
+      ],
+      "citations": [
+        {
+          "title": "Flux balance analysis: A geometric perspective",
+          "authors": "Kieran Smallbone & Evangelos Simeonidis",
+          "journal": "Journal of Theoretical Biology",
+          "volume": 258,
+          "pages": "311-315",
+          "year": 2009,
+          "doi": "10.1016/j.jtbi.2009.01.027"
+        }
+      ],
+      "parameters": [
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "0000209"
           },
           "id": "epsilon",
           "name": "epsilon",
           "type": "float",
-          "default": 1e-06
+          "default": 1e-6
         },
         {
-          "kisaoTerm": {
-            "ontology": "KISAO",
-            "id": "0000486",
-            "name": "maximum iterations",
-            "description": "For algorithms that iterate to a solution (steady state finders in particular), a limit on the number of iterations that should be performed."
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "0000486"
           },
           "id": "max_tries",
           "name": "max_tries",
@@ -372,20 +308,16 @@
           "default": 200
         },
         {
-          "kisaoTerm": {
-            "ontology": "KISAO",
-            "id": "0000###",
-            "name": "parallelism",
-            "description": "The parallelism to run."
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "0000529"
           },
           "id": "processes",
           "name": "processes",
           "type": "int",
-          "default": null
+          "default": 1
         }
       ]
     }
-  ],
-  "created": "2020-01-01T12:00:00Z",
-  "updated": "2020-01-01T12:00:00Z"
+  ]
 }
