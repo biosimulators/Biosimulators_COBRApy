@@ -44,7 +44,7 @@
       }
     ]
   },
-  "license": { "namespace": "SPDX", "id": "GPL-3.0-or-later" },
+  "license": { "namespace": "SPDX", "id": "LGPL-2.1" },
   "algorithms": [
     {
       "id": "fba",
