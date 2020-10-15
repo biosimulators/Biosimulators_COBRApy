@@ -43,7 +43,7 @@
         "volume": 7,
         "pages": "74",
         "year": 2013,
-        "doi": "10.1186/1752-0509-7-74"
+        "identifiers": [{"namespace": "doi", "id": "10.1186/1752-0509-7-74"}]
       }
     ]
   },
@@ -89,7 +89,7 @@
           "issue": 3,
           "pages": "245-248",
           "year": 2010,
-          "doi": "10.1038/nbt.1614"
+          "identifiers": [{"namespace": "doi", "id": "10.1038/nbt.1614"}]
         }
       ],
       "parameters": []
@@ -134,7 +134,7 @@
           "issue": 4,
           "pages": "264-276",
           "year": 2003,
-          "doi": "10.1016/j.ymben.2003.09.002"
+          "identifiers": [{"namespace": "doi", "id": "10.1016/j.ymben.2003.09.002"}]
         }
       ],
       "parameters": [
@@ -230,7 +230,7 @@
           "volume": 6,
           "pages": "390",
           "year": 2010,
-          "doi": "10.1038/msb.2010.47"
+          "identifiers": [{"namespace": "doi", "id": "10.1038/msb.2010.47"}]
         }
       ],
       "parameters": [
@@ -286,7 +286,7 @@
           "volume": 258,
           "pages": "311-315",
           "year": 2009,
-          "doi": "10.1016/j.jtbi.2009.01.027"
+          "identifiers": [{"namespace": "doi", "id": "10.1016/j.jtbi.2009.01.027"}]
         }
       ],
       "parameters": [
