@@ -31,7 +31,10 @@
     }
   ],
   "references": {
-    "identifiers": [],
+    "identifiers": [
+      {"namespace": "biotools", "id": "cobrapy"},
+      {"namespace": "biocontainers", "id": "cobra", "url": "https://biocontainers.pro/#/tools/cobra"}
+    ],
     "citations": [
       {
         "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
