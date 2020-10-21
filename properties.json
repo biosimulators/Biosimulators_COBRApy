@@ -4,7 +4,7 @@
   "version": "0.17.1",
   "description": "COBRApy is a Python package that provides a simple interface to metabolic constraint-based reconstruction and analysis.",
   "url": "https://opencobra.github.io/cobrapy/",
-  "image": "docker.io/biosimulators/biosimulators-cobrapy:0.17.1",
+  "image": "docker.io/biosimulators/cobrapy:0.17.1",
   "format": {
     "namespace": "EDAM",
     "id": "format_3973"
