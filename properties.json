@@ -92,7 +92,16 @@
           "identifiers": [{"namespace": "doi", "id": "10.1038/nbt.1614", "url": "https://doi.org/10.1038/nbt.1614"}]
         }
       ],
-      "parameters": []
+      "parameters": [{
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000XXX"
+          },
+          "name": "solver",
+          "type": "string",
+          "value": "GLPK",
+          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
+        }]
     },
     {
       "id": "fva",
@@ -187,6 +196,16 @@
           "name": "processes",
           "type": "int",
           "default": null
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000XXX"
+          },
+          "name": "solver",
+          "type": "string",
+          "value": "GLPK",
+          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
         }
       ]
     },
@@ -243,6 +262,16 @@
           "name": "fraction_of_optimum",
           "type": "float",
           "value": 1.0
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000XXX"
+          },
+          "name": "solver",
+          "type": "string",
+          "value": "GLPK",
+          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
         }
       ]
     },
@@ -319,6 +348,16 @@
           "name": "processes",
           "type": "int",
           "default": 1
+        },
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000XXX"
+          },
+          "name": "solver",
+          "type": "string",
+          "value": "GLPK",
+          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
         }
       ]
     }
