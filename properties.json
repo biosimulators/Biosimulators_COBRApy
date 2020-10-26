@@ -21,7 +21,7 @@
     },
     {
       "firstName": "Bernhard",
-      "middleName": "O",
+      "middleName": "Ø",
       "lastName": "Palsson"
     },
     {
@@ -38,7 +38,7 @@
     "citations": [
       {
         "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
-        "authors": "Ali Ebrahim, Joshua A Lerman, Bernhard O Palsson & Daniel R Hyduke",
+        "authors": "Ali Ebrahim, Joshua A. Lerman, Bernhard Ø. Palsson & Daniel R. Hyduke",
         "journal": "BMC Systems Biology",
         "volume": 7,
         "pages": "74",
@@ -128,7 +128,7 @@
       "citations": [
         {
           "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
-          "authors": "R. Mahadevan & C. H. Schilling",
+          "authors": "Radhakrishnan Mahadevan & Christophe. H. Schilling",
           "journal": "Metabolic Engineering",
           "volume": 5,
           "issue": 4,
@@ -225,7 +225,7 @@
       "citations": [
         {
           "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
-          "authors": "Nathan E Lewis, Kim K Hixson, Tom M Conrad, Joshua A Lerman, Pep Charusanti, Ashoka D Polpitiya, Joshua N Adkins, Gunnar Schramm, Samuel O Purvine, Daniel Lopez‐Ferrer, Karl K Weitz, Roland Eils, Rainer König, Richard D Smith & Bernhard Ø Palsson",
+          "authors": "Nathan E. Lewis, Kim K. Hixson, Tom M. Conrad, Joshua A. Lerman, Pep Charusanti, Ashoka D. Polpitiya, Joshua N. Adkins, Gunnar Schramm, Samuel O. Purvine, Daniel Lopez‐Ferrer, Karl K. Weitz, Roland Eils, Rainer König, Richard D. Smith & Bernhard Ø. Palsson",
           "journal": "Molecular Systems Biology",
           "volume": 6,
           "pages": "390",
