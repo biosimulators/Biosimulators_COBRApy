@@ -185,7 +185,7 @@
           "id": "pfba_factor",
           "name": "pfba_factor",
           "type": "float",
-          "default": null
+          "value": null
         },
         {
           "kisaoId": {
@@ -195,7 +195,7 @@
           "id": "processes",
           "name": "processes",
           "type": "int",
-          "default": null
+          "value": null
         },
         {
           "kisaoId": {
@@ -327,7 +327,7 @@
           "id": "epsilon",
           "name": "epsilon",
           "type": "float",
-          "default": 1e-6
+          "value": 1e-6
         },
         {
           "kisaoId": {
@@ -337,7 +337,7 @@
           "id": "max_tries",
           "name": "max_tries",
           "type": "int",
-          "default": 200
+          "value": 200
         },
         {
           "kisaoId": {
@@ -347,7 +347,7 @@
           "id": "processes",
           "name": "processes",
           "type": "int",
-          "default": 1
+          "value": 1
         },
         {
           "kisaoId": {
