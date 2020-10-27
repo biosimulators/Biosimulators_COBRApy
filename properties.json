@@ -191,7 +191,7 @@
           },
           "id": "processes",
           "name": "processes",
-          "type": "int",
+          "type": "integer",
           "value": null
         },
         {
@@ -319,7 +319,7 @@
           },
           "id": "max_tries",
           "name": "max_tries",
-          "type": "int",
+          "type": "integer",
           "value": 200
         },
         {
@@ -329,7 +329,7 @@
           },
           "id": "processes",
           "name": "processes",
-          "type": "int",
+          "type": "integer",
           "value": 1
         },
         {
