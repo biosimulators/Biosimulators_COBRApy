@@ -9,8 +9,7 @@
     "namespace": "EDAM",
     "id": "format_3973"
   },
-  "authors": [
-    {
+  "authors": [{
       "firstName": "Ali",
       "lastName": "Ibrahim"
     },
@@ -31,77 +30,82 @@
     }
   ],
   "references": {
-    "identifiers": [
-      {"namespace": "biotools", "id": "cobrapy", "url": "https://bio.tools/cobrapy"},
-      {"namespace": "biocontainers", "id": "cobra", "url": "https://biocontainers.pro/#/tools/cobra"}
-    ],
-    "citations": [
+    "identifiers": [{
+        "namespace": "biotools",
+        "id": "cobrapy",
+        "url": "https://bio.tools/cobrapy"
+      },
       {
-        "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
-        "authors": "Ali Ebrahim, Joshua A. Lerman, Bernhard Ø. Palsson & Daniel R. Hyduke",
-        "journal": "BMC Systems Biology",
-        "volume": 7,
-        "pages": "74",
-        "year": 2013,
-        "identifiers": [{"namespace": "doi", "id": "10.1186/1752-0509-7-74", "url": "https://doi.org/10.1186/1752-0509-7-74"}]
+        "namespace": "biocontainers",
+        "id": "cobra",
+        "url": "https://biocontainers.pro/#/tools/cobra"
       }
-    ]
+    ],
+    "citations": [{
+      "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
+      "authors": "Ali Ebrahim, Joshua A. Lerman, Bernhard Ø. Palsson & Daniel R. Hyduke",
+      "journal": "BMC Systems Biology",
+      "volume": 7,
+      "pages": "74",
+      "year": 2013,
+      "identifiers": [{
+        "namespace": "doi",
+        "id": "10.1186/1752-0509-7-74",
+        "url": "https://doi.org/10.1186/1752-0509-7-74"
+      }]
+    }]
   },
-  "license": { "namespace": "SPDX", "id": "LGPL-2.0-or-later" },
-  "algorithms": [
-    {
+  "license": {
+    "namespace": "SPDX",
+    "id": "LGPL-2.0-or-later"
+  },
+  "algorithms": [{
       "id": "fba",
       "name": "flux balance analysis",
       "kisaoId": {
         "namespace": "KISAO",
         "id": "KISAO_0000437"
       },
-      "modelingFrameworks": [
-        {
-          "namespace": "SBO",
-          "id": "SBO_0000624"
-        }
-      ],
-      "modelFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_2585"
-        }
-      ],
-      "simulationFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_3685"
-        }
-      ],
-      "archiveFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_3686"
-        }
-      ],
-      "citations": [
-        {
-          "title": "What is flux balance analysis?",
-          "authors": "Jeffrey D. Orth, Ines Thiele & Bernhard Ø. Palsson",
-          "journal": "Nature Biotechnology",
-          "volume": 28,
-          "issue": 3,
-          "pages": "245-248",
-          "year": 2010,
-          "identifiers": [{"namespace": "doi", "id": "10.1038/nbt.1614", "url": "https://doi.org/10.1038/nbt.1614"}]
-        }
-      ],
-      "parameters": [{
-          "kisaoId": {
-            "namespace": "KISAO",
-            "id": "KISAO_0000XXX"
-          },
-          "name": "solver",
-          "type": "string",
-          "value": "GLPK",
-          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000624"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585"
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685"
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686"
+      }],
+      "citations": [{
+        "title": "What is flux balance analysis?",
+        "authors": "Jeffrey D. Orth, Ines Thiele & Bernhard Ø. Palsson",
+        "journal": "Nature Biotechnology",
+        "volume": 28,
+        "issue": 3,
+        "pages": "245-248",
+        "year": 2010,
+        "identifiers": [{
+          "namespace": "doi",
+          "id": "10.1038/nbt.1614",
+          "url": "https://doi.org/10.1038/nbt.1614"
         }]
+      }],
+      "parameters": [{
+        "kisaoId": {
+          "namespace": "KISAO",
+          "id": "KISAO_0000243"
+        },
+        "name": "solver",
+        "type": "string",
+        "value": "GLPK",
+        "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
+      }]
     },
     {
       "id": "fva",
@@ -110,44 +114,37 @@
         "namespace": "KISAO",
         "id": "KISAO_0000526"
       },
-      "modelingFrameworks": [
-        {
-          "namespace": "SBO",
-          "id": "SBO_0000624"
-        }
-      ],
-      "modelFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_2585"
-        }
-      ],
-      "simulationFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_3685"
-        }
-      ],
-      "archiveFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_3686"
-        }
-      ],
-      "citations": [
-        {
-          "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
-          "authors": "Radhakrishnan Mahadevan & Christophe. H. Schilling",
-          "journal": "Metabolic Engineering",
-          "volume": 5,
-          "issue": 4,
-          "pages": "264-276",
-          "year": 2003,
-          "identifiers": [{"namespace": "doi", "id": "10.1016/j.ymben.2003.09.002", "url": "https://doi.org/10.1016/j.ymben.2003.09.002"}]
-        }
-      ],
-      "parameters": [
-        {
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000624"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585"
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685"
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686"
+      }],
+      "citations": [{
+        "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
+        "authors": "Radhakrishnan Mahadevan & Christophe. H. Schilling",
+        "journal": "Metabolic Engineering",
+        "volume": 5,
+        "issue": 4,
+        "pages": "264-276",
+        "year": 2003,
+        "identifiers": [{
+          "namespace": "doi",
+          "id": "10.1016/j.ymben.2003.09.002",
+          "url": "https://doi.org/10.1016/j.ymben.2003.09.002"
+        }]
+      }],
+      "parameters": [{
           "kisaoId": {
             "namespace": "KISAO",
             "id": "KISAO_0000534"
@@ -200,7 +197,7 @@
         {
           "kisaoId": {
             "namespace": "KISAO",
-            "id": "KISAO_0000XXX"
+            "id": "KISAO_0000243"
           },
           "name": "solver",
           "type": "string",
@@ -217,43 +214,36 @@
         "id": "KISAO_0000528"
       },
 
-      "modelingFrameworks": [
-        {
-          "namespace": "SBO",
-          "id": "SBO_0000624"
-        }
-      ],
-      "modelFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_2585"
-        }
-      ],
-      "simulationFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_3685"
-        }
-      ],
-      "archiveFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_3686"
-        }
-      ],
-      "citations": [
-        {
-          "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
-          "authors": "Nathan E. Lewis, Kim K. Hixson, Tom M. Conrad, Joshua A. Lerman, Pep Charusanti, Ashoka D. Polpitiya, Joshua N. Adkins, Gunnar Schramm, Samuel O. Purvine, Daniel Lopez‐Ferrer, Karl K. Weitz, Roland Eils, Rainer König, Richard D. Smith & Bernhard Ø. Palsson",
-          "journal": "Molecular Systems Biology",
-          "volume": 6,
-          "pages": "390",
-          "year": 2010,
-          "identifiers": [{"namespace": "doi", "id": "10.1038/msb.2010.47", "url": "https://doi.org/10.1038/msb.2010.47"}]
-        }
-      ],
-      "parameters": [
-        {
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000624"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585"
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685"
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686"
+      }],
+      "citations": [{
+        "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
+        "authors": "Nathan E. Lewis, Kim K. Hixson, Tom M. Conrad, Joshua A. Lerman, Pep Charusanti, Ashoka D. Polpitiya, Joshua N. Adkins, Gunnar Schramm, Samuel O. Purvine, Daniel Lopez‐Ferrer, Karl K. Weitz, Roland Eils, Rainer König, Richard D. Smith & Bernhard Ø. Palsson",
+        "journal": "Molecular Systems Biology",
+        "volume": 6,
+        "pages": "390",
+        "year": 2010,
+        "identifiers": [{
+          "namespace": "doi",
+          "id": "10.1038/msb.2010.47",
+          "url": "https://doi.org/10.1038/msb.2010.47"
+        }]
+      }],
+      "parameters": [{
           "kisaoId": {
             "namespace": "KISAO",
             "id": "KISAO_0000531"
@@ -266,7 +256,7 @@
         {
           "kisaoId": {
             "namespace": "KISAO",
-            "id": "KISAO_0000XXX"
+            "id": "KISAO_0000243"
           },
           "name": "solver",
           "type": "string",
@@ -283,43 +273,36 @@
         "id": "KISAO_0000527"
       },
 
-      "modelingFrameworks": [
-        {
-          "namespace": "SBO",
-          "id": "SBO_0000624"
-        }
-      ],
-      "modelFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_2585"
-        }
-      ],
-      "simulationFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_3685"
-        }
-      ],
-      "archiveFormats": [
-        {
-          "namespace": "EDAM",
-          "id": "format_3686"
-        }
-      ],
-      "citations": [
-        {
-          "title": "Flux balance analysis: A geometric perspective",
-          "authors": "Kieran Smallbone & Evangelos Simeonidis",
-          "journal": "Journal of Theoretical Biology",
-          "volume": 258,
-          "pages": "311-315",
-          "year": 2009,
-          "identifiers": [{"namespace": "doi", "id": "10.1016/j.jtbi.2009.01.027", "url": "https://doi.org/10.1016/j.jtbi.2009.01.027"}]
-        }
-      ],
-      "parameters": [
-        {
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000624"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585"
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685"
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686"
+      }],
+      "citations": [{
+        "title": "Flux balance analysis: A geometric perspective",
+        "authors": "Kieran Smallbone & Evangelos Simeonidis",
+        "journal": "Journal of Theoretical Biology",
+        "volume": 258,
+        "pages": "311-315",
+        "year": 2009,
+        "identifiers": [{
+          "namespace": "doi",
+          "id": "10.1016/j.jtbi.2009.01.027",
+          "url": "https://doi.org/10.1016/j.jtbi.2009.01.027"
+        }]
+      }],
+      "parameters": [{
           "kisaoId": {
             "namespace": "KISAO",
             "id": "KISAO_0000209"
@@ -352,7 +335,7 @@
         {
           "kisaoId": {
             "namespace": "KISAO",
-            "id": "KISAO_0000XXX"
+            "id": "KISAO_0000243"
           },
           "name": "solver",
           "type": "string",
