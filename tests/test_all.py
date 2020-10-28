@@ -132,6 +132,6 @@ class CliTestCase(unittest.TestCase):
     @unittest.skipIf(os.getenv('CI', '0') in ['1', 'true'], 'Docker not setup in CI')
     def test_validator(self):
         validator = SimulatorValidator()
-        valid_cases, case_exceptions, _ = validator.run('biosimulators/cobrapy', 'properties.json')
+        valid_cases, case_exceptions, _ = validator.run('biosimulators/cobrapy', 'biosimulators.json')
         self.assertGreater(len(valid_cases), 0)
         self.assertEqual(case_exceptions, [])
