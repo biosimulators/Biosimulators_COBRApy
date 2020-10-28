@@ -39,6 +39,11 @@
         "namespace": "biocontainers",
         "id": "cobra",
         "url": "https://biocontainers.pro/#/tools/cobra"
+      },
+      {
+        "namespace": "pypi",
+        "id": "cobra",
+        "url": "https://pypi.org/project/cobra/"
       }
     ],
     "citations": [{
