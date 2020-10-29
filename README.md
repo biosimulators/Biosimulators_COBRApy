@@ -17,7 +17,7 @@ pip install git+https://github.com/biosimulators/Biosimulators_COBRApy
 
 ### Install Docker image
 ```
-docker pull biosimulators/cobrapy
+docker pull ghcr.io/biosimulators/cobrapy
 ```
 
 ## Local usage
