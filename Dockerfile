@@ -25,7 +25,7 @@ LABEL about.documentation="https://cobrapy.readthedocs.io/en/stable/"
 LABEL about.license_file="https://github.com/opencobra/cobrapy/blob/devel/LICENSE"
 LABEL about.license="SPDX:GPL-2.0"
 LABEL about.tags="constraint-based modeling,flux balance analysis,systems biology,biochemical networks,SBML,SED-ML,COMBINE,OMEX,BioSimulators"
-LABEL maintainer="Jonathan Karr <karr@mssm.edu>"
+LABEL maintainer="BioSimulators Team <info@biosimulators.org>"
 
 # Install requirements
 RUN apt-get update -y \
