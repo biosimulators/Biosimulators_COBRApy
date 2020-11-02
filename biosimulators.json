@@ -104,7 +104,7 @@
       "parameters": [{
         "kisaoId": {
           "namespace": "KISAO",
-          "id": "KISAO_0000243"
+          "id": "KISAO_0000553"
         },
         "name": "solver",
         "type": "string",
@@ -202,7 +202,7 @@
         {
           "kisaoId": {
             "namespace": "KISAO",
-            "id": "KISAO_0000243"
+            "id": "KISAO_0000553"
           },
           "name": "solver",
           "type": "string",
@@ -261,7 +261,7 @@
         {
           "kisaoId": {
             "namespace": "KISAO",
-            "id": "KISAO_0000243"
+            "id": "KISAO_0000553"
           },
           "name": "solver",
           "type": "string",
@@ -340,7 +340,7 @@
         {
           "kisaoId": {
             "namespace": "KISAO",
-            "id": "KISAO_0000243"
+            "id": "KISAO_0000553"
           },
           "name": "solver",
           "type": "string",
