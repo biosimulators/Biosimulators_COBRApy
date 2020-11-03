@@ -1,5 +1,5 @@
 # Build image:
-#   docker build --tag biosimulators/cobrapy:0.17.1 --tag biosimulators/cobrapy:latest .
+#   docker build --tag biosimulators/cobrapy:0.20.0 --tag biosimulators/cobrapy:latest .
 #
 # Run image:
 #   docker run \
@@ -12,13 +12,13 @@
 #       -o /root/out
 
 # Base OS
-FROM ubuntu
+FROM python:3.7.9-slim-buster
 
 # metadata
-LABEL base_image="ubuntu:18.04"
-LABEL version="0.17.1"
+LABEL base_image="python:3.7.9-slim-buster"
+LABEL version="0.0.1"
 LABEL software="COBRApy"
-LABEL software.version="0.17.1"
+LABEL software.version="0.20.0"
 LABEL about.summary="Package for constraint-based modeling of metabolic networks"
 LABEL about.home="https://opencobra.github.io/cobrapy/"
 LABEL about.documentation="https://cobrapy.readthedocs.io/en/stable/"
@@ -27,19 +27,9 @@ LABEL about.license="SPDX:GPL-2.0"
 LABEL about.tags="constraint-based modeling,flux balance analysis,systems biology,biochemical networks,SBML,SED-ML,COMBINE,OMEX,BioSimulators"
 LABEL maintainer="BioSimulators Team <info@biosimulators.org>"
 
-# Install requirements
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
-        python3 \
-        python3-pip \
-    && pip3 install -U pip \
-    && pip3 install -U setuptools \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
-
 # Copy code for command-line interface into image and install it
 COPY . /root/Biosimulators_cobrapy
-RUN pip3 install /root/Biosimulators_cobrapy
+RUN pip install /root/Biosimulators_cobrapy
 
 # Entrypoint
 ENTRYPOINT ["cobrapy"]
