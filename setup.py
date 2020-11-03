@@ -15,7 +15,7 @@ except (subprocess.CalledProcessError, AssertionError):
 import os
 import pkg_utils
 
-name = 'Biosimulators_cobrapy'
+name = 'biosimulators_cobrapy'
 dirname = os.path.dirname(__file__)
 
 # get package metadata
@@ -47,7 +47,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'cobrapy = Biosimulators_cobrapy.__main__:main',
+            'cobrapy = biosimulators_cobrapy.__main__:main',
         ],
     },
 )
