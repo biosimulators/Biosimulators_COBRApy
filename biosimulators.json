@@ -166,7 +166,7 @@
           },
           "id": "loopless",
           "name": "loopless",
-          "type": "Boolean",
+          "type": "boolean",
           "value": false
         },
         {
