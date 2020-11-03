@@ -1,3 +1,7 @@
-*.pyc
-__pycache__/
+# compiled Python files
 *.egg-info/
+__pycache__/
+*.pyc
+
+# compiled documentation
+docs/_build/html
