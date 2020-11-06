@@ -28,8 +28,8 @@ LABEL about.tags="constraint-based modeling,flux balance analysis,systems biolog
 LABEL maintainer="BioSimulators Team <info@biosimulators.org>"
 
 # Copy code for command-line interface into image and install it
-COPY . /root/biosimulators_cobrapy
-RUN pip install /root/biosimulators_cobrapy
+COPY . /root/Biosimulators_cobrapy
+RUN pip install /root/Biosimulators_cobrapy
 
 # Entrypoint
 ENTRYPOINT ["cobrapy"]
