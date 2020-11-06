@@ -1,4 +1,11 @@
-# Biosimulators_COBRApy
+![Latest version](https://img.shields.io/github/v/tag/biosimulators/Biosimulators_COBRApy)
+[![PyPI](https://img.shields.io/pypi/v/biosimulators_cobrapy)](https://pypi.org/project/biosimulators_cobrapy/)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/biosimulators/Biosimulators_COBRApy/workflow-id)](https://github.com/biosimulators/Biosimulators_COBRApy/actions?query=workflow%3Aworkflow-id)
+[![Documentation](https://img.shields.io/github/license/biosimulators/Biosimulators_COBRApy?badges-awesome-green.svg)](https://biosimulators.github.io/Biosimulators_COBRApy/)
+[![Issues](https://img.shields.io/github/issues/biosimulators/Biosimulators_COBRApy)](https://github.com/biosimulators/Biosimulators_COBRApy/issues)
+[![License](https://img.shields.io/github/license/biosimulators/Biosimulators_COBRApy?badges-awesome-green.svg)](https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/LICENSE)
+
+# BioSimulators-COBRApy
 BioSimulators-compliant command-line interface and Docker image for the [COBRApy](https://opencobra.github.io/cobrapy/) simulation program.
 
 This command-line interface and Docker image enable users to use COBRApy to execute [COMBINE/OMEX archives](https://combinearchive.org/) that describe one or more simulation experiments (in [SED-ML format](https://sed-ml.org)) of one or more models (in [SBML format](http://sbml.org])).
@@ -10,6 +17,7 @@ A simple web application and web service for using COBRApy to execute COMBINE/OM
 ## Contents
 * [Installation](#installation)
 * [Usage](#usage)
+* [Documentation](#documentation)
 * [License](#license)
 * [Development team](#development-team)
 * [Questions and comments](#questions-and-comments)
@@ -26,7 +34,9 @@ pip install git+https://github.com/biosimulators/Biosimulators_COBRApy
 docker pull ghcr.io/biosimulators/cobrapy
 ```
 
-## Local usage
+## Usage
+
+### Local usage
 ```
 usage: cobrapy [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
@@ -44,7 +54,7 @@ optional arguments:
   -v, --version         show program's version number and exit
 ```
 
-## Usage through Docker container
+### Usage through Docker container
 ```
 docker run \
   --tty \
@@ -55,6 +65,9 @@ docker run \
     -i /root/in/BIOMD0000000297.omex \
     -o /root/out
 ```
+
+## Documentation
+Documentation is available at https://biosimulators.github.io/Biosimulators_COBRApy/.
 
 ## License
 This package is released under the [MIT license](LICENSE).
