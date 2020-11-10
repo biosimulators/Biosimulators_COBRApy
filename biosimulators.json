@@ -31,9 +31,14 @@
   ],
   "references": {
     "identifiers": [{
-        "namespace": "biotools",
-        "id": "cobrapy",
-        "url": "https://bio.tools/cobrapy"
+        "namespace": "pypi",
+        "id": "cobra",
+        "url": "https://pypi.org/project/cobra/"
+      },
+      {
+        "namespace": "pypi",
+        "id": "biosimulators-cobrapy",
+        "url": "https://pypi.org/project/biosimulators-cobrapy/"
       },
       {
         "namespace": "biocontainers",
@@ -41,9 +46,9 @@
         "url": "https://biocontainers.pro/#/tools/cobra"
       },
       {
-        "namespace": "pypi",
-        "id": "cobra",
-        "url": "https://pypi.org/project/cobra/"
+        "namespace": "biotools",
+        "id": "cobrapy",
+        "url": "https://bio.tools/cobrapy"
       }
     ],
     "citations": [{
@@ -352,6 +357,7 @@
   ],
   "biosimulators": {
     "specificationsVersion": "1.0.0",
-    "imageVersion": "1.0.0"
+    "imageVersion": "1.0.0",
+    "validated": false
   }
 }
