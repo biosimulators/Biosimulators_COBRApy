@@ -15,17 +15,28 @@
 FROM python:3.7.9-slim-buster
 
 # metadata
-LABEL base_image="python:3.7.9-slim-buster"
-LABEL version="0.0.1"
-LABEL software="COBRApy"
-LABEL software.version="0.20.0"
-LABEL about.summary="Package for constraint-based modeling of metabolic networks"
-LABEL about.home="https://opencobra.github.io/cobrapy/"
-LABEL about.documentation="https://cobrapy.readthedocs.io/en/stable/"
-LABEL about.license_file="https://github.com/opencobra/cobrapy/blob/devel/LICENSE"
-LABEL about.license="SPDX:GPL-2.0"
-LABEL about.tags="constraint-based modeling,flux balance analysis,systems biology,biochemical networks,SBML,SED-ML,COMBINE,OMEX,BioSimulators"
-LABEL maintainer="BioSimulators Team <info@biosimulators.org>"
+LABEL \
+    org.opencontainers.image.title="COBRApy" \
+    org.opencontainers.image.version="0.20.0" \
+    org.opencontainers.image.description="Package for constraint-based modeling of metabolic networks" \
+    org.opencontainers.image.url="https://opencobra.github.io/cobrapy/" \
+    org.opencontainers.image.documentation="https://cobrapy.readthedocs.io/" \
+    org.opencontainers.image.source="https://github.com/biosimulators/biosimulators_cobrapy" \
+    org.opencontainers.image.authors="BioSimulators Team <info@biosimulators.org>" \
+    org.opencontainers.image.vendor="BioSimulators Team" \
+    org.opencontainers.image.licenses="GPL-2.0" \
+    \
+    base_image="python:3.7.9-slim-buster" \
+    version="0.0.1" \
+    software="COBRApy" \
+    software.version="0.20.0" \
+    about.summary="Package for constraint-based modeling of metabolic networks" \
+    about.home="https://opencobra.github.io/cobrapy/" \
+    about.documentation="https://cobrapy.readthedocs.io/" \
+    about.license_file="https://github.com/opencobra/cobrapy/blob/devel/LICENSE" \
+    about.license="SPDX:GPL-2.0" \
+    about.tags="constraint-based modeling,flux balance analysis,systems biology,biochemical networks,SBML,SED-ML,COMBINE,OMEX,BioSimulators" \
+    maintainer="BioSimulators Team <info@biosimulators.org>"
 
 # Copy code for command-line interface into image and install it
 COPY . /root/Biosimulators_cobrapy
