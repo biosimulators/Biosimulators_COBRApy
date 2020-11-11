@@ -1,15 +1,15 @@
 Tutorial
 ========
 
-BioSimulators-Gillespy2 is available as command-line program and as a command-line program encapsulated into a Docker image.
+BioSimulators-COBRApy is available as command-line program and as a command-line program encapsulated into a Docker image.
 
 
 Creating COMBINE/OMEX archives and encoding simulation experiments into SED-ML
 ------------------------------------------------------------------------------
 
-Information about how to create COMBINE/OMEX archives which can be executed by BioSimulators-GillesPy2 is available at `BioSimulators <https://biosimulators.org/help>`_.
+Information about how to create COMBINE/OMEX archives which can be executed by BioSimulators-COBRApy is available at `BioSimulators <https://biosimulators.org/help>`_.
 
-A list of the algorithms and algorithm parameters supported by GillesPy2 is available at `BioSimulators <https://biosimulators.org/simulators/gillespy2>`_.
+A list of the algorithms and algorithm parameters supported by COBRApy is available at `BioSimulators <https://biosimulators.org/simulators/cobrapy>`_.
 
 
 Command-line program
@@ -19,9 +19,9 @@ The command-line program can be used to execute COMBINE/OMEX archives that descr
 
 .. code-block:: text
 
-    usage: gillespy2 [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
+    usage: cobrapy [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
-    BioSimulators-compliant command-line interface to the GillesPy2 <https://stochss.github.io/GillesPy2> simulation program.
+    BioSimulators-compliant command-line interface to the COBRApy <https://opencobra.github.io/cobrapy/> simulation program.
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -38,7 +38,7 @@ For example, the following command could be used to execute the simulations desc
 
 .. code-block:: text
 
-    gillespy2 -i ./modeling-study.omex -o ./
+    cobrapy -i ./modeling-study.omex -o ./
 
 
 Docker image with a command-line entrypoint
@@ -54,6 +54,6 @@ For example, the following command could be used to use the Docker image to exec
         --tty \
         --rm \
         --mount type=bind,source="$(pwd),target=/tmp/working-dir \
-        ghcr.io/biosimulators/gillespy2:latest \
+        ghcr.io/biosimulators/cobrapy:latest \
             -i /tmp/working-dir/modeling-study.omex \
             -o /tmp/working-dir

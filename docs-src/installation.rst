@@ -1,23 +1,23 @@
 Installation instructions
 =========================
 
-BioSimulators-Gillespy2 is available as command-line program and as a command-line program encapsulated into a Docker image.
+BioSimulators-COBRApy is available as command-line program and as a command-line program encapsulated into a Docker image.
 
 Command-line program
 --------------------
 
-After installing `Python <https://www.python.org/downloads/>`_ (>= 3.7) and `pip <https://pip.pypa.io/>`_, run the following command to install BioSimulators-GillesPy2:
+After installing `Python <https://www.python.org/downloads/>`_ (>= 3.7) and `pip <https://pip.pypa.io/>`_, run the following command to install BioSimulators-COBRApy:
 
 .. code-block:: text
 
-    pip install biosimulators-gillespy2
+    pip install biosimulators-cobrapy
 
 
 Docker image with a command-line entrypoint
 -------------------------------------------
 
-After installing `Docker <https://docs.docker.com/get-docker/>`_, run the following command to install the Docker image for BioSimulators-GillesPy2:
+After installing `Docker <https://docs.docker.com/get-docker/>`_, run the following command to install the Docker image for BioSimulators-COBRApy:
 
 .. code-block:: text
 
-    docker pull ghcr.io/biosimulators/gillespy2
+    docker pull ghcr.io/biosimulators/cobrapy

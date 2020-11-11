@@ -14,12 +14,12 @@ import sys
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-source_dir = os.path.join(os.path.dirname(__file__), '..', 'biosimulators_gillespy2')
+source_dir = os.path.join(os.path.dirname(__file__), '..', 'biosimulators_cobrapy')
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 # -- Project information -----------------------------------------------------
-source_base_url = 'https://github.com/biosimulators/BioSimulators_GillesPy2/blob/dev/'
-project = 'BioSimulators-GillesPy2'
+source_base_url = 'https://github.com/biosimulators/BioSimulators_COBRApy/blob/dev/'
+project = 'BioSimulators-COBRApy'
 copyright = '{}, BioSimulators Team'.format(datetime.datetime.now().year)
 author = 'BioSimulators Team'
 
@@ -103,10 +103,10 @@ html_static_path = ['_static']
 
 html_theme_options = {
     'github_user': 'biosimulators',
-    'github_repo': 'BioSimulators_GillesPy2',
+    'github_repo': 'BioSimulators_COBRApy',
     'github_banner': True,
     'github_button': True,
-    'description': 'BioSimulators-compliant interface to GillesPy2',
+    'description': 'BioSimulators-compliant interface to COBRApy',
     'fixed_sidebar': True,
     'show_powered_by': False,
     'show_relbars': False,
