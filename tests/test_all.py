@@ -72,7 +72,7 @@ class CliTestCase(unittest.TestCase):
         docker_client = docker.from_env()
 
         # build image
-        image_repo = 'ghcr.io/biosimulators/cobrapy'
+        image_repo = 'ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy'
         image_tag = biosimulators_cobrapy.__version__
         image, _ = docker_client.images.build(
             path='.',
@@ -88,7 +88,7 @@ class CliTestCase(unittest.TestCase):
         docker_client = docker.from_env()
 
         # image config
-        image_repo = 'ghcr.io/biosimulators/cobrapy'
+        image_repo = 'ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy'
         image_tag = biosimulators_cobrapy.__version__
 
         # setup input and output directories
@@ -132,6 +132,6 @@ class CliTestCase(unittest.TestCase):
     @unittest.skipIf(os.getenv('CI', '0') in ['1', 'true'], 'Docker not setup in CI')
     def test_validator(self):
         validator = SimulatorValidator()
-        valid_cases, case_exceptions, _ = validator.run('ghcr.io/biosimulators/cobrapy', 'biosimulators.json')
+        valid_cases, case_exceptions, _ = validator.run('ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy', 'biosimulators.json')
         self.assertGreater(len(valid_cases), 0)
         self.assertEqual(case_exceptions, [])
