@@ -162,7 +162,7 @@
           "id": "reaction_list",
           "name": "reaction_list",
           "type": "string",
-          "value": ""
+          "value": null
         },
         {
           "kisaoId": {
@@ -172,7 +172,7 @@
           "id": "loopless",
           "name": "loopless",
           "type": "boolean",
-          "value": false
+          "value": "false"
         },
         {
           "kisaoId": {
@@ -182,7 +182,7 @@
           "id": "fraction_of_optimum",
           "name": "fraction_of_optimum",
           "type": "float",
-          "value": 1.0
+          "value": "1.0"
         },
         {
           "kisaoId": {
@@ -261,7 +261,7 @@
           "id": "fraction_of_optimum",
           "name": "fraction_of_optimum",
           "type": "float",
-          "value": 1.0
+          "value": "1.0"
         },
         {
           "kisaoId": {
@@ -320,7 +320,7 @@
           "id": "epsilon",
           "name": "epsilon",
           "type": "float",
-          "value": 1e-6
+          "value": "1e-6"
         },
         {
           "kisaoId": {
@@ -330,7 +330,7 @@
           "id": "max_tries",
           "name": "max_tries",
           "type": "integer",
-          "value": 200
+          "value": "200"
         },
         {
           "kisaoId": {
@@ -340,7 +340,7 @@
           "id": "processes",
           "name": "processes",
           "type": "integer",
-          "value": 1
+          "value": "1"
         },
         {
           "kisaoId": {
