@@ -3,30 +3,36 @@
   "name": "COBRApy",
   "version": "0.20.0",
   "description": "COBRApy is a Python package that provides a simple interface to metabolic constraint-based reconstruction and analysis.",
-  "url": "https://opencobra.github.io/cobrapy/",
-  "image": "ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy:0.20.0",
-  "format": {
-    "namespace": "EDAM",
-    "id": "format_3973"
+  "urls": [{"type": "Home page", "url": "https://opencobra.github.io/cobrapy/"}],
+  "image": {
+    "url": "ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy:0.20.0",
+    "format": {
+      "namespace": "EDAM",
+      "id": "format_3973", "version": null
+    }
   },
   "authors": [{
       "firstName": "Ali",
-      "lastName": "Ibrahim"
+      "lastName": "Ibrahim",
+            "identifiers": []
     },
     {
       "firstName": "Joshua",
       "middleName": "A",
-      "lastName": "Lerman"
+      "lastName": "Lerman",
+            "identifiers": []
     },
     {
       "firstName": "Bernhard",
       "middleName": "Ø",
-      "lastName": "Palsson"
+      "lastName": "Palsson",
+            "identifiers": []
     },
     {
       "firstName": "Daniel",
       "middleName": "R",
-      "lastName": "Hyduke"
+      "lastName": "Hyduke",
+            "identifiers": []
     }
   ],
   "references": {
@@ -82,15 +88,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585"
+        "id": "format_2585", "version": null
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685"
+        "id": "format_3685", "version": null
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686"
+        "id": "format_3686", "version": null
       }],
       "citations": [{
         "title": "What is flux balance analysis?",
@@ -114,8 +120,10 @@
         "name": "solver",
         "type": "string",
         "value": "GLPK",
-        "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
-      }]
+        "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+      }],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
     },
     {
       "id": "fva",
@@ -130,15 +138,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585"
+        "id": "format_2585", "version": null
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685"
+        "id": "format_3685", "version": null
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686"
+        "id": "format_3686", "version": null
       }],
       "citations": [{
         "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
@@ -162,7 +170,9 @@
           "id": "reaction_list",
           "name": "reaction_list",
           "type": "string",
-          "value": null
+          "value": null,
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -172,7 +182,9 @@
           "id": "loopless",
           "name": "loopless",
           "type": "boolean",
-          "value": "false"
+          "value": "false",
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -182,7 +194,9 @@
           "id": "fraction_of_optimum",
           "name": "fraction_of_optimum",
           "type": "float",
-          "value": "1.0"
+          "value": "1.0",
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -192,7 +206,9 @@
           "id": "pfba_factor",
           "name": "pfba_factor",
           "type": "float",
-          "value": null
+          "value": null,
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -202,7 +218,9 @@
           "id": "processes",
           "name": "processes",
           "type": "integer",
-          "value": null
+          "value": null,
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -212,9 +230,11 @@
           "name": "solver",
           "type": "string",
           "value": "GLPK",
-          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
+          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         }
-      ]
+      ],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
     },
     {
       "id": "pfba",
@@ -230,15 +250,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585"
+        "id": "format_2585", "version": null
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685"
+        "id": "format_3685", "version": null
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686"
+        "id": "format_3686", "version": null
       }],
       "citations": [{
         "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
@@ -261,7 +281,9 @@
           "id": "fraction_of_optimum",
           "name": "fraction_of_optimum",
           "type": "float",
-          "value": "1.0"
+          "value": "1.0",
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -271,9 +293,11 @@
           "name": "solver",
           "type": "string",
           "value": "GLPK",
-          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
+          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         }
-      ]
+      ],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
     },
     {
       "id": "geometric fba",
@@ -289,15 +313,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585"
+        "id": "format_2585", "version": null
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685"
+        "id": "format_3685", "version": null
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686"
+        "id": "format_3686", "version": null
       }],
       "citations": [{
         "title": "Flux balance analysis: A geometric perspective",
@@ -320,7 +344,9 @@
           "id": "epsilon",
           "name": "epsilon",
           "type": "float",
-          "value": "1e-6"
+          "value": "1e-6",
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -330,7 +356,9 @@
           "id": "max_tries",
           "name": "max_tries",
           "type": "integer",
-          "value": "200"
+          "value": "200",
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -340,7 +368,9 @@
           "id": "processes",
           "name": "processes",
           "type": "integer",
-          "value": "1"
+          "value": "1",
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -350,13 +380,17 @@
           "name": "solver",
           "type": "string",
           "value": "GLPK",
-          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"]
+          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         }
-      ]
+      ],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
     }
   ],
+  "interfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+  "supportedProgrammingLanguages": ["Python"],
   "biosimulators": {
-    "specificationsVersion": "1.0.0",
+    "specificationVersion": "1.0.0",
     "imageVersion": "1.0.0",
     "validated": false
   }

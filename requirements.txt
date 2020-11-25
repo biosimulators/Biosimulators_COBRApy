@@ -1,3 +1,6 @@
-cement
 Biosimulations_utils
+cement
 cobra
+lxml
+numpy
+pandas
