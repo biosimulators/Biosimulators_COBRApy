@@ -8,6 +8,7 @@ to COBRApy methods and their arguments
 """
 
 from biosimulators_utils.data_model import ValueType
+from numpy import nan
 import cobra.flux_analysis
 import enum
 
@@ -40,25 +41,33 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                 'description': 'objective value',
                 'target_type': 'objective',
                 'target': r'^/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective(\[.*?\])?(/@value)?$',
-                'get_result': lambda solution, id: solution.objective_value,
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.objective_value if el_fbc_id == active_obj_fbc_id else nan,
             },
             {
                 'description': 'reaction flux',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?(/@flux)?$',
-                'get_result': lambda solution, id: solution.fluxes.get(id[2:] if id.startswith('R_') else id),
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.fluxes.get(el_id[2:] if el_id.startswith('R_') else el_id),
             },
             {
                 'description': 'reaction reduced cost',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@reducedCost$',
-                'get_result': lambda solution, id: solution.reduced_costs.get(id[2:] if id.startswith('R_') else id),
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.reduced_costs.get(el_id[2:] if el_id.startswith('R_') else el_id),
             },
             {
                 'description': 'species shadow price',
                 'target_type': 'species',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species(\[.*?\])?(/@shadowPrice)?$',
-                'get_result': lambda solution, id: solution.shadow_prices.get(id[2:] if id.startswith('M_') else id),
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.shadow_prices.get(el_id[2:] if el_id.startswith('M_') else el_id),
             },
         ]
     },

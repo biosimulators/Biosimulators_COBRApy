@@ -7,7 +7,7 @@
 """
 
 from .data_model import KISAO_ALGORITHMS_PARAMETERS_MAP
-from .utils import set_simulation_method_arg, validate_variables, get_results_of_variables
+from .utils import get_active_objective_sbml_fbc_id, set_simulation_method_arg, validate_variables, get_results_of_variables
 from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive
 from biosimulators_utils.plot.data_model import PlotFormat  # noqa: F401
 from biosimulators_utils.report.data_model import ReportFormat, DataGeneratorVariableResults  # noqa: F401
@@ -70,10 +70,16 @@ def exec_sed_task(task, variables):
     validation.validate_simulation_type(task.simulation, (SteadyStateSimulation, ))
     validation.validate_uniform_time_course_simulation(task.simulation)
     validation.validate_data_generator_variables(variables)
-    target_x_paths_ids = validation.validate_data_generator_variable_xpaths(variables, task.model.source, attr='id')
+    target_x_paths_ids = validation.validate_data_generator_variable_xpaths(
+        variables, task.model.source, attr='id')
+    target_x_paths_fbc_ids = validation.validate_data_generator_variable_xpaths(
+        variables, task.model.source, attr={'namespace': 'fbc', 'name': 'id'})
 
     # Read the model
     model = cobra.io.read_sbml_model(task.model.source)
+
+    # get the SBML-FBC id of the active objective
+    active_objective_fbc_id = get_active_objective_sbml_fbc_id(task.model.source)
 
     # Load the simulation method specified by ``simulation.algorithm``
     simulation = task.simulation
@@ -105,4 +111,5 @@ def exec_sed_task(task, variables):
             solution.status))
 
     # Save a report of the results of the simulation
-    return get_results_of_variables(method_props, variables, target_x_paths_ids, solution)
+    return get_results_of_variables(target_x_paths_ids, target_x_paths_fbc_ids,
+                                    active_objective_fbc_id, method_props, variables, solution)

@@ -78,6 +78,12 @@ class CliTestCase(unittest.TestCase):
             sedml_data_model.DataGeneratorVariable(
                 id='succ_c_price',
                 target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_succ_c']"),
+            sedml_data_model.DataGeneratorVariable(
+                id='active_objective',
+                target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value"),
+            sedml_data_model.DataGeneratorVariable(
+                id='inactive_objective',
+                target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='inactive_obj']/@value"),
         ]
 
         variable_results = core.exec_sed_task(task, variables)
@@ -89,6 +95,8 @@ class CliTestCase(unittest.TestCase):
             'THD2_cost': -2.546243e-03,
             '13dpg_c_price': -0.047105,
             'succ_c_price': -0.050925,
+            'active_objective': 0.8739215069684301,
+            'inactive_objective': numpy.nan,
         }
 
         self.assertTrue(set(variable_results.keys()), set(expected_results.keys()))
@@ -158,27 +166,26 @@ class CliTestCase(unittest.TestCase):
         return (doc, archive_filename)
 
     def _build_sed_doc(self, model_changes=None, algorithm=None):
-        if model_changes is None:
-            model_changes = [
-                sedml_data_model.ModelAttributeChange(
-                    target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACONTa']/@id",
-                    new_value="ACONTa"
-                ),
-                sedml_data_model.ModelAttributeChange(
-                    target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@id",
-                    new_value="13dpg_c"
-                ),
-                sedml_data_model.ModelAttributeChange(
-                    target=("/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_GAPD']"
-                            "/sbml:listOfProducts/sbml:speciesReference[@species='M_13dpg_c']/@species"),
-                    new_value="13dpg_c"
-                ),
-                sedml_data_model.ModelAttributeChange(
-                    target=("/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_PGK']"
-                            "/sbml:listOfProducts/sbml:speciesReference[@species='M_13dpg_c']/@species"),
-                    new_value="13dpg_c"
-                ),
-            ]
+        model_changes = (model_changes or []) + [
+            sedml_data_model.ModelAttributeChange(
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACONTa']/@id",
+                new_value="ACONTa"
+            ),
+            sedml_data_model.ModelAttributeChange(
+                target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@id",
+                new_value="13dpg_c"
+            ),
+            sedml_data_model.ModelAttributeChange(
+                target=("/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_GAPD']"
+                        "/sbml:listOfProducts/sbml:speciesReference[@species='M_13dpg_c']/@species"),
+                new_value="13dpg_c"
+            ),
+            sedml_data_model.ModelAttributeChange(
+                target=("/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_PGK']"
+                        "/sbml:listOfProducts/sbml:speciesReference[@species='M_13dpg_c']/@species"),
+                new_value="13dpg_c"
+            ),
+        ]
 
         if algorithm is None:
             algorithm = sedml_data_model.Algorithm(

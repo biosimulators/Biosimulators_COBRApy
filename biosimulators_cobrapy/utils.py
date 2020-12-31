@@ -10,10 +10,31 @@ from biosimulators_utils.report.data_model import DataGeneratorVariableResults
 from biosimulators_utils.sedml.data_model import DataGeneratorVariable  # noqa: F401
 from biosimulators_utils.utils.core import validate_str_value, parse_value
 import cobra  # noqa: F401
+import libsbml
 import numpy
 import re
 
-__all__ = ['set_simulation_method_arg', 'validate_variables', 'get_results_of_variables']
+__all__ = [
+    'get_active_objective_sbml_fbc_id',
+    'set_simulation_method_arg',
+    'validate_variables',
+    'get_results_of_variables',
+]
+
+
+def get_active_objective_sbml_fbc_id(model_source):
+    """ Get the SBML-FBC id of the active objective
+
+    Args:
+        model_source (:obj:`str`): path to model
+
+    Returns:
+        :obj:`str`: SBML-FBC id of the active objective
+    """
+    doc = libsbml.readSBMLFromFile(model_source)
+    model = doc.getModel()
+    model_fbc = model.getPlugin("fbc")
+    return model_fbc.getListOfObjectives().getActiveObjective()
 
 
 def set_simulation_method_arg(method_props, argument_change, model, model_method_kw_args):
@@ -131,14 +152,17 @@ def validate_variables(method, variables):
         raise ValueError(msg)
 
 
-def get_results_of_variables(method, variables, target_x_paths_ids, solution):
+def get_results_of_variables(target_x_paths_ids, target_x_paths_fbc_ids, active_objective_fbc_id, method, variables, solution):
     """ Get the results of the desired variables
 
     Args:
+        target_x_paths_ids (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
+            SBML id of the corresponding model object
+        target_x_paths_fbc_ids (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
+            SBML-FBC id of the corresponding model object
+        active_objective_fbc_id (:obj:`str`): SBML-FBC id of the active objective
         method (:obj:`dict`): properties of desired simulation method
         variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables that should be recorded
-        target_x_paths_ids (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
-            value of the attribute of the object in the XML file that matches the XPath
         solution (:obj:`cobra.core.solution.Solution`): solution of method
 
     Returns:
@@ -150,11 +174,10 @@ def get_results_of_variables(method, variables, target_x_paths_ids, solution):
         target = variable.target
         for variable_pattern in method['variables']:
             if re.match(variable_pattern['target'], target):
-                variable_target_id = None
-                if variable_pattern['target_type'] in ['reaction', 'species']:
-                    variable_target_id = target_x_paths_ids[target]
-
-                result = variable_pattern['get_result'](solution, variable_target_id)
+                variable_target_id = target_x_paths_ids[target]
+                variable_target_fbc_id = target_x_paths_fbc_ids[target]
+                result = variable_pattern['get_result'](active_objective_fbc_id, variable_target_id,
+                                                        variable_target_fbc_id, solution)
 
                 break
 

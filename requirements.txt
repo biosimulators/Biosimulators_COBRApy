@@ -2,3 +2,4 @@ biosimulators_utils >= 0.1.26
 cobra
 lxml
 numpy
+python_libsbml

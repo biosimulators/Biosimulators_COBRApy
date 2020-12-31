@@ -1,15 +1,22 @@
 from biosimulators_cobrapy.data_model import KISAO_ALGORITHMS_PARAMETERS_MAP
-from biosimulators_cobrapy.utils import set_simulation_method_arg, validate_variables, get_results_of_variables
+from biosimulators_cobrapy.utils import (get_active_objective_sbml_fbc_id, set_simulation_method_arg,
+                                         validate_variables, get_results_of_variables)
 from biosimulators_utils.sedml.data_model import AlgorithmParameterChange, DataGeneratorVariable
 from unittest import mock
 import attrdict
 import cobra
 import numpy
+import numpy.testing
 import os
 import unittest
 
 
 class UtilsTestCase(unittest.TestCase):
+    MODEL_FILENAME = os.path.join(os.path.dirname(__file__), 'fixtures', 'textbook.xml')
+
+    def test_get_active_objective_sbml_fbc_id(self):
+        self.assertEqual(get_active_objective_sbml_fbc_id(self.MODEL_FILENAME), 'obj')
+
     def test_set_simulation_method_arg(self):
         method_props = KISAO_ALGORITHMS_PARAMETERS_MAP['KISAO_0000526']
         model = attrdict.AttrDict()
@@ -138,6 +145,8 @@ class UtilsTestCase(unittest.TestCase):
         variables = [
             DataGeneratorVariable(id='obj',
                                   target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value"),
+            DataGeneratorVariable(id='inactive_obj',
+                                  target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='inactive_obj']/@value"),
             DataGeneratorVariable(id='R_ACALD_flux',
                                   target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@flux"),
             DataGeneratorVariable(id='R_ACALD_reduced_cost',
@@ -160,19 +169,27 @@ class UtilsTestCase(unittest.TestCase):
         )
 
         target_to_id = {
-            variables[0].target: 'obj',
-            variables[1].target: 'R_ACALD',
+            variables[0].target: None,
+            variables[1].target: None,
             variables[2].target: 'R_ACALD',
-            variables[3].target: 'M_13dpg_c',
+            variables[3].target: 'R_ACALD',
+            variables[4].target: 'M_13dpg_c',
         }
-        result = get_results_of_variables(method_props, variables, target_to_id, solution)
+        target_to_fbc_id = {
+            variables[0].target: 'obj',
+            variables[1].target: 'inactive_obj',
+            variables[2].target: None,
+            variables[3].target: None,
+            variables[4].target: None,
+        }
+        result = get_results_of_variables(target_to_id, target_to_fbc_id, 'obj', method_props, variables, solution)
         self.assertEqual(set(result.keys()), set(var.id for var in variables))
-        self.assertEqual(result['obj'], numpy.array(1.0))
-        self.assertEqual(result['R_ACALD_flux'], numpy.array(2.0))
-        self.assertEqual(result['R_ACALD_reduced_cost'], numpy.array(3.0))
-        self.assertEqual(result['M_13dpg_c_shadow_price'], numpy.array(4.0))
+        numpy.testing.assert_allclose(result['obj'], numpy.array(1.0))
+        numpy.testing.assert_allclose(result['inactive_obj'], numpy.array(numpy.nan))
+        numpy.testing.assert_allclose(result['R_ACALD_flux'], numpy.array(2.0))
+        numpy.testing.assert_allclose(result['R_ACALD_reduced_cost'], numpy.array(3.0))
+        numpy.testing.assert_allclose(result['M_13dpg_c_shadow_price'], numpy.array(4.0))
 
-        model_filename = os.path.join(os.path.dirname(__file__), 'fixtures', 'textbook.xml')
-        model = cobra.io.read_sbml_model(model_filename)
+        model = cobra.io.read_sbml_model(self.MODEL_FILENAME)
         solution = model.optimize()
-        result = get_results_of_variables(method_props, variables, target_to_id, solution)
+        result = get_results_of_variables(target_to_id, target_to_fbc_id, 'obj', method_props, variables, solution)
