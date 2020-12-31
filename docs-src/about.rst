@@ -3,7 +3,7 @@ About BioSimulators-COBRApy
 
 License
 -------
-This package is released under the `MIT License <https://github.com/biosimulators/BioSimulators_COBRApy/blob/dev/LICENSE>`_. COBRApy is released under the `LGPL 2.0 or later License <https://github.com/opencobra/cobrapy/blob/devel/LICENSE>`_.
+This package is released under the `MIT License <https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/LICENSE>`_. COBRApy is released under the `LGPL 2.0 or later License <https://github.com/opencobra/cobrapy/blob/devel/LICENSE>`_.
 
 Development team
 ----------------

@@ -1,9 +1,7 @@
-![Latest version](https://img.shields.io/github/v/tag/biosimulators/Biosimulators_COBRApy)
+[![Latest release](https://img.shields.io/github/v/tag/biosimulators/Biosimulators_COBRApy)](https://github.com/biosimulations/Biosimulators_COBRApy/releases)
 [![PyPI](https://img.shields.io/pypi/v/biosimulators_cobrapy)](https://pypi.org/project/biosimulators_cobrapy/)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/biosimulators/Biosimulators_COBRApy/workflow-id)](https://github.com/biosimulators/Biosimulators_COBRApy/actions?query=workflow%3Aworkflow-id)
-[![Documentation](https://img.shields.io/github/license/biosimulators/Biosimulators_COBRApy?badges-awesome-green.svg)](https://biosimulators.github.io/Biosimulators_COBRApy/)
-[![Issues](https://img.shields.io/github/issues/biosimulators/Biosimulators_COBRApy)](https://github.com/biosimulators/Biosimulators_COBRApy/issues)
-[![License](https://img.shields.io/github/license/biosimulators/Biosimulators_COBRApy?badges-awesome-green.svg)](https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/LICENSE)
+[![CI status](https://github.com/biosimulators/Biosimulators_COBRApy/workflows/Continuous%20integration/badge.svg)](https://github.com/biosimulators/Biosimulators_COBRApy/actions?query=workflow%3A%22Continuous+integration%22)
+[![Test coverage](https://codecov.io/gh/biosimulators/Biosimulators_COBRApy/branch/dev/graph/badge.svg)](https://codecov.io/gh/biosimulators/Biosimulators_COBRApy)
 
 # BioSimulators-COBRApy
 BioSimulators-compliant command-line interface and Docker image for the [COBRApy](https://opencobra.github.io/cobrapy/) simulation program.
@@ -26,7 +24,7 @@ A simple web application and web service for using COBRApy to execute COMBINE/OM
 
 ### Install Python package
 ```
-pip install git+https://github.com/biosimulators/Biosimulators_COBRApy
+pip install biosimulators-cobrapy
 ```
 
 ### Install Docker image
@@ -55,14 +53,18 @@ optional arguments:
 ```
 
 ### Usage through Docker container
+The entrypoint to the Docker image supports the same command-line interface described above. 
+
+For example, the following command could be used to use the Docker image to execute the COMBINE/OMEX archive `./modeling-study.omex` and save its outputs to `./`.
+
 ```
 docker run \
   --tty \
   --rm \
-  --mount type=bind,source="$(pwd)"/tests/fixtures,target=/root/in,readonly \
-  --mount type=bind,source="$(pwd)"/tests/results,target=/root/out \
+  --mount type=bind,source="$(pwd)",target=/root/in,readonly \
+  --mount type=bind,source="$(pwd)",target=/root/out \
   ghcr.io/biosimulators/cobrapy:latest \
-    -i /root/in/BIOMD0000000297.omex \
+    -i /root/in/modeling-study.omex \
     -o /root/out
 ```
 

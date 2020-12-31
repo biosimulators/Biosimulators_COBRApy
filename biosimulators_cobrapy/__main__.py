@@ -1,52 +1,19 @@
 """ BioSimulators-compliant command-line interface to the `COBRApy <https://opencobra.github.io/cobrapy>`_ simulation program.
 
-:Author: Azraf Anwar <aa3641@columbia.edu>
-:Date: 2020-06-01
+:Author: Jonathan Karr <karr@mssm.edu>
+:Date: 2020-12-31
 :Copyright: 2020, Center for Reproducible Biomedical Modeling
 :License: MIT
 """
 
-from .core import exec_combine_archive
-import biosimulators_cobrapy
-import cement
+from ._version import __version__
+from .core import exec_sedml_docs_in_combine_archive
+from biosimulators_utils.simulator.cli import build_cli
+import cobra
 
-
-class BaseController(cement.Controller):
-    """ Base controller for command line application """
-
-    class Meta:
-        label = 'base'
-        description = ("BioSimulators-compliant command-line interface to the "
-                       "COBRApy simulation program <https://opencobra.github.io/cobrapy>.")
-        help = "cobrapy"
-        arguments = [
-            (['-i', '--archive'], dict(type=str,
-                                       required=True,
-                                       help='Path to OMEX file which contains one or more SED-ML-encoded simulation experiments')),
-            (['-o', '--out-dir'], dict(type=str,
-                                       default='.',
-                                       help='Directory to save outputs')),
-            (['-v', '--version'], dict(action='version',
-                                       version=biosimulators_cobrapy.__version__)),
-        ]
-
-    @cement.ex(hide=True)
-    def _default(self):
-        args = self.app.pargs
-        try:
-            exec_combine_archive(args.archive, args.out_dir)
-        except Exception as exception:
-            raise SystemExit(str(exception)) from exception
-
-
-class App(cement.App):
-    """ Command line application """
-    class Meta:
-        label = 'cobrapy'
-        base_controller = 'base'
-        handlers = [
-            BaseController,
-        ]
+App = build_cli('cobrapy', __version__,
+                'COBRApy', cobra.__version__, 'https://opencobra.github.io/cobrapy',
+                exec_sedml_docs_in_combine_archive)
 
 
 def main():

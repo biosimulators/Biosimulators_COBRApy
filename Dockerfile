@@ -14,10 +14,13 @@
 # Base OS
 FROM python:3.7.9-slim-buster
 
+ARG VERSION="0.0.1"
+ARG SIMULATOR_VERSION=0.20.0
+
 # metadata
 LABEL \
     org.opencontainers.image.title="COBRApy" \
-    org.opencontainers.image.version="0.20.0" \
+    org.opencontainers.image.version="${SIMULATOR_VERSION}" \
     org.opencontainers.image.description="Package for constraint-based modeling of metabolic networks" \
     org.opencontainers.image.url="https://opencobra.github.io/cobrapy/" \
     org.opencontainers.image.documentation="https://cobrapy.readthedocs.io/" \
@@ -27,9 +30,9 @@ LABEL \
     org.opencontainers.image.licenses="GPL-2.0" \
     \
     base_image="python:3.7.9-slim-buster" \
-    version="0.0.1" \
+    version="${VERSION}" \
     software="COBRApy" \
-    software.version="0.20.0" \
+    software.version="${SIMULATOR_VERSION}" \
     about.summary="Package for constraint-based modeling of metabolic networks" \
     about.home="https://opencobra.github.io/cobrapy/" \
     about.documentation="https://cobrapy.readthedocs.io/" \
@@ -39,8 +42,11 @@ LABEL \
     maintainer="BioSimulators Team <info@biosimulators.org>"
 
 # Copy code for command-line interface into image and install it
-COPY . /root/Biosimulators_cobrapy
-RUN pip install /root/Biosimulators_cobrapy
+COPY . /root/Biosimulators_COBRApy
+RUN pip install /root/Biosimulators_COBRApy \
+    && rm -rf /root/Biosimulators_COBRApy
+RUN pip install cobra==${SIMULATOR_VERSION}
+ENV MPLBACKEND=PDF
 
 # Entrypoint
 ENTRYPOINT ["cobrapy"]

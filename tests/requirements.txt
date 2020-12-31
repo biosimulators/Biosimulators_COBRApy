@@ -1,2 +1,3 @@
-capturer
-pypdf2
+attrdict
+biosimulators_utils[docker]
+python_dateutil
