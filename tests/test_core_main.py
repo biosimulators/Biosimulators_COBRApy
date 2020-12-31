@@ -158,6 +158,28 @@ class CliTestCase(unittest.TestCase):
         return (doc, archive_filename)
 
     def _build_sed_doc(self, model_changes=None, algorithm=None):
+        if model_changes is None:
+            model_changes = [
+                sedml_data_model.ModelAttributeChange(
+                    target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACONTa']/@id",
+                    new_value="ACONTa"
+                ),
+                sedml_data_model.ModelAttributeChange(
+                    target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@id",
+                    new_value="13dpg_c"
+                ),
+                sedml_data_model.ModelAttributeChange(
+                    target=("/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_GAPD']"
+                            "/sbml:listOfProducts/sbml:speciesReference[@species='M_13dpg_c']/@species"),
+                    new_value="13dpg_c"
+                ),
+                sedml_data_model.ModelAttributeChange(
+                    target=("/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_PGK']"
+                            "/sbml:listOfProducts/sbml:speciesReference[@species='M_13dpg_c']/@species"),
+                    new_value="13dpg_c"
+                ),
+            ]
+
         if algorithm is None:
             algorithm = sedml_data_model.Algorithm(
                 kisao_id='KISAO_0000437',
@@ -190,7 +212,7 @@ class CliTestCase(unittest.TestCase):
             variables=[
                 sedml_data_model.DataGeneratorVariable(
                     id='var_ACONTa_flux',
-                    target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACONTa']/@flux",
+                    target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='ACONTa']/@flux",
                     task=doc.tasks[0],
                     model=doc.models[0],
                 ),
@@ -238,7 +260,7 @@ class CliTestCase(unittest.TestCase):
             variables=[
                 sedml_data_model.DataGeneratorVariable(
                     id='var_13dpg_c_shadow_price',
-                    target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice",
+                    target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='13dpg_c']/@shadowPrice",
                     task=doc.tasks[0],
                     model=doc.models[0],
                 ),
