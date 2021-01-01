@@ -34,6 +34,21 @@ docker pull ghcr.io/biosimulators/cobrapy
 
 ## Usage
 
+### SED-ML targets for simulation predictions
+
+BioSimulators-COBRApy recognizes the following targets for simulation predictions:
+
+- FBA (`KISAO_0000437`), parsimonious FBA (`KISAO_0000528`), geometric FBA (`KISAO_0000527`):
+  - Objective: `fbc:objective/@value`
+  - Reaction flux: `sbml:reaction/@flux`
+  - Reaction reduced cost: `sbml:reaction/@reducedCost`
+  - Species shadow price: `sbml:species/@shadowPrice`
+- FVA (`KISAO_0000526`):
+  - Minimum reaction flux: `sbml:reaction/@minFlux`
+  - Maximum reaction flux: `sbml:reaction/@maxFlux`
+
+Please see https://biosimulators.org/standards/simulation-experiments for more information.
+
 ### Local usage
 ```
 usage: cobrapy [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]

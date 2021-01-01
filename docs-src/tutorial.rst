@@ -12,6 +12,25 @@ Information about how to create COMBINE/OMEX archives which can be executed by B
 A list of the algorithms and algorithm parameters supported by COBRApy is available at `BioSimulators <https://biosimulators.org/simulators/cobrapy>`_.
 
 
+SED-ML targets for simulation predictions
++++++++++++++++++++++++++++++++++++++++++
+
+BioSimulators-COBRApy recognizes the following targets for simulation predictions:
+
+* FBA (``KISAO_0000437``), parsimonious FBA (``KISAO_0000528``), geometric FBA (``KISAO_0000527``):
+
+  * Objective: ``fbc:objective/@value``
+  * Reaction flux: ``sbml:reaction/@flux``
+  * Reaction reduced cost: ``sbml:reaction/@reducedCost``
+  * Species shadow price: ``sbml:species/@shadowPrice``
+
+* FVA (``KISAO_0000526``):
+
+  * Minimum reaction flux: ``sbml:reaction/@minFlux``
+  * Maximum reaction flux: ``sbml:reaction/@maxFlux``
+
+Please see `https://biosimulators.org/standards/simulation-experiments <https://biosimulators.org/standards/simulation-experiments>`_ for more information.
+
 Command-line program
 --------------------
 
