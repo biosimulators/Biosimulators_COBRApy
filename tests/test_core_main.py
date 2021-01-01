@@ -491,8 +491,6 @@ class CliTestCase(unittest.TestCase):
     def test_exec_sedml_docs_in_combine_archive_with_all_algorithms(self):
         for alg in gen_algorithms_from_specs(os.path.join(os.path.dirname(__file__), '..', 'biosimulators.json')).values():
             doc, archive_filename = self._build_combine_archive(algorithm=alg)
-
-            print(alg.kisao_id)
             out_dir = os.path.join(self.dirname, alg.kisao_id)
             core.exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
                                                     report_formats=[
