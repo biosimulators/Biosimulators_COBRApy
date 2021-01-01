@@ -106,7 +106,7 @@ def exec_sed_task(task, variables):
     solution = method_props['method'](model, **method_kw_args)
 
     # check that solution was optimal
-    if solution.status != 'optimal':
+    if method_props['check_status'] and solution.status != 'optimal':
         raise cobra.exceptions.OptimizationError("A solution could not be found. The solver status was '{}'.".format(
             solution.status))
 

@@ -86,6 +86,7 @@ class CliTestCase(unittest.TestCase):
                 target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='inactive_obj']/@value"),
         ]
 
+        # FBA
         variable_results = core.exec_sed_task(task, variables)
 
         expected_results = {
@@ -97,6 +98,76 @@ class CliTestCase(unittest.TestCase):
             'succ_c_price': -0.050925,
             'active_objective': 0.8739215069684301,
             'inactive_objective': numpy.nan,
+        }
+
+        self.assertTrue(set(variable_results.keys()), set(expected_results.keys()))
+
+        for var_id, result in variable_results.items():
+            numpy.testing.assert_allclose(result, numpy.array(expected_results[var_id]), rtol=1e-4, atol=1e-8)
+
+        # pFBA
+        task.simulation.algorithm.kisao_id = 'KISAO_0000528'
+        variable_results = core.exec_sed_task(task, variables)
+
+        expected_results = {
+            'ACONTa_flux': 6.007250e+00,
+            'TALA_flux': 1.496984e+00,
+            'ACALD_costs': -2.000000,
+            'THD2_cost': 3.822222,
+            '13dpg_c_price': 18.911111,
+            'succ_c_price': 9.844444,
+            'active_objective': 518.4220855176068,
+            'inactive_objective': numpy.nan,
+        }
+
+        self.assertTrue(set(variable_results.keys()), set(expected_results.keys()))
+
+        for var_id, result in variable_results.items():
+            numpy.testing.assert_allclose(result, numpy.array(expected_results[var_id]), rtol=1e-4, atol=1e-8)
+
+        # pFBA
+        task.simulation.algorithm.kisao_id = 'KISAO_0000527'
+        variable_results = core.exec_sed_task(task, variables)
+
+        expected_results = {
+            'ACONTa_flux': 6.007250e+00,
+            'TALA_flux': 1.496984e+00,
+            'ACALD_costs': numpy.nan,
+            'THD2_cost': numpy.nan,
+            '13dpg_c_price': numpy.nan,
+            'succ_c_price': numpy.nan,
+            'active_objective': numpy.nan,
+            'inactive_objective': numpy.nan,
+        }
+
+        self.assertTrue(set(variable_results.keys()), set(expected_results.keys()))
+
+        for var_id, result in variable_results.items():
+            numpy.testing.assert_allclose(result, numpy.array(expected_results[var_id]), rtol=1e-4, atol=1e-8)
+
+        # FVA
+        task.simulation.algorithm.kisao_id = 'KISAO_0000526'
+        variables = [
+            sedml_data_model.DataGeneratorVariable(
+                id='ACONTa_min_flux',
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACONTa']/@minFlux"),
+            sedml_data_model.DataGeneratorVariable(
+                id='ACONTa_max_flux',
+                target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_ACONTa"]/@maxFlux'),
+            sedml_data_model.DataGeneratorVariable(
+                id='SUCDi_min_flux',
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_SUCDi']/@minFlux"),
+            sedml_data_model.DataGeneratorVariable(
+                id='SUCDi_max_flux',
+                target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_SUCDi"]/@maxFlux'),
+        ]
+        variable_results = core.exec_sed_task(task, variables)
+
+        expected_results = {
+            'ACONTa_min_flux': 6.007250e+00,
+            'ACONTa_max_flux': 6.007250e+00,
+            'SUCDi_min_flux': 5.064376e+00,
+            'SUCDi_max_flux': 1e3,
         }
 
         self.assertTrue(set(variable_results.keys()), set(expected_results.keys()))
@@ -214,92 +285,153 @@ class CliTestCase(unittest.TestCase):
             model=doc.models[0],
             simulation=doc.simulations[0],
         ))
-        doc.data_generators.append(sedml_data_model.DataGenerator(
-            id='data_gen_ACONTa_flux',
-            variables=[
-                sedml_data_model.DataGeneratorVariable(
-                    id='var_ACONTa_flux',
-                    target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='ACONTa']/@flux",
-                    task=doc.tasks[0],
-                    model=doc.models[0],
-                ),
-            ],
-            math='var_ACONTa_flux',
-        ))
-        doc.data_generators.append(sedml_data_model.DataGenerator(
-            id='data_gen_TALA_flux',
-            variables=[
-                sedml_data_model.DataGeneratorVariable(
-                    id='var_TALA_flux',
-                    target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_TALA"]',
-                    task=doc.tasks[0],
-                    model=doc.models[0],
-                ),
-            ],
-            math='var_TALA_flux',
-        ))
-        doc.data_generators.append(sedml_data_model.DataGenerator(
-            id='data_gen_ACALD_reduced_cost',
-            variables=[
-                sedml_data_model.DataGeneratorVariable(
-                    id='var_ACALD_reduced_cost',
-                    target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost",
-                    task=doc.tasks[0],
-                    model=doc.models[0],
-                ),
-            ],
-            math='var_ACALD_reduced_cost',
-        ))
-        doc.data_generators.append(sedml_data_model.DataGenerator(
-            id='data_gen_THD2_reduced_cost',
-            variables=[
-                sedml_data_model.DataGeneratorVariable(
-                    id='var_THD2_reduced_cost',
-                    target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_THD2']/@reducedCost",
-                    task=doc.tasks[0],
-                    model=doc.models[0],
-                ),
-            ],
-            math='var_THD2_reduced_cost',
-        ))
-        doc.data_generators.append(sedml_data_model.DataGenerator(
-            id='data_gen_13dpg_c_shadow_price',
-            variables=[
-                sedml_data_model.DataGeneratorVariable(
-                    id='var_13dpg_c_shadow_price',
-                    target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='13dpg_c']/@shadowPrice",
-                    task=doc.tasks[0],
-                    model=doc.models[0],
-                ),
-            ],
-            math='var_13dpg_c_shadow_price',
-        ))
-        doc.data_generators.append(sedml_data_model.DataGenerator(
-            id='data_gen_succ_c_shadow_price',
-            variables=[
-                sedml_data_model.DataGeneratorVariable(
-                    id='var_succ_c_shadow_price',
-                    target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_succ_c']/@shadowPrice",
-                    task=doc.tasks[0],
-                    model=doc.models[0],
-                ),
-            ],
-            math='var_succ_c_shadow_price',
-        ))
-        doc.outputs.append(sedml_data_model.Report(
-            id='report_1',
-            data_sets=[
-                sedml_data_model.DataSet(id='data_set_ACONTa_flux', label='ACONTa_flux', data_generator=doc.data_generators[0]),
-                sedml_data_model.DataSet(id='data_set_TALA_flux', label='TALA_flux', data_generator=doc.data_generators[1]),
-                sedml_data_model.DataSet(id='data_set_ACALD_reduced_cost', label='ACALD_reduced_cost',
-                                         data_generator=doc.data_generators[2]),
-                sedml_data_model.DataSet(id='data_set_THD2_reduced_cost', label='THD2_reduced_cost', data_generator=doc.data_generators[3]),
-                sedml_data_model.DataSet(id='data_set_13dpg_c_shadow_price', label='13dpg_c_shadow_price',
-                                         data_generator=doc.data_generators[4]),
-                sedml_data_model.DataSet(id='data_set_succ_c_shadow_price', label='succ_c_shadow_price',
-                                         data_generator=doc.data_generators[5]),
-            ],
-        ))
+
+        if algorithm.kisao_id in ['KISAO_0000437', 'KISAO_0000528', 'KISAO_0000527']:
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_ACONTa_flux',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_ACONTa_flux',
+                        target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='ACONTa']/@flux",
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_ACONTa_flux',
+            ))
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_TALA_flux',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_TALA_flux',
+                        target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_TALA"]',
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_TALA_flux',
+            ))
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_ACALD_reduced_cost',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_ACALD_reduced_cost',
+                        target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost",
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_ACALD_reduced_cost',
+            ))
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_THD2_reduced_cost',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_THD2_reduced_cost',
+                        target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_THD2']/@reducedCost",
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_THD2_reduced_cost',
+            ))
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_13dpg_c_shadow_price',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_13dpg_c_shadow_price',
+                        target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='13dpg_c']/@shadowPrice",
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_13dpg_c_shadow_price',
+            ))
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_succ_c_shadow_price',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_succ_c_shadow_price',
+                        target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_succ_c']/@shadowPrice",
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_succ_c_shadow_price',
+            ))
+            doc.outputs.append(sedml_data_model.Report(
+                id='report_1',
+                data_sets=[
+                    sedml_data_model.DataSet(id='data_set_ACONTa_flux', label='ACONTa_flux', data_generator=doc.data_generators[0]),
+                    sedml_data_model.DataSet(id='data_set_TALA_flux', label='TALA_flux', data_generator=doc.data_generators[1]),
+                    sedml_data_model.DataSet(id='data_set_ACALD_reduced_cost', label='ACALD_reduced_cost',
+                                             data_generator=doc.data_generators[2]),
+                    sedml_data_model.DataSet(id='data_set_THD2_reduced_cost', label='THD2_reduced_cost',
+                                             data_generator=doc.data_generators[3]),
+                    sedml_data_model.DataSet(id='data_set_13dpg_c_shadow_price', label='13dpg_c_shadow_price',
+                                             data_generator=doc.data_generators[4]),
+                    sedml_data_model.DataSet(id='data_set_succ_c_shadow_price', label='succ_c_shadow_price',
+                                             data_generator=doc.data_generators[5]),
+                ],
+            ))
+        else:
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_ACONTa_min_flux',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_ACONTa_min_flux',
+                        target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='ACONTa']/@minFlux",
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_ACONTa_min_flux',
+            ))
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_ACONTa_max_flux',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_ACONTa_max_flux',
+                        target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='ACONTa']/@maxFlux",
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_ACONTa_max_flux',
+            ))
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_SUCDi_min_flux',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_SUCDi_min_flux',
+                        target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_SUCDi']/@minFlux",
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_SUCDi_min_flux',
+            ))
+            doc.data_generators.append(sedml_data_model.DataGenerator(
+                id='data_gen_SUCDi_max_flux',
+                variables=[
+                    sedml_data_model.DataGeneratorVariable(
+                        id='var_SUCDi_max_flux',
+                        target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_SUCDi']/@maxFlux",
+                        task=doc.tasks[0],
+                        model=doc.models[0],
+                    ),
+                ],
+                math='var_SUCDi_max_flux',
+            ))
+            doc.outputs.append(sedml_data_model.Report(
+                id='report_1',
+                data_sets=[
+                    sedml_data_model.DataSet(id='data_set_ACONTa_min_flux', label='ACONTa_min_flux', data_generator=doc.data_generators[0]),
+                    sedml_data_model.DataSet(id='data_set_ACONTa_max_flux', label='ACONTa_max_flux', data_generator=doc.data_generators[1]),
+                    sedml_data_model.DataSet(id='data_set_SUCDi_min_flux', label='SUCDi_min_flux', data_generator=doc.data_generators[2]),
+                    sedml_data_model.DataSet(id='data_set_SUCDi_max_flux', label='SUCDi_max_flux', data_generator=doc.data_generators[3]),
+                ],
+            ))
 
         append_all_nested_children_to_doc(doc)
 
@@ -315,27 +447,52 @@ class CliTestCase(unittest.TestCase):
         sim = doc.tasks[0].simulation
         self.assertEqual(report.shape, (len(doc.outputs[0].data_sets), 1))
 
-        self.assertFalse(numpy.any(numpy.isnan(report)))
+        if sim.algorithm.kisao_id == 'KISAO_0000437':
+            expected_results = {
+                'ACONTa_flux': 6.007250,
+                'TALA_flux': 1.496984,
+                'ACALD_reduced_cost': 6.938894e-18,
+                'THD2_reduced_cost': -2.546243e-03,
+                '13dpg_c_shadow_price': -0.047105,
+                'succ_c_shadow_price': -0.050925,
+            }
 
-        expected_results = {
-            'ACONTa_flux': 6.007250,
-            'TALA_flux': 1.496984,
-            'ACALD_reduced_cost': 6.938894e-18,
-            'THD2_reduced_cost': -2.546243e-03,
-            '13dpg_c_shadow_price': -0.047105,
-            'succ_c_shadow_price': -0.050925,
-        }
+        elif sim.algorithm.kisao_id == 'KISAO_0000528':
+            expected_results = {
+                'ACONTa_flux': 6.007250e+00,
+                'TALA_flux': 1.496984e+00,
+                'ACALD_reduced_cost': -2.000000,
+                'THD2_reduced_cost': 3.822222,
+                '13dpg_c_shadow_price': 18.911111,
+                'succ_c_shadow_price': 9.844444,
+            }
+
+        elif sim.algorithm.kisao_id == 'KISAO_0000527':
+            expected_results = {
+                'ACONTa_flux': 6.007250e+00,
+                'TALA_flux': 1.496984e+00,
+                'ACALD_reduced_cost': numpy.nan,
+                'THD2_reduced_cost': numpy.nan,
+                '13dpg_c_shadow_price': numpy.nan,
+                'succ_c_shadow_price': numpy.nan,
+            }
+
+        elif sim.algorithm.kisao_id == 'KISAO_0000526':
+            expected_results = {
+                'ACONTa_min_flux': 6.007250e+00,
+                'ACONTa_max_flux': 6.007250e+00,
+                'SUCDi_min_flux': 5.064376e+00,
+                'SUCDi_max_flux': 1e3,
+            }
+
         for data_set_label, expected_result in expected_results.items():
             numpy.testing.assert_allclose(report.loc[data_set_label, :], numpy.array(expected_result), rtol=1e-4, atol=1e-8)
 
     def test_exec_sedml_docs_in_combine_archive_with_all_algorithms(self):
         for alg in gen_algorithms_from_specs(os.path.join(os.path.dirname(__file__), '..', 'biosimulators.json')).values():
-            # todo: remove
-            if alg.kisao_id != 'KISAO_0000437':
-                continue
-
             doc, archive_filename = self._build_combine_archive(algorithm=alg)
 
+            print(alg.kisao_id)
             out_dir = os.path.join(self.dirname, alg.kisao_id)
             core.exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
                                                     report_formats=[
@@ -343,6 +500,7 @@ class CliTestCase(unittest.TestCase):
                                                     ],
                                                     bundle_outputs=True,
                                                     keep_individual_outputs=True)
+
             self._assert_combine_archive_outputs(doc, out_dir)
 
     def test_raw_cli(self):

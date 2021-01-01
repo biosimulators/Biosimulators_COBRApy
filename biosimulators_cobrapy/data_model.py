@@ -36,6 +36,7 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                 'enum': Solver,
             }
         },
+        'check_status': True,
         'variables': [
             {
                 'description': 'objective value',
@@ -90,6 +91,41 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                 'enum': Solver,
             },
         },
+        'check_status': True,
+        'variables': [
+            {
+                'description': 'objective value',
+                'target_type': 'objective',
+                'target': r'^/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective(\[.*?\])?(/@value)?$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.objective_value if el_fbc_id == active_obj_fbc_id else nan,
+            },
+            {
+                'description': 'reaction flux',
+                'target_type': 'reaction',
+                'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?(/@flux)?$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.fluxes.get(el_id[2:] if el_id.startswith('R_') else el_id),
+            },
+            {
+                'description': 'reaction reduced cost',
+                'target_type': 'reaction',
+                'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@reducedCost$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.reduced_costs.get(el_id[2:] if el_id.startswith('R_') else el_id),
+            },
+            {
+                'description': 'species shadow price',
+                'target_type': 'species',
+                'target': r'^/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species(\[.*?\])?(/@shadowPrice)?$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.shadow_prices.get(el_id[2:] if el_id.startswith('M_') else el_id),
+            },
+        ]
     },
     'KISAO_0000527': {
         'kisao_id': 'KISAO_0000527',
@@ -122,6 +158,41 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                 'enum': Solver,
             },
         },
+        'check_status': True,
+        'variables': [
+            {
+                'description': 'objective value',
+                'target_type': 'objective',
+                'target': r'^/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective(\[.*?\])?(/@value)?$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        nan,
+            },
+            {
+                'description': 'reaction flux',
+                'target_type': 'reaction',
+                'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?(/@flux)?$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.fluxes.get(el_id[2:] if el_id.startswith('R_') else el_id),
+            },
+            {
+                'description': 'reaction reduced cost',
+                'target_type': 'reaction',
+                'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@reducedCost$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        nan,
+            },
+            {
+                'description': 'species shadow price',
+                'target_type': 'species',
+                'target': r'^/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species(\[.*?\])?(/@shadowPrice)?$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        nan,
+            },
+        ]
     },
     'KISAO_0000526': {
         'kisao_id': 'KISAO_0000526',
@@ -166,6 +237,24 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                 'enum': Solver,
             },
         },
-        'results_rows': ['lower', 'upper'],
+        'check_status': False,
+        'variables': [
+            {
+                'description': 'reaction flux',
+                'target_type': 'reaction',
+                'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@minFlux?$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.loc[el_id[2:] if el_id.startswith('R_') else el_id, 'minimum'],
+            },
+            {
+                'description': 'reaction flux',
+                'target_type': 'reaction',
+                'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@maxFlux?$',
+                'get_result':
+                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
+                        solution.loc[el_id[2:] if el_id.startswith('R_') else el_id, 'maximum'],
+            },
+        ],
     },
 }
