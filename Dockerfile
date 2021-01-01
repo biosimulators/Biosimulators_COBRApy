@@ -44,7 +44,8 @@ LABEL \
 # Copy code for command-line interface into image and install it
 COPY . /root/Biosimulators_COBRApy
 RUN pip install /root/Biosimulators_COBRApy \
-    && rm -rf /root/Biosimulators_COBRApy
+    && mkdir -p /.cache/cobrapy \
+    && rm -rf /root/Biosimulators_COBRApy    
 RUN pip install cobra==${SIMULATOR_VERSION}
 ENV MPLBACKEND=PDF
 
