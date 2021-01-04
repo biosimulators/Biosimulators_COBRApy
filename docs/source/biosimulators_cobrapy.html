@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>biosimulators_cobrapy package &#8212; BioSimulators-COBRApy 0.1.0 documentation</title>
+    <title>biosimulators_cobrapy package &#8212; BioSimulators-COBRApy 0.1.1 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -239,6 +239,24 @@ to COBRApy methods and their arguments</p>
 <dd class="field-even"><p>MIT</p>
 </dd>
 </dl>
+<dl class="py function">
+<dt id="biosimulators_cobrapy.utils.apply_variables_to_simulation_method_args">
+<code class="sig-prename descclassname">biosimulators_cobrapy.utils.</code><code class="sig-name descname">apply_variables_to_simulation_method_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_x_paths_ids</span></em>, <em class="sig-param"><span class="n">method_props</span></em>, <em class="sig-param"><span class="n">variables</span></em>, <em class="sig-param"><span class="n">model_method_kw_args</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/biosimulators_cobrapy/utils.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosimulators_cobrapy.utils.apply_variables_to_simulation_method_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode the desired output variables into arguments to simulation methods</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_x_paths_ids</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – dictionary that maps each XPath to the
+SBML id of the corresponding model object</p></li>
+<li><p><strong>method_props</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>) – properties of the simulation method</p></li>
+<li><p><strong>variables</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">DataGeneratorVariable</span></code>) – variables that should be recorded</p></li>
+<li><p><strong>model_method_kw_args</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>) – keyword arguments for the simulation method
+for the model</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt id="biosimulators_cobrapy.utils.get_active_objective_sbml_fbc_id">
 <code class="sig-prename descclassname">biosimulators_cobrapy.utils.</code><code class="sig-name descname">get_active_objective_sbml_fbc_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model_source</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/biosimulators_cobrapy/utils.py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biosimulators_cobrapy.utils.get_active_objective_sbml_fbc_id" title="Permalink to this definition">¶</a></dt>
