@@ -166,7 +166,7 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                 'target': r'^/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective(\[.*?\])?(/@value)?$',
                 'get_result':
                     lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        nan,
+                        solution.objective_value if el_fbc_id == active_obj_fbc_id else nan,
             },
             {
                 'description': 'reaction flux',

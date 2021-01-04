@@ -114,6 +114,9 @@ def exec_sed_task(task, variables):
         raise cobra.exceptions.OptimizationError("A solution could not be found. The solver status was `{}`.".format(
             solution.status))
 
+    if method_props['kisao_id'] in ['KISAO_0000527', 'KISAO_0000528']:
+        solution.objective_value = model.optimize().objective_value
+
     # Save a report of the results of the simulation
     return get_results_of_variables(target_x_paths_ids, target_x_paths_fbc_ids,
                                     active_objective_fbc_id, method_props, variables, solution)

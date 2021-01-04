@@ -116,7 +116,7 @@ class CliTestCase(unittest.TestCase):
             'THD2_cost': 3.822222,
             '13dpg_c_price': 18.911111,
             'succ_c_price': 9.844444,
-            'active_objective': 518.4220855176068,
+            'active_objective': 0.8739215069684301,
             'inactive_objective': numpy.nan,
         }
 
@@ -136,7 +136,7 @@ class CliTestCase(unittest.TestCase):
             'THD2_cost': numpy.nan,
             '13dpg_c_price': numpy.nan,
             'succ_c_price': numpy.nan,
-            'active_objective': numpy.nan,
+            'active_objective': 0.8739215069684301,
             'inactive_objective': numpy.nan,
         }
 
