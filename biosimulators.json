@@ -3,37 +3,42 @@
   "name": "COBRApy",
   "version": "0.20.0",
   "description": "COBRApy is a Python package that provides a simple interface to metabolic constraint-based reconstruction and analysis.",
-  "urls": [{"type": "Home page", "url": "https://opencobra.github.io/cobrapy/"}],
+  "urls": [{
+    "type": "Home page",
+    "url": "https://opencobra.github.io/cobrapy/"
+  }],
   "image": {
     "url": "ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy:0.20.0",
     "format": {
       "namespace": "EDAM",
-      "id": "format_3973", "version": null, "supportedFeatures": []
+      "id": "format_3973",
+      "version": null,
+      "supportedFeatures": []
     },
     "operatingSystemType": "Linux"
   },
   "authors": [{
       "firstName": "Ali",
       "lastName": "Ibrahim",
-            "identifiers": []
+      "identifiers": []
     },
     {
       "firstName": "Joshua",
       "middleName": "A",
       "lastName": "Lerman",
-            "identifiers": []
+      "identifiers": []
     },
     {
       "firstName": "Bernhard",
       "middleName": "Ø",
       "lastName": "Palsson",
-            "identifiers": []
+      "identifiers": []
     },
     {
       "firstName": "Daniel",
       "middleName": "R",
       "lastName": "Hyduke",
-            "identifiers": []
+      "identifiers": []
     }
   ],
   "references": {
@@ -89,15 +94,21 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null, "supportedFeatures": []
+        "id": "format_2585",
+        "version": null,
+        "supportedFeatures": []
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": "L1V3", "supportedFeatures": []
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null, "supportedFeatures": []
+        "id": "format_3686",
+        "version": null,
+        "supportedFeatures": []
       }],
       "citations": [{
         "title": "What is flux balance analysis?",
@@ -122,11 +133,10 @@
         "type": "string",
         "value": "GLPK",
         "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+        "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
       }],
       "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [
-        {
+      "dependentVariableTargetPatterns": [{
           "variables": "objective value",
           "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
         },
@@ -145,26 +155,27 @@
       ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "dependencies": [{
-        "name": "GLPK",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.gnu.org/software/glpk/"
-      },
-      {
-        "name": "CPLEX",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.ibm.com/analytics/cplex-optimizer"
-      },
-      {
-        "name": "Gurobi",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.gurobi.com/"
-      }]
+          "name": "GLPK",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.gnu.org/software/glpk/"
+        },
+        {
+          "name": "CPLEX",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.ibm.com/analytics/cplex-optimizer"
+        },
+        {
+          "name": "Gurobi",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.gurobi.com/"
+        }
+      ]
     },
     {
       "id": "fva",
@@ -179,15 +190,21 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null, "supportedFeatures": []
+        "id": "format_2585",
+        "version": null,
+        "supportedFeatures": []
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": "L1V3", "supportedFeatures": []
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null, "supportedFeatures": []
+        "id": "format_3686",
+        "version": null,
+        "supportedFeatures": []
       }],
       "citations": [{
         "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
@@ -206,18 +223,6 @@
       "parameters": [{
           "kisaoId": {
             "namespace": "KISAO",
-            "id": "KISAO_0000534"
-          },
-          "id": "reaction_list",
-          "name": "reaction_list",
-          "type": "string",
-          "value": null,
-          "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
-        },
-        {
-          "kisaoId": {
-            "namespace": "KISAO",
             "id": "KISAO_0000532"
           },
           "id": "loopless",
@@ -225,7 +230,7 @@
           "type": "boolean",
           "value": "false",
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -237,7 +242,7 @@
           "type": "float",
           "value": "1.0",
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -249,7 +254,7 @@
           "type": "float",
           "value": null,
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -261,7 +266,7 @@
           "type": "integer",
           "value": null,
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -272,12 +277,11 @@
           "type": "string",
           "value": "GLPK",
           "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         }
       ],
       "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [
-        {
+      "dependentVariableTargetPatterns": [{
           "variables": "objective value",
           "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
         },
@@ -296,26 +300,27 @@
       ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "dependencies": [{
-        "name": "GLPK",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.gnu.org/software/glpk/"
-      },
-      {
-        "name": "CPLEX",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.ibm.com/analytics/cplex-optimizer"
-      },
-      {
-        "name": "Gurobi",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.gurobi.com/"
-      }]
+          "name": "GLPK",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.gnu.org/software/glpk/"
+        },
+        {
+          "name": "CPLEX",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.ibm.com/analytics/cplex-optimizer"
+        },
+        {
+          "name": "Gurobi",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.gurobi.com/"
+        }
+      ]
     },
     {
       "id": "pfba",
@@ -331,15 +336,21 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null, "supportedFeatures": []
+        "id": "format_2585",
+        "version": null,
+        "supportedFeatures": []
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": "L1V3", "supportedFeatures": []
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null, "supportedFeatures": []
+        "id": "format_3686",
+        "version": null,
+        "supportedFeatures": []
       }],
       "citations": [{
         "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
@@ -364,7 +375,7 @@
           "type": "float",
           "value": "1.0",
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -375,12 +386,11 @@
           "type": "string",
           "value": "GLPK",
           "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         }
       ],
       "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [
-        {
+      "dependentVariableTargetPatterns": [{
           "variables": "objective value",
           "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
         },
@@ -399,26 +409,27 @@
       ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "dependencies": [{
-        "name": "GLPK",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.gnu.org/software/glpk/"
-      },
-      {
-        "name": "CPLEX",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.ibm.com/analytics/cplex-optimizer"
-      },
-      {
-        "name": "Gurobi",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.gurobi.com/"
-      }]
+          "name": "GLPK",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.gnu.org/software/glpk/"
+        },
+        {
+          "name": "CPLEX",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.ibm.com/analytics/cplex-optimizer"
+        },
+        {
+          "name": "Gurobi",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.gurobi.com/"
+        }
+      ]
     },
     {
       "id": "geometric fba",
@@ -434,15 +445,21 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null, "supportedFeatures": []
+        "id": "format_2585",
+        "version": null,
+        "supportedFeatures": []
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": "L1V3", "supportedFeatures": []
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null, "supportedFeatures": []
+        "id": "format_3686",
+        "version": null,
+        "supportedFeatures": []
       }],
       "citations": [{
         "title": "Flux balance analysis: A geometric perspective",
@@ -467,7 +484,7 @@
           "type": "float",
           "value": "1e-6",
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -479,7 +496,7 @@
           "type": "integer",
           "value": "200",
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -491,7 +508,7 @@
           "type": "integer",
           "value": "1",
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "kisaoId": {
@@ -502,12 +519,11 @@
           "type": "string",
           "value": "GLPK",
           "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         }
       ],
       "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [
-        {
+      "dependentVariableTargetPatterns": [{
           "variables": "minimum reaction fluxes",
           "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@minFlux"
         },
@@ -518,31 +534,35 @@
       ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "dependencies": [{
-        "name": "GLPK",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.gnu.org/software/glpk/"
-      },
-      {
-        "name": "CPLEX",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.ibm.com/analytics/cplex-optimizer"
-      },
-      {
-        "name": "Gurobi",
-        "version": null,
-        "required": false,
-        "freeNonCommercialLicense": true,
-        "url": "https://www.gurobi.com/"
-      }]
+          "name": "GLPK",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.gnu.org/software/glpk/"
+        },
+        {
+          "name": "CPLEX",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.ibm.com/analytics/cplex-optimizer"
+        },
+        {
+          "name": "Gurobi",
+          "version": null,
+          "required": false,
+          "freeNonCommercialLicense": true,
+          "url": "https://www.gurobi.com/"
+        }
+      ]
     }
   ],
   "interfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
   "supportedOperatingSystemTypes": ["platform-independent"],
-  "supportedProgrammingLanguages": [{"namespace": "Linguist", "id": "Python"}],
+  "supportedProgrammingLanguages": [{
+    "namespace": "Linguist",
+    "id": "Python"
+  }],
   "funding": [],
   "biosimulators": {
     "specificationVersion": "1.0.0",

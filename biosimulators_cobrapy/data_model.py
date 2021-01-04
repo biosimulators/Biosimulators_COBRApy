@@ -199,12 +199,6 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
         'name': 'flux variability analysis (FVA)',
         'method': cobra.flux_analysis.flux_variability_analysis,
         'parameters': {
-            'KISAO_0000534': {
-                'name': 'reaction list',
-                'description': 'List of SBML ids of reactions to calculate minimum and maximum fluxes for.',
-                'alg_arg': 'reaction_list',
-                'type': ValueType.list,
-            },
             'KISAO_0000532': {
                 'name': 'loopless',
                 'description': 'Whether to return only loopless solutions.',

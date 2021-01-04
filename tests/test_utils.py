@@ -1,5 +1,6 @@
 from biosimulators_cobrapy.data_model import KISAO_ALGORITHMS_PARAMETERS_MAP
 from biosimulators_cobrapy.utils import (get_active_objective_sbml_fbc_id, set_simulation_method_arg,
+                                         apply_variables_to_simulation_method_args,
                                          validate_variables, get_results_of_variables)
 from biosimulators_utils.sedml.data_model import AlgorithmParameterChange, DataGeneratorVariable
 from unittest import mock
@@ -62,18 +63,6 @@ class UtilsTestCase(unittest.TestCase):
         self.assertEqual(model, {'solver': 'cplex'})
         self.assertEqual(method_kw_args, {'loopless': False, 'fraction_of_optimum': 0.99, 'processes': 10})
 
-        model['reactions'] = [
-            attrdict.AttrDict(id='A'),
-            attrdict.AttrDict(id='B'),
-        ]
-        argument_change = AlgorithmParameterChange(
-            kisao_id='KISAO_0000534',
-            new_value='["A", "B"]',
-        )
-        set_simulation_method_arg(method_props, argument_change, model, method_kw_args)
-        self.assertEqual(model, {'solver': 'cplex', 'reactions': [{'id': 'A'}, {'id': 'B'}]})
-        self.assertEqual(method_kw_args, {'loopless': False, 'fraction_of_optimum': 0.99, 'processes': 10, 'reaction_list': ['A', 'B']})
-
         # error: unsupported parameter
         argument_change = AlgorithmParameterChange(
             kisao_id='KISAO_0000000',
@@ -98,13 +87,33 @@ class UtilsTestCase(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'not a valid value'):
             set_simulation_method_arg(method_props, argument_change, model, method_kw_args)
 
-        # error: invalid reaction id
-        argument_change = AlgorithmParameterChange(
-            kisao_id='KISAO_0000534',
-            new_value='["A", "B", "C"]',
-        )
-        with self.assertRaisesRegex(ValueError, 'not SBML ids of reactions'):
-            set_simulation_method_arg(method_props, argument_change, model, method_kw_args)
+    def test_apply_variables_to_simulation_method_args(self):
+        method_props = KISAO_ALGORITHMS_PARAMETERS_MAP['KISAO_0000526']
+        variables = [
+            DataGeneratorVariable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_A']/@minFlux"),
+            DataGeneratorVariable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_A']/@maxFlux"),
+            DataGeneratorVariable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_B']/@minFlux"),
+            DataGeneratorVariable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_C']/@maxFlux"),
+        ]
+        target_x_paths_ids = {
+            variables[0].target: 'R_A',
+            variables[1].target: 'R_A',
+            variables[2].target: 'R_B',
+            variables[3].target: 'R_C',
+        }
+
+        # FVA
+        module_method_args = {}
+        expected_module_method_args = {'reaction_list': ['A', 'B', 'C']}
+        apply_variables_to_simulation_method_args(target_x_paths_ids, method_props, variables, module_method_args)
+        self.assertEqual(module_method_args, expected_module_method_args)
+
+        # FBA
+        method_props = KISAO_ALGORITHMS_PARAMETERS_MAP['KISAO_0000437']
+        module_method_args = {}
+        expected_module_method_args = {}
+        apply_variables_to_simulation_method_args(target_x_paths_ids, method_props, variables, module_method_args)
+        self.assertEqual(module_method_args, expected_module_method_args)
 
     def test_validate_variables(self):
         method_props = KISAO_ALGORITHMS_PARAMETERS_MAP['KISAO_0000437']

@@ -7,7 +7,8 @@
 """
 
 from .data_model import KISAO_ALGORITHMS_PARAMETERS_MAP
-from .utils import get_active_objective_sbml_fbc_id, set_simulation_method_arg, validate_variables, get_results_of_variables
+from .utils import (get_active_objective_sbml_fbc_id, set_simulation_method_arg,
+                    apply_variables_to_simulation_method_args, validate_variables, get_results_of_variables)
 from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive
 from biosimulators_utils.plot.data_model import PlotFormat  # noqa: F401
 from biosimulators_utils.report.data_model import ReportFormat, DataGeneratorVariableResults  # noqa: F401
@@ -87,7 +88,7 @@ def exec_sed_task(task, variables):
     method_props = KISAO_ALGORITHMS_PARAMETERS_MAP.get(algorithm_kisao_id, None)
     if method_props is None:
         msg = "".join([
-            "Algorithm with KiSAO id '{}' is not supported. ".format(algorithm_kisao_id),
+            "Algorithm with KiSAO id `{}` is not supported. ".format(algorithm_kisao_id),
             "Algorithm must have one of the following KiSAO ids:\n  - {}".format('\n  - '.join(
                 '{}: {}'.format(kisao_id, method_props['name'])
                 for kisao_id, method_props in KISAO_ALGORITHMS_PARAMETERS_MAP.items())),
@@ -102,12 +103,15 @@ def exec_sed_task(task, variables):
     # validate variables
     validate_variables(method_props, variables)
 
+    # encode variables into arguments of the simulation metods
+    apply_variables_to_simulation_method_args(target_x_paths_ids, method_props, variables, method_kw_args)
+
     # execute simulation
     solution = method_props['method'](model, **method_kw_args)
 
     # check that solution was optimal
     if method_props['check_status'] and solution.status != 'optimal':
-        raise cobra.exceptions.OptimizationError("A solution could not be found. The solver status was '{}'.".format(
+        raise cobra.exceptions.OptimizationError("A solution could not be found. The solver status was `{}`.".format(
             solution.status))
 
     # Save a report of the results of the simulation

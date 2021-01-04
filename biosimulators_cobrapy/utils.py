@@ -17,6 +17,7 @@ import re
 __all__ = [
     'get_active_objective_sbml_fbc_id',
     'set_simulation_method_arg',
+    'apply_variables_to_simulation_method_args',
     'validate_variables',
     'get_results_of_variables',
 ]
@@ -87,28 +88,29 @@ def set_simulation_method_arg(method_props, argument_change, model, model_method
     if enum:
         parsed_value = enum[value.lower()].value
 
-    if parameter.get('alg_arg', None) == 'reaction_list':
-        reaction_ids = set(reaction.id for reaction in model.reactions)
-        parsed_value = set(parsed_value)
-        invalid_values = parsed_value.difference(reaction_ids)
-        if invalid_values:
-            msg = (
-                'Some of the values of {} ({}) of {} ({}) are not SBML ids of reactions:\n  - {}\n\n'
-                'The values of {} should be drawn from the following list of the SMBL ids of the reactions of the model:\n  - {}'
-            ).format(
-                parameter['name'], parameter_kisao_id,
-                method_props['name'], method_props['kisao_id'],
-                '\n  - '.join(sorted('`' + value + '`' for value in invalid_values)),
-                parameter['name'],
-                '\n  - '.join(sorted('`' + reaction.id + '`' for reaction in model.reactions)),
-            )
-            raise ValueError(msg)
-        parsed_value = sorted(parsed_value)
-
     if 'alg_arg' in parameter:
         model_method_kw_args[parameter['alg_arg']] = parsed_value
     else:
         setattr(model, parameter['model_arg'], parsed_value)
+
+
+def apply_variables_to_simulation_method_args(target_x_paths_ids, method_props, variables, model_method_kw_args):
+    """ Encode the desired output variables into arguments to simulation methods
+
+    Args:
+        target_x_paths_ids (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
+            SBML id of the corresponding model object
+        method_props (:obj:`dict`): properties of the simulation method
+        variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables that should be recorded
+        model_method_kw_args (:obj:`dict`): keyword arguments for the simulation method
+            for the model
+    """
+    if method_props['kisao_id'] == 'KISAO_0000526':
+        reaction_list = set()
+        for variable in variables:
+            reaction_id = target_x_paths_ids[variable.target]
+            reaction_list.add(reaction_id[2:] if reaction_id.startswith('R_') else reaction_id)
+        model_method_kw_args['reaction_list'] = sorted(reaction_list)
 
 
 def validate_variables(method, variables):
