@@ -1,4 +1,4 @@
-biosimulators_utils >= 0.1.27
+biosimulators_utils >= 0.1.30
 cobra
 lxml
 numpy

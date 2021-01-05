@@ -14,7 +14,7 @@
 # Base OS
 FROM python:3.7.9-slim-buster
 
-ARG VERSION="0.1.1"
+ARG VERSION="0.1.2"
 ARG SIMULATOR_VERSION=0.20.0
 
 # metadata
@@ -45,6 +45,7 @@ LABEL \
 COPY . /root/Biosimulators_COBRApy
 RUN pip install /root/Biosimulators_COBRApy \
     && mkdir -p /.cache/cobrapy \
+    && chown ugo+rw /.cache/cobrapy \
     && rm -rf /root/Biosimulators_COBRApy    
 RUN pip install cobra==${SIMULATOR_VERSION}
 ENV MPLBACKEND=PDF
