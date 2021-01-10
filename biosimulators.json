@@ -96,7 +96,9 @@
         "namespace": "EDAM",
         "id": "format_2585",
         "version": null,
-        "supportedFeatures": []
+        "supportedFeatures": [
+          "fbc"
+        ]
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
@@ -192,7 +194,9 @@
         "namespace": "EDAM",
         "id": "format_2585",
         "version": null,
-        "supportedFeatures": []
+        "supportedFeatures": [
+          "fbc"
+        ]
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
@@ -338,7 +342,9 @@
         "namespace": "EDAM",
         "id": "format_2585",
         "version": null,
-        "supportedFeatures": []
+        "supportedFeatures": [
+          "fbc"
+        ]
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
@@ -447,7 +453,9 @@
         "namespace": "EDAM",
         "id": "format_2585",
         "version": null,
-        "supportedFeatures": []
+        "supportedFeatures": [
+          "fbc"
+        ]
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
