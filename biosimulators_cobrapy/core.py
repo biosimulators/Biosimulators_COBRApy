@@ -10,6 +10,7 @@ from .data_model import KISAO_ALGORITHMS_PARAMETERS_MAP
 from .utils import (get_active_objective_sbml_fbc_id, set_simulation_method_arg,
                     apply_variables_to_simulation_method_args, validate_variables, get_results_of_variables)
 from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive
+from biosimulators_utils.log.data_model import CombineArchiveLog, TaskLog  # noqa: F401
 from biosimulators_utils.plot.data_model import PlotFormat  # noqa: F401
 from biosimulators_utils.report.data_model import ReportFormat, DataGeneratorVariableResults  # noqa: F401
 from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, SteadyStateSimulation,  # noqa: F401
@@ -43,31 +44,40 @@ def exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
         plot_formats (:obj:`list` of :obj:`PlotFormat`, optional): report format (e.g., pdf)
         bundle_outputs (:obj:`bool`, optional): if :obj:`True`, bundle outputs into archives for reports and plots
         keep_individual_outputs (:obj:`bool`, optional): if :obj:`True`, keep individual output files
+
+    Returns:
+        :obj:`CombineArchiveLog`: log
     """
     sed_doc_executer = functools.partial(exec_sed_doc, exec_sed_task)
-    exec_sedml_docs_in_archive(sed_doc_executer, archive_filename, out_dir,
-                               apply_xml_model_changes=True,
-                               report_formats=report_formats,
-                               plot_formats=plot_formats,
-                               bundle_outputs=bundle_outputs,
-                               keep_individual_outputs=keep_individual_outputs)
+    return exec_sedml_docs_in_archive(sed_doc_executer, archive_filename, out_dir,
+                                      apply_xml_model_changes=True,
+                                      report_formats=report_formats,
+                                      plot_formats=plot_formats,
+                                      bundle_outputs=bundle_outputs,
+                                      keep_individual_outputs=keep_individual_outputs)
 
 
-def exec_sed_task(task, variables):
+def exec_sed_task(task, variables, log=None):
     ''' Execute a task and save its results
 
     Args:
        task (:obj:`Task`): task
        variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables that should be recorded
+       log (:obj:`TaskLog`, optional): log for the task
 
     Returns:
-        :obj:`DataGeneratorVariableResults`: results of variables
+        :obj:`tuple`:
+
+            :obj:`DataGeneratorVariableResults`: results of variables
+            :obj:`TaskLog`: log
 
     Raises:
         :obj:`ValueError`: if the task or an aspect of the task is not valid, or the requested output variables
             could not be recorded
         :obj:`NotImplementedError`: if the task is not of a supported type or involves an unsuported feature
     '''
+    log = log or TaskLog()
+
     validation.validate_task(task)
     validation.validate_model_language(task.model.language, ModelLanguage.SBML)
     validation.validate_model_change_types(task.model.changes, ())
@@ -120,6 +130,16 @@ def exec_sed_task(task, variables):
     if method_props['kisao_id'] in ['KISAO_0000527', 'KISAO_0000528']:
         solution.objective_value = model.optimize().objective_value
 
-    # Save a report of the results of the simulation
-    return get_results_of_variables(target_x_paths_ids, target_x_paths_fbc_ids,
-                                    active_objective_fbc_id, method_props, variables, solution)
+    # Get the results of each variable
+    variable_results = get_results_of_variables(target_x_paths_ids, target_x_paths_fbc_ids,
+                                                active_objective_fbc_id, method_props, variables, solution)
+
+    # log action
+    log.algorithm = algorithm_kisao_id
+    log.simulator_details = {
+        'method': method_props['method'].__module__ + '.' + method_props['method'].__name__,
+        'arguments': method_kw_args,
+    }
+
+    # Return the results of each variable and log
+    return variable_results, log

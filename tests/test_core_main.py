@@ -9,6 +9,7 @@
 from biosimulators_cobrapy import __main__
 from biosimulators_cobrapy import core
 from biosimulators_utils.combine import data_model as combine_data_model
+from biosimulators_utils.combine.exceptions import CombineArchiveExecutionError
 from biosimulators_utils.combine.io import CombineArchiveWriter
 from biosimulators_utils.report import data_model as report_data_model
 from biosimulators_utils.report.io import ReportReader
@@ -85,7 +86,7 @@ class CliTestCase(unittest.TestCase):
         ]
 
         # FBA
-        variable_results = core.exec_sed_task(task, variables)
+        variable_results, _ = core.exec_sed_task(task, variables)
 
         expected_results = {
             'ACONTa_flux': 6.007250,
@@ -105,7 +106,7 @@ class CliTestCase(unittest.TestCase):
 
         # pFBA
         task.simulation.algorithm.kisao_id = 'KISAO_0000528'
-        variable_results = core.exec_sed_task(task, variables)
+        variable_results, _ = core.exec_sed_task(task, variables)
 
         expected_results = {
             'ACONTa_flux': 6.007250e+00,
@@ -125,7 +126,7 @@ class CliTestCase(unittest.TestCase):
 
         # pFBA
         task.simulation.algorithm.kisao_id = 'KISAO_0000527'
-        variable_results = core.exec_sed_task(task, variables)
+        variable_results, _ = core.exec_sed_task(task, variables)
 
         expected_results = {
             'ACONTa_flux': 6.007250e+00,
@@ -159,7 +160,7 @@ class CliTestCase(unittest.TestCase):
                 id='SUCDi_max_flux',
                 target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_SUCDi"]/@maxFlux'),
         ]
-        variable_results = core.exec_sed_task(task, variables)
+        variable_results, _ = core.exec_sed_task(task, variables)
 
         expected_results = {
             'ACONTa_min_flux': 6.007250e+00,
@@ -176,7 +177,7 @@ class CliTestCase(unittest.TestCase):
     def test_exec_sed_task_error_handling(self):
         # unsupported algorithm
         _, archive_filename = self._build_combine_archive(algorithm=sedml_data_model.Algorithm(kisao_id='KISAO_0000001'))
-        with self.assertRaisesRegex(NotImplementedError, 'not supported. Algorithm must'):
+        with self.assertRaisesRegex(CombineArchiveExecutionError, 'not supported. Algorithm must'):
             core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
 
         # no solution
@@ -187,7 +188,7 @@ class CliTestCase(unittest.TestCase):
             ),
         ]
         _, archive_filename = self._build_combine_archive(model_changes=model_changes)
-        with self.assertRaisesRegex(cobra.exceptions.OptimizationError, 'could not be found'):
+        with self.assertRaisesRegex(CombineArchiveExecutionError, 'could not be found'):
             core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
 
     def test_exec_sedml_docs_in_combine_archive_successfully(self):
