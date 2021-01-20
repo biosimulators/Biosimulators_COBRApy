@@ -12,9 +12,9 @@ from .utils import (get_active_objective_sbml_fbc_id, set_simulation_method_arg,
 from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive
 from biosimulators_utils.log.data_model import CombineArchiveLog, TaskLog  # noqa: F401
 from biosimulators_utils.plot.data_model import PlotFormat  # noqa: F401
-from biosimulators_utils.report.data_model import ReportFormat, DataGeneratorVariableResults  # noqa: F401
+from biosimulators_utils.report.data_model import ReportFormat, VariableResults  # noqa: F401
 from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, SteadyStateSimulation,  # noqa: F401
-                                                  DataGeneratorVariable)
+                                                  Variable)
 from biosimulators_utils.sedml import validation
 from biosimulators_utils.sedml.exec import exec_sed_doc
 import cobra.io
@@ -62,13 +62,13 @@ def exec_sed_task(task, variables, log=None):
 
     Args:
        task (:obj:`Task`): task
-       variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables that should be recorded
+       variables (:obj:`list` of :obj:`Variable`): variables that should be recorded
        log (:obj:`TaskLog`, optional): log for the task
 
     Returns:
         :obj:`tuple`:
 
-            :obj:`DataGeneratorVariableResults`: results of variables
+            :obj:`VariableResults`: results of variables
             :obj:`TaskLog`: log
 
     Raises:
@@ -81,12 +81,13 @@ def exec_sed_task(task, variables, log=None):
     validation.validate_task(task)
     validation.validate_model_language(task.model.language, ModelLanguage.SBML)
     validation.validate_model_change_types(task.model.changes, ())
+    validation.validate_model_changes(task.model.changes)
     validation.validate_simulation_type(task.simulation, (SteadyStateSimulation, ))
     validation.validate_uniform_time_course_simulation(task.simulation)
     validation.validate_data_generator_variables(variables)
-    target_x_paths_ids = validation.validate_data_generator_variable_xpaths(
+    target_x_paths_ids = validation.validate_variable_xpaths(
         variables, task.model.source, attr='id')
-    target_x_paths_fbc_ids = validation.validate_data_generator_variable_xpaths(
+    target_x_paths_fbc_ids = validation.validate_variable_xpaths(
         variables, task.model.source, attr={'namespace': 'fbc', 'name': 'id'})
 
     # Read the model

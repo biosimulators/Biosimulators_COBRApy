@@ -6,8 +6,8 @@
 :License: MIT
 """
 
-from biosimulators_utils.report.data_model import DataGeneratorVariableResults
-from biosimulators_utils.sedml.data_model import DataGeneratorVariable  # noqa: F401
+from biosimulators_utils.report.data_model import VariableResults
+from biosimulators_utils.sedml.data_model import Variable  # noqa: F401
 from biosimulators_utils.utils.core import validate_str_value, parse_value
 import cobra  # noqa: F401
 import libsbml
@@ -101,7 +101,7 @@ def apply_variables_to_simulation_method_args(target_x_paths_ids, method_props, 
         target_x_paths_ids (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
             SBML id of the corresponding model object
         method_props (:obj:`dict`): properties of the simulation method
-        variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables that should be recorded
+        variables (:obj:`list` of :obj:`Variable`): variables that should be recorded
         model_method_kw_args (:obj:`dict`): keyword arguments for the simulation method
             for the model
     """
@@ -118,7 +118,7 @@ def validate_variables(method, variables):
 
     Args:
         method (:obj:`dict`): properties of desired simulation method
-        variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables that should be recorded
+        variables (:obj:`list` of :obj:`Variable`): variables that should be recorded
     """
     invalid_symbols = set()
     invalid_targets = set()
@@ -164,13 +164,13 @@ def get_results_of_variables(target_x_paths_ids, target_x_paths_fbc_ids, active_
             SBML-FBC id of the corresponding model object
         active_objective_fbc_id (:obj:`str`): SBML-FBC id of the active objective
         method (:obj:`dict`): properties of desired simulation method
-        variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables that should be recorded
+        variables (:obj:`list` of :obj:`Variable`): variables that should be recorded
         solution (:obj:`cobra.core.solution.Solution`): solution of method
 
     Returns:
-        :obj:`DataGeneratorVariableResults`: the results of desired variables
+        :obj:`VariableResults`: the results of desired variables
     """
-    variable_results = DataGeneratorVariableResults()
+    variable_results = VariableResults()
 
     for variable in variables:
         target = variable.target

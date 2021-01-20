@@ -59,30 +59,38 @@ class CliTestCase(unittest.TestCase):
         )
 
         variables = [
-            sedml_data_model.DataGeneratorVariable(
+            sedml_data_model.Variable(
                 id='ACONTa_flux',
-                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACONTa']/@flux"),
-            sedml_data_model.DataGeneratorVariable(
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACONTa']/@flux",
+                task=task),
+            sedml_data_model.Variable(
                 id='TALA_flux',
-                target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_TALA"]'),
-            sedml_data_model.DataGeneratorVariable(
+                target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_TALA"]',
+                task=task),
+            sedml_data_model.Variable(
                 id='ACALD_costs',
-                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost"),
-            sedml_data_model.DataGeneratorVariable(
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost",
+                task=task),
+            sedml_data_model.Variable(
                 id='THD2_cost',
-                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_THD2']/@reducedCost"),
-            sedml_data_model.DataGeneratorVariable(
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_THD2']/@reducedCost",
+                task=task),
+            sedml_data_model.Variable(
                 id='13dpg_c_price',
-                target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice"),
-            sedml_data_model.DataGeneratorVariable(
+                target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice",
+                task=task),
+            sedml_data_model.Variable(
                 id='succ_c_price',
-                target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_succ_c']"),
-            sedml_data_model.DataGeneratorVariable(
+                target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_succ_c']",
+                task=task),
+            sedml_data_model.Variable(
                 id='active_objective',
-                target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value"),
-            sedml_data_model.DataGeneratorVariable(
+                target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value",
+                task=task),
+            sedml_data_model.Variable(
                 id='inactive_objective',
-                target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='inactive_obj']/@value"),
+                target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='inactive_obj']/@value",
+                task=task),
         ]
 
         # FBA
@@ -147,18 +155,22 @@ class CliTestCase(unittest.TestCase):
         # FVA
         task.simulation.algorithm.kisao_id = 'KISAO_0000526'
         variables = [
-            sedml_data_model.DataGeneratorVariable(
+            sedml_data_model.Variable(
                 id='ACONTa_min_flux',
-                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACONTa']/@minFlux"),
-            sedml_data_model.DataGeneratorVariable(
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACONTa']/@minFlux",
+                task=task),
+            sedml_data_model.Variable(
                 id='ACONTa_max_flux',
-                target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_ACONTa"]/@maxFlux'),
-            sedml_data_model.DataGeneratorVariable(
+                target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_ACONTa"]/@maxFlux',
+                task=task),
+            sedml_data_model.Variable(
                 id='SUCDi_min_flux',
-                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_SUCDi']/@minFlux"),
-            sedml_data_model.DataGeneratorVariable(
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_SUCDi']/@minFlux",
+                task=task),
+            sedml_data_model.Variable(
                 id='SUCDi_max_flux',
-                target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_SUCDi"]/@maxFlux'),
+                target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_SUCDi"]/@maxFlux',
+                task=task),
         ]
         variable_results, _ = core.exec_sed_task(task, variables)
 
@@ -289,11 +301,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_ACONTa_flux',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_ACONTa_flux',
                         target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='ACONTa']/@flux",
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_ACONTa_flux',
@@ -301,11 +312,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_TALA_flux',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_TALA_flux',
                         target='/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id="R_TALA"]',
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_TALA_flux',
@@ -313,11 +323,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_ACALD_reduced_cost',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_ACALD_reduced_cost',
                         target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost",
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_ACALD_reduced_cost',
@@ -325,11 +334,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_THD2_reduced_cost',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_THD2_reduced_cost',
                         target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_THD2']/@reducedCost",
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_THD2_reduced_cost',
@@ -337,11 +345,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_13dpg_c_shadow_price',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_13dpg_c_shadow_price',
                         target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='13dpg_c']/@shadowPrice",
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_13dpg_c_shadow_price',
@@ -349,11 +356,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_succ_c_shadow_price',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_succ_c_shadow_price',
                         target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_succ_c']/@shadowPrice",
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_succ_c_shadow_price',
@@ -377,11 +383,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_ACONTa_min_flux',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_ACONTa_min_flux',
                         target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='ACONTa']/@minFlux",
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_ACONTa_min_flux',
@@ -389,11 +394,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_ACONTa_max_flux',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_ACONTa_max_flux',
                         target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='ACONTa']/@maxFlux",
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_ACONTa_max_flux',
@@ -401,11 +405,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_SUCDi_min_flux',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_SUCDi_min_flux',
                         target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_SUCDi']/@minFlux",
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_SUCDi_min_flux',
@@ -413,11 +416,10 @@ class CliTestCase(unittest.TestCase):
             doc.data_generators.append(sedml_data_model.DataGenerator(
                 id='data_gen_SUCDi_max_flux',
                 variables=[
-                    sedml_data_model.DataGeneratorVariable(
+                    sedml_data_model.Variable(
                         id='var_SUCDi_max_flux',
                         target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_SUCDi']/@maxFlux",
                         task=doc.tasks[0],
-                        model=doc.models[0],
                     ),
                 ],
                 math='var_SUCDi_max_flux',
