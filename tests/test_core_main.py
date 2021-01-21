@@ -441,53 +441,54 @@ class CliTestCase(unittest.TestCase):
     def _assert_combine_archive_outputs(self, doc, out_dir):
         self.assertEqual(set(['reports.h5']).difference(set(os.listdir(out_dir))), set())
 
-        report = ReportReader().run(out_dir, 'sim_1.sedml/report_1', format=report_data_model.ReportFormat.h5)
+        report = doc.outputs[0]
+        report_results = ReportReader().run(report, out_dir, 'sim_1.sedml/report_1', format=report_data_model.ReportFormat.h5)
 
-        self.assertEqual(sorted(report.index), sorted([d.label for d in doc.outputs[0].data_sets]))
+        self.assertEqual(sorted(report_results.keys()), sorted([d.id for d in doc.outputs[0].data_sets]))
 
         sim = doc.tasks[0].simulation
-        self.assertEqual(report.shape, (len(doc.outputs[0].data_sets), 1))
+        self.assertEqual(len(report_results[report.data_sets[0].id]), 1)
 
         if sim.algorithm.kisao_id == 'KISAO_0000437':
             expected_results = {
-                'ACONTa_flux': 6.007250,
-                'TALA_flux': 1.496984,
-                'ACALD_reduced_cost': 6.938894e-18,
-                'THD2_reduced_cost': -2.546243e-03,
-                '13dpg_c_shadow_price': -0.047105,
-                'succ_c_shadow_price': -0.050925,
+                'data_set_ACONTa_flux': 6.007250,
+                'data_set_TALA_flux': 1.496984,
+                'data_set_ACALD_reduced_cost': 6.938894e-18,
+                'data_set_THD2_reduced_cost': -2.546243e-03,
+                'data_set_13dpg_c_shadow_price': -0.047105,
+                'data_set_succ_c_shadow_price': -0.050925,
             }
 
         elif sim.algorithm.kisao_id == 'KISAO_0000528':
             expected_results = {
-                'ACONTa_flux': 6.007250e+00,
-                'TALA_flux': 1.496984e+00,
-                'ACALD_reduced_cost': -2.000000,
-                'THD2_reduced_cost': 3.822222,
-                '13dpg_c_shadow_price': 18.911111,
-                'succ_c_shadow_price': 9.844444,
+                'data_set_ACONTa_flux': 6.007250e+00,
+                'data_set_TALA_flux': 1.496984e+00,
+                'data_set_ACALD_reduced_cost': -2.000000,
+                'data_set_THD2_reduced_cost': 3.822222,
+                'data_set_13dpg_c_shadow_price': 18.911111,
+                'data_set_succ_c_shadow_price': 9.844444,
             }
 
         elif sim.algorithm.kisao_id == 'KISAO_0000527':
             expected_results = {
-                'ACONTa_flux': 6.007250e+00,
-                'TALA_flux': 1.496984e+00,
-                'ACALD_reduced_cost': numpy.nan,
-                'THD2_reduced_cost': numpy.nan,
-                '13dpg_c_shadow_price': numpy.nan,
-                'succ_c_shadow_price': numpy.nan,
+                'data_set_ACONTa_flux': 6.007250e+00,
+                'data_set_TALA_flux': 1.496984e+00,
+                'data_set_ACALD_reduced_cost': numpy.nan,
+                'data_set_THD2_reduced_cost': numpy.nan,
+                'data_set_13dpg_c_shadow_price': numpy.nan,
+                'data_set_succ_c_shadow_price': numpy.nan,
             }
 
         elif sim.algorithm.kisao_id == 'KISAO_0000526':
             expected_results = {
-                'ACONTa_min_flux': 6.007250e+00,
-                'ACONTa_max_flux': 6.007250e+00,
-                'SUCDi_min_flux': 5.064376e+00,
-                'SUCDi_max_flux': 1e3,
+                'data_set_ACONTa_min_flux': 6.007250e+00,
+                'data_set_ACONTa_max_flux': 6.007250e+00,
+                'data_set_SUCDi_min_flux': 5.064376e+00,
+                'data_set_SUCDi_max_flux': 1e3,
             }
 
-        for data_set_label, expected_result in expected_results.items():
-            numpy.testing.assert_allclose(report.loc[data_set_label, :], numpy.array(expected_result), rtol=1e-4, atol=1e-8)
+        for data_set_id, expected_result in expected_results.items():
+            numpy.testing.assert_allclose(report_results[data_set_id], numpy.array(expected_result), rtol=1e-4, atol=1e-8)
 
     def test_exec_sedml_docs_in_combine_archive_with_all_algorithms(self):
         for alg in gen_algorithms_from_specs(os.path.join(os.path.dirname(__file__), '..', 'biosimulators.json')).values():
