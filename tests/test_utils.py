@@ -88,12 +88,15 @@ class UtilsTestCase(unittest.TestCase):
             set_simulation_method_arg(method_props, argument_change, model, method_kw_args)
 
     def test_apply_variables_to_simulation_method_args(self):
+        ns = {
+            'sbml': 'http://www.sbml.org/sbml/level3/version1/core',
+        }
         method_props = KISAO_ALGORITHMS_PARAMETERS_MAP['KISAO_0000526']
         variables = [
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_A']/@minFlux"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_A']/@maxFlux"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_B']/@minFlux"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_C']/@maxFlux"),
+            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_A']/@minFlux", target_namespaces=ns),
+            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_A']/@maxFlux", target_namespaces=ns),
+            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_B']/@minFlux", target_namespaces=ns),
+            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_C']/@maxFlux", target_namespaces=ns),
         ]
         target_x_paths_ids = {
             variables[0].target: 'R_A',
@@ -116,24 +119,29 @@ class UtilsTestCase(unittest.TestCase):
         self.assertEqual(module_method_args, expected_module_method_args)
 
     def test_validate_variables(self):
+        ns = {
+            'sbml': 'http://www.sbml.org/sbml/level3/version1/core',
+            'fbc': 'http://www.sbml.org/sbml/level3/version1/fbc/version2',
+        }
         method_props = KISAO_ALGORITHMS_PARAMETERS_MAP['KISAO_0000437']
         variables = [
-            Variable(target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value"),
-            Variable(target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:type='maximize']/@value"),
-            Variable(target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']"),
-            Variable(target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"),
-            Variable(target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@flux"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@metaid='R_ACALD']/@flux"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@metaid='M_13dpg_c']/@shadowPrice"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species/@shadowPrice"),
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:type='maximize']/@value"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@flux"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@metaid='R_ACALD']/@flux"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice"),
+            Variable(target_namespaces=ns,
+                     target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@metaid='M_13dpg_c']/@shadowPrice"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species/@shadowPrice"),
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"),
         ]
         validate_variables(method_props, variables)
 
@@ -144,24 +152,43 @@ class UtilsTestCase(unittest.TestCase):
             validate_variables(method_props, variables)
 
         variables = [
-            Variable(target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='c']")
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='c']")
         ]
         with self.assertRaises(ValueError):
             validate_variables(method_props, variables)
 
     def test_get_results_of_variables(self):
+        ns = {
+            'sbml': 'http://www.sbml.org/sbml/level3/version1/core',
+            'fbc': 'http://www.sbml.org/sbml/level3/version1/fbc/version2',
+        }
         method_props = KISAO_ALGORITHMS_PARAMETERS_MAP['KISAO_0000437']
         variables = [
-            Variable(id='obj',
-                                  target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value"),
-            Variable(id='inactive_obj',
-                                  target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='inactive_obj']/@value"),
-            Variable(id='R_ACALD_flux',
-                                  target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@flux"),
-            Variable(id='R_ACALD_reduced_cost',
-                                  target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost"),
-            Variable(id='M_13dpg_c_shadow_price',
-                                  target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice"),
+            Variable(
+                id='obj',
+                target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value",
+                target_namespaces=ns,
+            ),
+            Variable(
+                id='inactive_obj',
+                target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='inactive_obj']/@value",
+                target_namespaces=ns,
+            ),
+            Variable(
+                id='R_ACALD_flux',
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@flux",
+                target_namespaces=ns,
+            ),
+            Variable(
+                id='R_ACALD_reduced_cost',
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost",
+                target_namespaces=ns,
+            ),
+            Variable(
+                id='M_13dpg_c_shadow_price',
+                target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice",
+                target_namespaces=ns,
+            ),
         ]
 
         solution = mock.Mock(
