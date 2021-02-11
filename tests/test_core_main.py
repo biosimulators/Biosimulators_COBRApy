@@ -41,7 +41,8 @@ class CliTestCase(unittest.TestCase):
         self.dirname = tempfile.mkdtemp()
 
     def tearDown(self):
-        shutil.rmtree(self.dirname)
+        #shutil.rmtree(self.dirname)
+        print(self.dirname)
 
     def test_exec_sed_task_successfully(self):
         task = sedml_data_model.Task(
@@ -262,6 +263,7 @@ class CliTestCase(unittest.TestCase):
                                         'archive.omex' if algorithm is None else 'archive-{}.omex'.format(algorithm.kisao_id))
         CombineArchiveWriter().run(archive, archive_dirname, archive_filename)
 
+        print(archive_filename)
         return (doc, archive_filename)
 
     def _build_sed_doc(self, model_changes=None, algorithm=None):

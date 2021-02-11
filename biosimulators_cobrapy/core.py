@@ -17,6 +17,8 @@ from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, SteadySta
                                                   Variable)
 from biosimulators_utils.sedml import validation
 from biosimulators_utils.sedml.exec import exec_sed_doc
+from biosimulators_utils.xml.utils import get_namespaces_for_xml_doc
+from lxml import etree
 import cobra.io
 import functools
 
@@ -87,8 +89,18 @@ def exec_sed_task(task, variables, log=None):
     validation.validate_data_generator_variables(variables)
     target_x_paths_ids = validation.validate_variable_xpaths(
         variables, task.model.source, attr='id')
+    namespaces = get_namespaces_for_xml_doc(etree.parse(task.model.source))
     target_x_paths_fbc_ids = validation.validate_variable_xpaths(
-        variables, task.model.source, attr={'namespace': 'fbc', 'name': 'id'})
+        variables,
+        task.model.source,
+        attr={
+            'namespace': {
+                'prefix': 'fbc',
+                'uri': namespaces['fbc'],
+            },
+            'name': 'id',
+        }
+    )
 
     # Read the model
     model = cobra.io.read_sbml_model(task.model.source)
