@@ -134,7 +134,7 @@
         "name": "solver",
         "type": "string",
         "value": "GLPK",
-        "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
+        "recommendedRange": ["CPLEX", "GLPK", "Gurobi", "GLPK_exact"],
         "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
       }],
       "dependentDimensions": [],
