@@ -1,14 +1,16 @@
 {
   "id": "cobrapy",
   "name": "COBRApy",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "COBRApy is a Python package that provides a simple interface to metabolic constraint-based reconstruction and analysis.",
-  "urls": [{
-    "type": "Home page",
-    "url": "https://opencobra.github.io/cobrapy/"
-  }],
+  "urls": [
+    {
+      "type": "Home page",
+      "url": "https://opencobra.github.io/cobrapy/"
+    }
+  ],
   "image": {
-    "url": "ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy:0.20.0",
+    "url": "ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy:0.21.0",
     "format": {
       "namespace": "EDAM",
       "id": "format_3973",
@@ -17,7 +19,8 @@
     },
     "operatingSystemType": "Linux"
   },
-  "authors": [{
+  "authors": [
+    {
       "firstName": "Ali",
       "lastName": "Ibrahim",
       "identifiers": []
@@ -42,7 +45,8 @@
     }
   ],
   "references": {
-    "identifiers": [{
+    "identifiers": [
+      {
         "namespace": "pypi",
         "id": "cobra",
         "url": "https://pypi.org/project/cobra/"
@@ -63,82 +67,111 @@
         "url": "https://bio.tools/cobrapy"
       }
     ],
-    "citations": [{
-      "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
-      "authors": "Ali Ebrahim, Joshua A. Lerman, Bernhard Ø. Palsson & Daniel R. Hyduke",
-      "journal": "BMC Systems Biology",
-      "volume": 7,
-      "pages": "74",
-      "year": 2013,
-      "identifiers": [{
-        "namespace": "doi",
-        "id": "10.1186/1752-0509-7-74",
-        "url": "https://doi.org/10.1186/1752-0509-7-74"
-      }]
-    }]
+    "citations": [
+      {
+        "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
+        "authors": "Ali Ebrahim, Joshua A. Lerman, Bernhard Ø. Palsson & Daniel R. Hyduke",
+        "journal": "BMC Systems Biology",
+        "volume": 7,
+        "pages": "74",
+        "year": 2013,
+        "identifiers": [
+          {
+            "namespace": "doi",
+            "id": "10.1186/1752-0509-7-74",
+            "url": "https://doi.org/10.1186/1752-0509-7-74"
+          }
+        ]
+      }
+    ]
   },
   "license": {
     "namespace": "SPDX",
     "id": "LGPL-2.0-or-later"
   },
-  "algorithms": [{
+  "algorithms": [
+    {
       "id": "fba",
       "name": "flux balance analysis",
       "kisaoId": {
         "namespace": "KISAO",
         "id": "KISAO_0000437"
       },
-      "modelingFrameworks": [{
-        "namespace": "SBO",
-        "id": "SBO_0000624"
-      }],
-      "modelFormats": [{
-        "namespace": "EDAM",
-        "id": "format_2585",
-        "version": null,
-        "supportedFeatures": [
-          "fbc"
-        ]
-      }],
-      "simulationFormats": [{
-        "namespace": "EDAM",
-        "id": "format_3685",
-        "version": "L1V3",
-        "supportedFeatures": []
-      }],
-      "archiveFormats": [{
-        "namespace": "EDAM",
-        "id": "format_3686",
-        "version": null,
-        "supportedFeatures": []
-      }],
-      "citations": [{
-        "title": "What is flux balance analysis?",
-        "authors": "Jeffrey D. Orth, Ines Thiele & Bernhard Ø. Palsson",
-        "journal": "Nature Biotechnology",
-        "volume": 28,
-        "issue": 3,
-        "pages": "245-248",
-        "year": 2010,
-        "identifiers": [{
-          "namespace": "doi",
-          "id": "10.1038/nbt.1614",
-          "url": "https://doi.org/10.1038/nbt.1614"
-        }]
-      }],
-      "parameters": [{
-        "kisaoId": {
-          "namespace": "KISAO",
-          "id": "KISAO_0000553"
-        },
-        "name": "solver",
-        "type": "string",
-        "value": "GLPK",
-        "recommendedRange": ["CPLEX", "GLPK", "Gurobi", "GLPK_exact"],
-        "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
-      }],
+      "modelingFrameworks": [
+        {
+          "namespace": "SBO",
+          "id": "SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_2585",
+          "version": null,
+          "supportedFeatures": [
+            "fbc"
+          ]
+        }
+      ],
+      "simulationFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3685",
+          "version": "L1V3",
+          "supportedFeatures": []
+        }
+      ],
+      "archiveFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3686",
+          "version": null,
+          "supportedFeatures": []
+        }
+      ],
+      "citations": [
+        {
+          "title": "What is flux balance analysis?",
+          "authors": "Jeffrey D. Orth, Ines Thiele & Bernhard Ø. Palsson",
+          "journal": "Nature Biotechnology",
+          "volume": 28,
+          "issue": 3,
+          "pages": "245-248",
+          "year": 2010,
+          "identifiers": [
+            {
+              "namespace": "doi",
+              "id": "10.1038/nbt.1614",
+              "url": "https://doi.org/10.1038/nbt.1614"
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000553"
+          },
+          "name": "solver",
+          "type": "string",
+          "value": "GLPK",
+          "recommendedRange": [
+            "CPLEX",
+            "GLPK",
+            "Gurobi",
+            "GLPK_exact"
+          ],
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
+        }
+      ],
       "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [{
+      "dependentVariableTargetPatterns": [
+        {
           "variables": "objective value",
           "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
         },
@@ -155,8 +188,13 @@
           "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice"
         }
       ],
-      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
-      "dependencies": [{
+      "availableSoftwareInterfaceTypes": [
+        "library",
+        "command-line application",
+        "BioSimulators Docker image"
+      ],
+      "dependencies": [
+        {
           "name": "GLPK",
           "version": null,
           "required": false,
@@ -186,45 +224,58 @@
         "namespace": "KISAO",
         "id": "KISAO_0000526"
       },
-      "modelingFrameworks": [{
-        "namespace": "SBO",
-        "id": "SBO_0000624"
-      }],
-      "modelFormats": [{
-        "namespace": "EDAM",
-        "id": "format_2585",
-        "version": null,
-        "supportedFeatures": [
-          "fbc"
-        ]
-      }],
-      "simulationFormats": [{
-        "namespace": "EDAM",
-        "id": "format_3685",
-        "version": "L1V3",
-        "supportedFeatures": []
-      }],
-      "archiveFormats": [{
-        "namespace": "EDAM",
-        "id": "format_3686",
-        "version": null,
-        "supportedFeatures": []
-      }],
-      "citations": [{
-        "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
-        "authors": "Radhakrishnan Mahadevan & Christophe. H. Schilling",
-        "journal": "Metabolic Engineering",
-        "volume": 5,
-        "issue": 4,
-        "pages": "264-276",
-        "year": 2003,
-        "identifiers": [{
-          "namespace": "doi",
-          "id": "10.1016/j.ymben.2003.09.002",
-          "url": "https://doi.org/10.1016/j.ymben.2003.09.002"
-        }]
-      }],
-      "parameters": [{
+      "modelingFrameworks": [
+        {
+          "namespace": "SBO",
+          "id": "SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_2585",
+          "version": null,
+          "supportedFeatures": [
+            "fbc"
+          ]
+        }
+      ],
+      "simulationFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3685",
+          "version": "L1V3",
+          "supportedFeatures": []
+        }
+      ],
+      "archiveFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3686",
+          "version": null,
+          "supportedFeatures": []
+        }
+      ],
+      "citations": [
+        {
+          "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
+          "authors": "Radhakrishnan Mahadevan & Christophe. H. Schilling",
+          "journal": "Metabolic Engineering",
+          "volume": 5,
+          "issue": 4,
+          "pages": "264-276",
+          "year": 2003,
+          "identifiers": [
+            {
+              "namespace": "doi",
+              "id": "10.1016/j.ymben.2003.09.002",
+              "url": "https://doi.org/10.1016/j.ymben.2003.09.002"
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
           "kisaoId": {
             "namespace": "KISAO",
             "id": "KISAO_0000532"
@@ -234,7 +285,11 @@
           "type": "boolean",
           "value": "false",
           "recommendedRange": null,
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         },
         {
           "kisaoId": {
@@ -246,7 +301,11 @@
           "type": "float",
           "value": "1.0",
           "recommendedRange": null,
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         },
         {
           "kisaoId": {
@@ -258,7 +317,11 @@
           "type": "float",
           "value": null,
           "recommendedRange": null,
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         },
         {
           "kisaoId": {
@@ -270,7 +333,11 @@
           "type": "integer",
           "value": null,
           "recommendedRange": null,
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         },
         {
           "kisaoId": {
@@ -280,12 +347,21 @@
           "name": "solver",
           "type": "string",
           "value": "GLPK",
-          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "recommendedRange": [
+            "CPLEX",
+            "GLPK",
+            "Gurobi"
+          ],
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         }
       ],
       "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [{
+      "dependentVariableTargetPatterns": [
+        {
           "variables": "objective value",
           "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
         },
@@ -302,8 +378,13 @@
           "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice"
         }
       ],
-      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
-      "dependencies": [{
+      "availableSoftwareInterfaceTypes": [
+        "library",
+        "command-line application",
+        "BioSimulators Docker image"
+      ],
+      "dependencies": [
+        {
           "name": "GLPK",
           "version": null,
           "required": false,
@@ -333,45 +414,57 @@
         "namespace": "KISAO",
         "id": "KISAO_0000528"
       },
-
-      "modelingFrameworks": [{
-        "namespace": "SBO",
-        "id": "SBO_0000624"
-      }],
-      "modelFormats": [{
-        "namespace": "EDAM",
-        "id": "format_2585",
-        "version": null,
-        "supportedFeatures": [
-          "fbc"
-        ]
-      }],
-      "simulationFormats": [{
-        "namespace": "EDAM",
-        "id": "format_3685",
-        "version": "L1V3",
-        "supportedFeatures": []
-      }],
-      "archiveFormats": [{
-        "namespace": "EDAM",
-        "id": "format_3686",
-        "version": null,
-        "supportedFeatures": []
-      }],
-      "citations": [{
-        "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
-        "authors": "Nathan E. Lewis, Kim K. Hixson, Tom M. Conrad, Joshua A. Lerman, Pep Charusanti, Ashoka D. Polpitiya, Joshua N. Adkins, Gunnar Schramm, Samuel O. Purvine, Daniel Lopez‐Ferrer, Karl K. Weitz, Roland Eils, Rainer König, Richard D. Smith & Bernhard Ø. Palsson",
-        "journal": "Molecular Systems Biology",
-        "volume": 6,
-        "pages": "390",
-        "year": 2010,
-        "identifiers": [{
-          "namespace": "doi",
-          "id": "10.1038/msb.2010.47",
-          "url": "https://doi.org/10.1038/msb.2010.47"
-        }]
-      }],
-      "parameters": [{
+      "modelingFrameworks": [
+        {
+          "namespace": "SBO",
+          "id": "SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_2585",
+          "version": null,
+          "supportedFeatures": [
+            "fbc"
+          ]
+        }
+      ],
+      "simulationFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3685",
+          "version": "L1V3",
+          "supportedFeatures": []
+        }
+      ],
+      "archiveFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3686",
+          "version": null,
+          "supportedFeatures": []
+        }
+      ],
+      "citations": [
+        {
+          "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
+          "authors": "Nathan E. Lewis, Kim K. Hixson, Tom M. Conrad, Joshua A. Lerman, Pep Charusanti, Ashoka D. Polpitiya, Joshua N. Adkins, Gunnar Schramm, Samuel O. Purvine, Daniel Lopez‐Ferrer, Karl K. Weitz, Roland Eils, Rainer König, Richard D. Smith & Bernhard Ø. Palsson",
+          "journal": "Molecular Systems Biology",
+          "volume": 6,
+          "pages": "390",
+          "year": 2010,
+          "identifiers": [
+            {
+              "namespace": "doi",
+              "id": "10.1038/msb.2010.47",
+              "url": "https://doi.org/10.1038/msb.2010.47"
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
           "kisaoId": {
             "namespace": "KISAO",
             "id": "KISAO_0000531"
@@ -381,7 +474,11 @@
           "type": "float",
           "value": "1.0",
           "recommendedRange": null,
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         },
         {
           "kisaoId": {
@@ -391,12 +488,21 @@
           "name": "solver",
           "type": "string",
           "value": "GLPK",
-          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "recommendedRange": [
+            "CPLEX",
+            "GLPK",
+            "Gurobi"
+          ],
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         }
       ],
       "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [{
+      "dependentVariableTargetPatterns": [
+        {
           "variables": "objective value",
           "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
         },
@@ -413,8 +519,13 @@
           "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice"
         }
       ],
-      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
-      "dependencies": [{
+      "availableSoftwareInterfaceTypes": [
+        "library",
+        "command-line application",
+        "BioSimulators Docker image"
+      ],
+      "dependencies": [
+        {
           "name": "GLPK",
           "version": null,
           "required": false,
@@ -444,45 +555,57 @@
         "namespace": "KISAO",
         "id": "KISAO_0000527"
       },
-
-      "modelingFrameworks": [{
-        "namespace": "SBO",
-        "id": "SBO_0000624"
-      }],
-      "modelFormats": [{
-        "namespace": "EDAM",
-        "id": "format_2585",
-        "version": null,
-        "supportedFeatures": [
-          "fbc"
-        ]
-      }],
-      "simulationFormats": [{
-        "namespace": "EDAM",
-        "id": "format_3685",
-        "version": "L1V3",
-        "supportedFeatures": []
-      }],
-      "archiveFormats": [{
-        "namespace": "EDAM",
-        "id": "format_3686",
-        "version": null,
-        "supportedFeatures": []
-      }],
-      "citations": [{
-        "title": "Flux balance analysis: A geometric perspective",
-        "authors": "Kieran Smallbone & Evangelos Simeonidis",
-        "journal": "Journal of Theoretical Biology",
-        "volume": 258,
-        "pages": "311-315",
-        "year": 2009,
-        "identifiers": [{
-          "namespace": "doi",
-          "id": "10.1016/j.jtbi.2009.01.027",
-          "url": "https://doi.org/10.1016/j.jtbi.2009.01.027"
-        }]
-      }],
-      "parameters": [{
+      "modelingFrameworks": [
+        {
+          "namespace": "SBO",
+          "id": "SBO_0000624"
+        }
+      ],
+      "modelFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_2585",
+          "version": null,
+          "supportedFeatures": [
+            "fbc"
+          ]
+        }
+      ],
+      "simulationFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3685",
+          "version": "L1V3",
+          "supportedFeatures": []
+        }
+      ],
+      "archiveFormats": [
+        {
+          "namespace": "EDAM",
+          "id": "format_3686",
+          "version": null,
+          "supportedFeatures": []
+        }
+      ],
+      "citations": [
+        {
+          "title": "Flux balance analysis: A geometric perspective",
+          "authors": "Kieran Smallbone & Evangelos Simeonidis",
+          "journal": "Journal of Theoretical Biology",
+          "volume": 258,
+          "pages": "311-315",
+          "year": 2009,
+          "identifiers": [
+            {
+              "namespace": "doi",
+              "id": "10.1016/j.jtbi.2009.01.027",
+              "url": "https://doi.org/10.1016/j.jtbi.2009.01.027"
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
           "kisaoId": {
             "namespace": "KISAO",
             "id": "KISAO_0000209"
@@ -492,7 +615,11 @@
           "type": "float",
           "value": "1e-6",
           "recommendedRange": null,
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         },
         {
           "kisaoId": {
@@ -504,7 +631,11 @@
           "type": "integer",
           "value": "200",
           "recommendedRange": null,
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         },
         {
           "kisaoId": {
@@ -516,7 +647,11 @@
           "type": "integer",
           "value": "1",
           "recommendedRange": null,
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         },
         {
           "kisaoId": {
@@ -526,12 +661,21 @@
           "name": "solver",
           "type": "string",
           "value": "GLPK",
-          "recommendedRange": ["CPLEX", "GLPK", "Gurobi"],
-          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "recommendedRange": [
+            "CPLEX",
+            "GLPK",
+            "Gurobi"
+          ],
+          "availableSoftwareInterfaceTypes": [
+            "library",
+            "command-line application",
+            "BioSimulators Docker image"
+          ]
         }
       ],
       "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [{
+      "dependentVariableTargetPatterns": [
+        {
           "variables": "minimum reaction fluxes",
           "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@minFlux"
         },
@@ -540,8 +684,13 @@
           "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@maxFlux"
         }
       ],
-      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
-      "dependencies": [{
+      "availableSoftwareInterfaceTypes": [
+        "library",
+        "command-line application",
+        "BioSimulators Docker image"
+      ],
+      "dependencies": [
+        {
           "name": "GLPK",
           "version": null,
           "required": false,
@@ -565,12 +714,20 @@
       ]
     }
   ],
-  "interfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
-  "supportedOperatingSystemTypes": ["platform-independent"],
-  "supportedProgrammingLanguages": [{
-    "namespace": "Linguist",
-    "id": "Python"
-  }],
+  "interfaceTypes": [
+    "library",
+    "command-line application",
+    "BioSimulators Docker image"
+  ],
+  "supportedOperatingSystemTypes": [
+    "platform-independent"
+  ],
+  "supportedProgrammingLanguages": [
+    {
+      "namespace": "Linguist",
+      "id": "Python"
+    }
+  ],
   "funding": [],
   "biosimulators": {
     "specificationVersion": "1.0.0",
