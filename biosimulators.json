@@ -503,20 +503,12 @@
       "dependentDimensions": [],
       "dependentVariableTargetPatterns": [
         {
-          "variables": "objective value",
-          "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
+          "variables": "minimum reaction fluxes",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@minFlux"
         },
         {
-          "variables": "reaction fluxes",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux"
-        },
-        {
-          "variables": "reaction reduced costs",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@reducedCost"
-        },
-        {
-          "variables": "species shadow prices",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice"
+          "variables": "maximum reaction fluxes",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@maxFlux"
         }
       ],
       "availableSoftwareInterfaceTypes": [
@@ -674,14 +666,22 @@
         }
       ],
       "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [
+      "dependentVariableTargetPatterns": [        
         {
-          "variables": "minimum reaction fluxes",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@minFlux"
+          "variables": "objective value",
+          "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
         },
         {
-          "variables": "maximum reaction fluxes",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@maxFlux"
+          "variables": "reaction fluxes",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux"
+        },
+        {
+          "variables": "reaction reduced costs",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@reducedCost"
+        },
+        {
+          "variables": "species shadow prices",
+          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice"
         }
       ],
       "availableSoftwareInterfaceTypes": [
