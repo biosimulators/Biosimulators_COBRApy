@@ -39,7 +39,7 @@ BioSimulators-COBRApy recognizes the following targets for simulation prediction
   - Minimum reaction flux: `sbml:reaction/@minFlux`
   - Maximum reaction flux: `sbml:reaction/@maxFlux`
 
-Please see https://biosimulators.org/standards/simulation-experiments for more information.
+Please see https://biosimulators.org/conventions/simulation-experiments for more information.
 
 ### Local usage
 ```
