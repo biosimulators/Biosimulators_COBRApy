@@ -1,5 +1,5 @@
 # Build image:
-#   docker build --tag ghcr.io/biosimulators_cobrapy/cobrapy:0.20.0 --tag ghcr.io/biosimulators_cobrapy/cobrapy:latest .
+#   docker build --tag ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy:0.20.0 --tag ghcr.io/biosimulators/biosimulators_cobrapy/cobrapy:latest .
 #
 # Run image:
 #   docker run \
