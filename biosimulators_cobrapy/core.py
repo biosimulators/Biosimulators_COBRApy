@@ -17,6 +17,7 @@ from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, SteadySta
                                                   Variable)
 from biosimulators_utils.sedml import validation
 from biosimulators_utils.sedml.exec import exec_sed_doc
+from biosimulators_utils.utils.core import raise_errors_warnings
 from biosimulators_utils.xml.utils import get_namespaces_for_xml_doc
 from lxml import etree
 import cobra.io
@@ -80,13 +81,9 @@ def exec_sed_task(task, variables, log=None):
     '''
     log = log or TaskLog()
 
-    validation.validate_task(task)
     validation.validate_model_language(task.model.language, ModelLanguage.SBML)
     validation.validate_model_change_types(task.model.changes, ())
-    validation.validate_model_changes(task.model.changes)
     validation.validate_simulation_type(task.simulation, (SteadyStateSimulation, ))
-    validation.validate_uniform_time_course_simulation(task.simulation)
-    validation.validate_data_generator_variables(variables)
     target_x_paths_ids = validation.validate_variable_xpaths(
         variables, task.model.source, attr='id')
     namespaces = get_namespaces_for_xml_doc(etree.parse(task.model.source))

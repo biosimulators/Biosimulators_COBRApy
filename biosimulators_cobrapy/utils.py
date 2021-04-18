@@ -142,8 +142,8 @@ def validate_variables(method, variables):
 
     if invalid_targets:
         msg = (
-            "{} ({}) doesn't support variables with the following target XPATHs:\n  - {}\n\n"
-            "The targets of variables should match one of the following patterns of XPATHs:\n  - {}"
+            "{} ({}) doesn't support variables with the following target XPaths:\n  - {}\n\n"
+            "The targets of variables should match one of the following patterns of XPaths:\n  - {}"
         ).format(
             method['name'], method['kisao_id'],
             '\n  - '.join(sorted('`' + target + '`' for target in invalid_targets)),
