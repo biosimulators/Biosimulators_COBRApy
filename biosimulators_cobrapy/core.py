@@ -81,9 +81,15 @@ def exec_sed_task(task, variables, log=None):
     '''
     log = log or TaskLog()
 
-    validation.validate_model_language(task.model.language, ModelLanguage.SBML)
-    validation.validate_model_change_types(task.model.changes, ())
-    validation.validate_simulation_type(task.simulation, (SteadyStateSimulation, ))
+    model = task.model
+    sim = task.simulation
+
+    raise_errors_warnings(validation.validate_model_language(task.model.language, ModelLanguage.SBML),
+                          error_summary='Language for model `{}` is not supported.'.format(model.id))
+    raise_errors_warnings(validation.validate_model_change_types(task.model.changes, ()),
+                          error_summary='Changes for model `{}` are not supported.'.format(model.id))
+    raise_errors_warnings(validation.validate_simulation_type(task.simulation, (SteadyStateSimulation, )),
+                          error_summary='{} `{}` is not supported.'.format(sim.__class__.__name__, sim.id))
     target_x_paths_ids = validation.validate_variable_xpaths(
         variables, task.model.source, attr='id')
     namespaces = get_namespaces_for_xml_doc(etree.parse(task.model.source))
