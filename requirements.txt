@@ -1,5 +1,6 @@
 biosimulators_utils[logging] >= 0.1.54
 cobra
+kisao
 lxml
 numpy
 python_libsbml
