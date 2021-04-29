@@ -18,6 +18,7 @@ from biosimulators_utils.simulator.specs import gen_algorithms_from_specs
 from biosimulators_utils.sedml import data_model as sedml_data_model
 from biosimulators_utils.sedml.io import SedmlSimulationWriter
 from biosimulators_utils.sedml.utils import append_all_nested_children_to_doc
+from kisao.exceptions import AlgorithmCannotBeSubstitutedException
 from unittest import mock
 import cobra
 import datetime
@@ -205,15 +206,19 @@ class CliTestCase(unittest.TestCase):
     def test_exec_sed_task_error_handling(self):
         # unsupported algorithm
         _, archive_filename = self._build_combine_archive(algorithm=sedml_data_model.Algorithm(kisao_id='KISAO_0000001'))
-        with self.assertRaisesRegex(CombineArchiveExecutionError, 'not supported. Algorithm must'):
+        with self.assertRaisesRegex(CombineArchiveExecutionError, 'No KiSAO term has the id'):
+            core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+
+        _, archive_filename = self._build_combine_archive(algorithm=sedml_data_model.Algorithm(kisao_id='KISAO_0000448'))
+        with self.assertRaisesRegex(CombineArchiveExecutionError, 'No algorithm can be substituted'):
             core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
 
         # no solution
         model_changes = [
             sedml_data_model.ModelAttributeChange(
-                target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='cobra_default_ub']/@value",
+                target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='R_EX_glc__D_e_lower_bound']/@value",
                 target_namespaces=self.NAMESPACES,
-                new_value="-10",
+                new_value="10",
             ),
         ]
         _, archive_filename = self._build_combine_archive(model_changes=model_changes)

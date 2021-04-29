@@ -10,6 +10,7 @@ to COBRApy methods and their arguments
 from biosimulators_utils.data_model import ValueType
 from numpy import nan
 import cobra.flux_analysis
+import collections
 import enum
 
 __all__ = ['Solver', 'KISAO_ALGORITHMS_PARAMETERS_MAP']
@@ -22,8 +23,8 @@ class Solver(str, enum.Enum):
     gurobi = 'gurobi'
 
 
-KISAO_ALGORITHMS_PARAMETERS_MAP = {
-    'KISAO_0000437': {
+KISAO_ALGORITHMS_PARAMETERS_MAP = collections.OrderedDict([
+    ('KISAO_0000437', {
         'kisao_id': 'KISAO_0000437',
         'name': 'flux-balance analysis (FBA)',
         'method': lambda model, **args: model.optimize(**args),
@@ -71,8 +72,8 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                         solution.shadow_prices.get(el_id[2:] if el_id.startswith('M_') else el_id),
             },
         ]
-    },
-    'KISAO_0000528': {
+    }),
+    ('KISAO_0000528', {
         'kisao_id': 'KISAO_0000528',
         'name': 'parsimonious flux-balance analysis (pFBA)',
         'method': cobra.flux_analysis.pfba,
@@ -126,8 +127,8 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                         solution.shadow_prices.get(el_id[2:] if el_id.startswith('M_') else el_id),
             },
         ]
-    },
-    'KISAO_0000527': {
+    }),
+    ('KISAO_0000527', {
         'kisao_id': 'KISAO_0000527',
         'name': 'geometric flux-balance analysis (gFBA)',
         'method': cobra.flux_analysis.geometric_fba,
@@ -193,8 +194,8 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                         nan,
             },
         ]
-    },
-    'KISAO_0000526': {
+    }),
+    ('KISAO_0000526', {
         'kisao_id': 'KISAO_0000526',
         'name': 'flux variability analysis (FVA)',
         'method': cobra.flux_analysis.flux_variability_analysis,
@@ -250,5 +251,5 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = {
                         solution.loc[el_id[2:] if el_id.startswith('R_') else el_id, 'maximum'],
             },
         ],
-    },
-}
+    }),
+])

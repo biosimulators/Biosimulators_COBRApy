@@ -17,8 +17,10 @@ from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, SteadySta
                                                   Variable)
 from biosimulators_utils.sedml import validation
 from biosimulators_utils.sedml.exec import exec_sed_doc
+from biosimulators_utils.simulator.utils import get_algorithm_substitution_policy
 from biosimulators_utils.utils.core import raise_errors_warnings
 from biosimulators_utils.xml.utils import get_namespaces_for_xml_doc
+from kisao.utils import get_preferred_substitute_algorithm_by_ids
 from lxml import etree
 import cobra.io
 import functools
@@ -114,20 +116,16 @@ def exec_sed_task(task, variables, log=None):
     # Load the simulation method specified by ``simulation.algorithm``
     simulation = task.simulation
     algorithm_kisao_id = simulation.algorithm.kisao_id
-    method_props = KISAO_ALGORITHMS_PARAMETERS_MAP.get(algorithm_kisao_id, None)
-    if method_props is None:
-        msg = "".join([
-            "Algorithm with KiSAO id `{}` is not supported. ".format(algorithm_kisao_id),
-            "Algorithm must have one of the following KiSAO ids:\n  - {}".format('\n  - '.join(
-                '{}: {}'.format(kisao_id, method_props['name'])
-                for kisao_id, method_props in KISAO_ALGORITHMS_PARAMETERS_MAP.items())),
-        ])
-        raise NotImplementedError(msg)
+    exec_kisao_id = get_preferred_substitute_algorithm_by_ids(
+        simulation.algorithm.kisao_id, KISAO_ALGORITHMS_PARAMETERS_MAP.keys(),
+        substitution_policy=get_algorithm_substitution_policy())
+    method_props = KISAO_ALGORITHMS_PARAMETERS_MAP[exec_kisao_id]
 
     # set up method parameters specified by ``simulation.algorithm.changes``
     method_kw_args = {}
-    for method_arg_change in simulation.algorithm.changes:
-        set_simulation_method_arg(method_props, method_arg_change, model, method_kw_args)
+    if exec_kisao_id == algorithm_kisao_id:
+        for method_arg_change in simulation.algorithm.changes:
+            set_simulation_method_arg(method_props, method_arg_change, model, method_kw_args)
 
     # validate variables
     validate_variables(method_props, variables)
@@ -151,7 +149,7 @@ def exec_sed_task(task, variables, log=None):
                                                 active_objective_fbc_id, method_props, variables, solution)
 
     # log action
-    log.algorithm = algorithm_kisao_id
+    log.algorithm = exec_kisao_id
     log.simulator_details = {
         'method': method_props['method'].__module__ + '.' + method_props['method'].__name__,
         'arguments': method_kw_args,
