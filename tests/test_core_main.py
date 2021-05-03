@@ -219,7 +219,7 @@ class CliTestCase(unittest.TestCase):
                 kisao_id='KISAO_0000437',
                 changes=[sedml_data_model.AlgorithmParameterChange(kisao_id='KISAO_0000553', new_value='GLPK2')]
             ))
-        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'NONE'}):
             with self.assertRaisesRegex(CombineArchiveExecutionError, 'is not a valid'):
                 core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
 
@@ -232,7 +232,7 @@ class CliTestCase(unittest.TestCase):
                 kisao_id='KISAO_0000528',
                 changes=[sedml_data_model.AlgorithmParameterChange(kisao_id='KISAO_0000531', new_value='not a number')]
             ))
-        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'NONE'}):
             with self.assertRaisesRegex(CombineArchiveExecutionError, 'not a valid value'):
                 core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
 
@@ -245,7 +245,7 @@ class CliTestCase(unittest.TestCase):
                 kisao_id='KISAO_0000528',
                 changes=[sedml_data_model.AlgorithmParameterChange(kisao_id='KISAO_9999999', new_value='not a number')]
             ))
-        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'NONE'}):
             with self.assertRaisesRegex(CombineArchiveExecutionError, 'does not support parameter'):
                 core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
 
