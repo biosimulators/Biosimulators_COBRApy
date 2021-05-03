@@ -19,7 +19,9 @@ from biosimulators_utils.sedml import validation
 from biosimulators_utils.sedml.exec import exec_sed_doc
 from biosimulators_utils.simulator.utils import get_algorithm_substitution_policy
 from biosimulators_utils.utils.core import raise_errors_warnings
+from biosimulators_utils.warnings import warn, BioSimulatorsWarning
 from biosimulators_utils.xml.utils import get_namespaces_for_xml_doc
+from kisao.data_model import AlgorithmSubstitutionPolicy, ALGORITHM_SUBSTITUTION_POLICY_LEVELS
 from kisao.utils import get_preferred_substitute_algorithm_by_ids
 from lxml import etree
 import cobra.io
@@ -116,16 +118,38 @@ def exec_sed_task(task, variables, log=None):
     # Load the simulation method specified by ``simulation.algorithm``
     simulation = task.simulation
     algorithm_kisao_id = simulation.algorithm.kisao_id
+    algorithm_substitution_policy = get_algorithm_substitution_policy()
     exec_kisao_id = get_preferred_substitute_algorithm_by_ids(
         simulation.algorithm.kisao_id, KISAO_ALGORITHMS_PARAMETERS_MAP.keys(),
-        substitution_policy=get_algorithm_substitution_policy())
+        substitution_policy=algorithm_substitution_policy)
     method_props = KISAO_ALGORITHMS_PARAMETERS_MAP[exec_kisao_id]
 
     # set up method parameters specified by ``simulation.algorithm.changes``
     method_kw_args = {}
     if exec_kisao_id == algorithm_kisao_id:
         for method_arg_change in simulation.algorithm.changes:
-            set_simulation_method_arg(method_props, method_arg_change, model, method_kw_args)
+            try:
+                set_simulation_method_arg(method_props, method_arg_change, model, method_kw_args)
+            except NotImplementedError as exception:
+                if (
+                    ALGORITHM_SUBSTITUTION_POLICY_LEVELS[algorithm_substitution_policy]
+                    > ALGORITHM_SUBSTITUTION_POLICY_LEVELS[AlgorithmSubstitutionPolicy.SAME_METHOD]
+                ):
+                    warn('Unsuported algorithm parameter `{}` was ignored:\n  {}'.format(
+                        method_arg_change.kisao_id, str(exception).replace('\n', '\n  ')),
+                        BioSimulatorsWarning)
+                else:
+                    raise
+            except ValueError as exception:
+                if (
+                    ALGORITHM_SUBSTITUTION_POLICY_LEVELS[algorithm_substitution_policy]
+                    > ALGORITHM_SUBSTITUTION_POLICY_LEVELS[AlgorithmSubstitutionPolicy.SAME_METHOD]
+                ):
+                    warn('Unsuported value `{}` for algorithm parameter `{}` was ignored:\n  {}'.format(
+                        method_arg_change.new_value, method_arg_change.kisao_id, str(exception).replace('\n', '\n  ')),
+                        BioSimulatorsWarning)
+                else:
+                    raise
 
     # validate variables
     validate_variables(method_props, variables)

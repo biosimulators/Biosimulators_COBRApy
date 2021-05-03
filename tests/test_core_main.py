@@ -18,6 +18,7 @@ from biosimulators_utils.simulator.specs import gen_algorithms_from_specs
 from biosimulators_utils.sedml import data_model as sedml_data_model
 from biosimulators_utils.sedml.io import SedmlSimulationWriter
 from biosimulators_utils.sedml.utils import append_all_nested_children_to_doc
+from biosimulators_utils.warnings import BioSimulatorsWarning
 from kisao.exceptions import AlgorithmCannotBeSubstitutedException
 from unittest import mock
 import cobra
@@ -212,6 +213,45 @@ class CliTestCase(unittest.TestCase):
         _, archive_filename = self._build_combine_archive(algorithm=sedml_data_model.Algorithm(kisao_id='KISAO_0000448'))
         with self.assertRaisesRegex(CombineArchiveExecutionError, 'No algorithm can be substituted'):
             core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+
+        _, archive_filename = self._build_combine_archive(
+            algorithm=sedml_data_model.Algorithm(
+                kisao_id='KISAO_0000437',
+                changes=[sedml_data_model.AlgorithmParameterChange(kisao_id='KISAO_0000553', new_value='GLPK2')]
+            ))
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+            with self.assertRaisesRegex(CombineArchiveExecutionError, 'is not a valid'):
+                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SIMILAR_VARIABLES'}):
+            with self.assertWarnsRegex(BioSimulatorsWarning, 'Unsuported value'):
+                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+
+        _, archive_filename = self._build_combine_archive(
+            algorithm=sedml_data_model.Algorithm(
+                kisao_id='KISAO_0000528',
+                changes=[sedml_data_model.AlgorithmParameterChange(kisao_id='KISAO_0000531', new_value='not a number')]
+            ))
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+            with self.assertRaisesRegex(CombineArchiveExecutionError, 'not a valid value'):
+                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SIMILAR_VARIABLES'}):
+            with self.assertWarnsRegex(BioSimulatorsWarning, 'Unsuported value'):
+                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+
+        _, archive_filename = self._build_combine_archive(
+            algorithm=sedml_data_model.Algorithm(
+                kisao_id='KISAO_0000528',
+                changes=[sedml_data_model.AlgorithmParameterChange(kisao_id='KISAO_9999999', new_value='not a number')]
+            ))
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+            with self.assertRaisesRegex(CombineArchiveExecutionError, 'does not support parameter'):
+                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SIMILAR_VARIABLES'}):
+            with self.assertWarnsRegex(BioSimulatorsWarning, 'does not support parameter'):
+                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
 
         # no solution
         model_changes = [
