@@ -206,9 +206,8 @@ class CliTestCase(unittest.TestCase):
 
     def test_exec_sed_task_error_handling(self):
         # unsupported algorithm
-        _, archive_filename = self._build_combine_archive(algorithm=sedml_data_model.Algorithm(kisao_id='KISAO_0000001'))
-        with self.assertRaisesRegex(CombineArchiveExecutionError, 'No KiSAO term has the id'):
-            core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+        with self.assertRaisesRegex(ValueError, 'invalid KiSAO id'):
+            self._build_combine_archive(algorithm=sedml_data_model.Algorithm(kisao_id='KISAO_0000001'))
 
         _, archive_filename = self._build_combine_archive(algorithm=sedml_data_model.Algorithm(kisao_id='KISAO_0000448'))
         with self.assertRaisesRegex(CombineArchiveExecutionError, 'No algorithm can be substituted'):
@@ -243,7 +242,7 @@ class CliTestCase(unittest.TestCase):
         _, archive_filename = self._build_combine_archive(
             algorithm=sedml_data_model.Algorithm(
                 kisao_id='KISAO_0000528',
-                changes=[sedml_data_model.AlgorithmParameterChange(kisao_id='KISAO_9999999', new_value='not a number')]
+                changes=[sedml_data_model.AlgorithmParameterChange(kisao_id='KISAO_0000211', new_value='not a number')]
             ))
         with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'NONE'}):
             with self.assertRaisesRegex(CombineArchiveExecutionError, 'does not support parameter'):
