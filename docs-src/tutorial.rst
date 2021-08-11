@@ -38,7 +38,7 @@ The command-line program can be used to execute COMBINE/OMEX archives that descr
 
 .. code-block:: text
 
-    usage: cobrapy [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
+    usage: biosimulators-cobrapy [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
     BioSimulators-compliant command-line interface to the COBRApy <https://opencobra.github.io/cobrapy/> simulation program.
 
@@ -57,7 +57,7 @@ For example, the following command could be used to execute the simulations desc
 
 .. code-block:: text
 
-    cobrapy -i ./modeling-study.omex -o ./
+    biosimulators-cobrapy -i ./modeling-study.omex -o ./
 
 
 Docker image with a command-line entrypoint

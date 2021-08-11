@@ -52,5 +52,5 @@ ENV VERBOSE=0 \
     MPLBACKEND=PDF
 
 # Entrypoint
-ENTRYPOINT ["cobrapy"]
+ENTRYPOINT ["biosimulators-cobrapy"]
 CMD []

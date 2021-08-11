@@ -43,7 +43,7 @@ Please see https://biosimulators.org/conventions/simulation-experiments for more
 
 ### Local usage
 ```
-usage: cobrapy [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
+usage: biosimulators-cobrapy [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
 BioSimulators-compliant command-line interface to the COBRApy simulation program <https://opencobra.github.io/cobrapy/>.
 

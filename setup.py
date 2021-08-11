@@ -47,7 +47,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'cobrapy = biosimulators_cobrapy.__main__:main',
+            'biosimulators-cobrapy = biosimulators_cobrapy.__main__:main',
         ],
     },
 )

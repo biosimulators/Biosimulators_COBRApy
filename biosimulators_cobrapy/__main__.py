@@ -11,7 +11,7 @@ from .core import exec_sedml_docs_in_combine_archive
 from biosimulators_utils.simulator.cli import build_cli
 import cobra
 
-App = build_cli('cobrapy', __version__,
+App = build_cli('biosimulators-cobrapy', __version__,
                 'COBRApy', cobra.__version__, 'https://opencobra.github.io/cobrapy',
                 exec_sedml_docs_in_combine_archive)
 
