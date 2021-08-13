@@ -6,13 +6,13 @@
 :License: MIT
 """
 
+from . import get_simulator_version
 from ._version import __version__
 from .core import exec_sedml_docs_in_combine_archive
 from biosimulators_utils.simulator.cli import build_cli
-import cobra
 
 App = build_cli('biosimulators-cobrapy', __version__,
-                'COBRApy', cobra.__version__, 'https://opencobra.github.io/cobrapy',
+                'COBRApy', get_simulator_version(), 'https://opencobra.github.io/cobrapy',
                 exec_sedml_docs_in_combine_archive)
 
 
