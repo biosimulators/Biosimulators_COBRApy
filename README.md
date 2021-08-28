@@ -76,7 +76,7 @@ docker run \
 ```
 
 ## Documentation
-Documentation is available at https://biosimulators.github.io/Biosimulators_COBRApy/.
+Documentation is available at https://docs.biosimulators.org/Biosimulators_COBRApy/.
 
 ## License
 This package is released under the [MIT license](LICENSE).
