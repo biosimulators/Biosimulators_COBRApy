@@ -11,6 +11,7 @@ from biosimulators_cobrapy import core
 from biosimulators_utils.combine import data_model as combine_data_model
 from biosimulators_utils.combine.exceptions import CombineArchiveExecutionError
 from biosimulators_utils.combine.io import CombineArchiveWriter
+from biosimulators_utils.config import get_config
 from biosimulators_utils.report import data_model as report_data_model
 from biosimulators_utils.report.io import ReportReader
 from biosimulators_utils.simulator.exec import exec_sedml_docs_in_archive_with_containerized_simulator
@@ -211,7 +212,9 @@ class CliTestCase(unittest.TestCase):
 
         _, archive_filename = self._build_combine_archive(algorithm=sedml_data_model.Algorithm(kisao_id='KISAO_0000448'))
         with self.assertRaisesRegex(CombineArchiveExecutionError, 'No algorithm can be substituted'):
-            core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+            _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+            if log.exception:
+                raise log.exception
 
         _, archive_filename = self._build_combine_archive(
             algorithm=sedml_data_model.Algorithm(
@@ -220,11 +223,15 @@ class CliTestCase(unittest.TestCase):
             ))
         with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'NONE'}):
             with self.assertRaisesRegex(CombineArchiveExecutionError, 'is not a valid'):
-                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                if log.exception:
+                    raise log.exception
 
         with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SIMILAR_VARIABLES'}):
             with self.assertWarnsRegex(BioSimulatorsWarning, 'Unsuported value'):
-                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                if log.exception:
+                    raise log.exception
 
         _, archive_filename = self._build_combine_archive(
             algorithm=sedml_data_model.Algorithm(
@@ -233,11 +240,15 @@ class CliTestCase(unittest.TestCase):
             ))
         with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'NONE'}):
             with self.assertRaisesRegex(CombineArchiveExecutionError, 'not a valid value'):
-                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                if log.exception:
+                    raise log.exception
 
         with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SIMILAR_VARIABLES'}):
             with self.assertWarnsRegex(BioSimulatorsWarning, 'Unsuported value'):
-                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                if log.exception:
+                    raise log.exception
 
         _, archive_filename = self._build_combine_archive(
             algorithm=sedml_data_model.Algorithm(
@@ -246,11 +257,15 @@ class CliTestCase(unittest.TestCase):
             ))
         with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'NONE'}):
             with self.assertRaisesRegex(CombineArchiveExecutionError, 'does not support parameter'):
-                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                if log.exception:
+                    raise log.exception
 
         with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SIMILAR_VARIABLES'}):
             with self.assertWarnsRegex(BioSimulatorsWarning, 'does not support parameter'):
-                core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+                if log.exception:
+                    raise log.exception
 
         # no solution
         model_changes = [
@@ -262,18 +277,23 @@ class CliTestCase(unittest.TestCase):
         ]
         _, archive_filename = self._build_combine_archive(model_changes=model_changes)
         with self.assertRaisesRegex(CombineArchiveExecutionError, 'could not be found'):
-            core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+            _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, self.dirname)
+            if log.exception:
+                raise log.exception
 
     def test_exec_sedml_docs_in_combine_archive_successfully(self):
         doc, archive_filename = self._build_combine_archive()
 
         out_dir = os.path.join(self.dirname, 'out')
-        core.exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
-                                                report_formats=[
-                                                    report_data_model.ReportFormat.h5,
-                                                ],
-                                                bundle_outputs=True,
-                                                keep_individual_outputs=True)
+
+        config = get_config()
+        config.REPORT_FORMATS = [report_data_model.ReportFormat.h5]
+        config.BUNDLE_OUTPUTS = True
+        config.KEEP_INDIVIDUAL_OUTPUTS = True
+
+        _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, out_dir, config=config)
+        if log.exception:
+            raise log.exception
 
         self._assert_combine_archive_outputs(doc, out_dir)
 
@@ -567,12 +587,15 @@ class CliTestCase(unittest.TestCase):
         for alg in gen_algorithms_from_specs(os.path.join(os.path.dirname(__file__), '..', 'biosimulators.json')).values():
             doc, archive_filename = self._build_combine_archive(algorithm=alg)
             out_dir = os.path.join(self.dirname, alg.kisao_id)
-            core.exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
-                                                    report_formats=[
-                                                        report_data_model.ReportFormat.h5,
-                                                    ],
-                                                    bundle_outputs=True,
-                                                    keep_individual_outputs=True)
+
+            config = get_config()
+            config.REPORT_FORMATS = [report_data_model.ReportFormat.h5]
+            config.BUNDLE_OUTPUTS = True
+            config.KEEP_INDIVIDUAL_OUTPUTS = True
+
+            _, log = core.exec_sedml_docs_in_combine_archive(archive_filename, out_dir, config=config)
+            if log.exception:
+                raise log.exception
 
             self._assert_combine_archive_outputs(doc, out_dir)
 

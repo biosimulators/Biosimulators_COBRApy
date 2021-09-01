@@ -19,6 +19,10 @@
     },
     "operatingSystemType": "Linux"
   },
+  "pythonApi": {
+    "package": "biosimulators-cobrapy",
+    "module": "biosimulators_cobrapy"
+  },
   "authors": [
     {
       "firstName": "Ali",
