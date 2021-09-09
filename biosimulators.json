@@ -21,7 +21,8 @@
   },
   "pythonApi": {
     "package": "biosimulators-cobrapy",
-    "module": "biosimulators_cobrapy"
+    "module": "biosimulators_cobrapy",
+      "installationInstructions": null
   },
   "authors": [
     {
