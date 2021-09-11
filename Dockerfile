@@ -14,7 +14,7 @@
 # Base OS
 FROM python:3.9-slim-buster
 
-ARG VERSION="0.1.15"
+ARG VERSION="0.1.16"
 ARG SIMULATOR_VERSION="0.22.1"
 
 # metadata
@@ -48,7 +48,7 @@ RUN apt-get update -y \
 
 # Copy code for command-line interface into image and install it
 COPY . /root/Biosimulators_COBRApy
-RUN pip install /root/Biosimulators_COBRApy \
+RUN pip install /root/Biosimulators_COBRApy/[gurobi] \
     && mkdir -p /.cache/cobrapy \
     && chmod ugo+rw /.cache/cobrapy \
     && rm -rf /root/Biosimulators_COBRApy

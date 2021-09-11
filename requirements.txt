@@ -1,4 +1,4 @@
-biosimulators_utils[logging] >= 0.1.116
+biosimulators_utils[logging] >= 0.1.119
 cobra
 kisao
 lxml

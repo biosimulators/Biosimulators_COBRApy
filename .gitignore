@@ -7,7 +7,7 @@ build/
 
 # coverage files
 htmlcov/
-.coverage
+.coverage*
 coverage.xml
 
 # compiled documentation

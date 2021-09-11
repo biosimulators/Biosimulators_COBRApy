@@ -205,6 +205,49 @@ class CliTestCase(unittest.TestCase):
         for var_id, result in variable_results.items():
             numpy.testing.assert_allclose(result, numpy.array(expected_results[var_id]), rtol=1e-4, atol=1e-8)
 
+    def test_exec_sed_task_with_changes(self):
+        task = sedml_data_model.Task(
+            model=sedml_data_model.Model(
+                source=os.path.join(os.path.dirname(__file__), 'fixtures', 'textbook.xml'),
+                language=sedml_data_model.ModelLanguage.SBML.value,
+            ),
+            simulation=sedml_data_model.SteadyStateSimulation(
+                algorithm=sedml_data_model.Algorithm(
+                    kisao_id='KISAO_0000437',
+                ),
+            ),
+        )
+
+        variables = [
+            sedml_data_model.Variable(
+                id='active_objective',
+                target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value",
+                target_namespaces=self.NAMESPACES,
+                task=task),
+        ]
+
+        preprocessed_task = core.preprocess_sed_task(task, variables)
+
+        results, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
+        numpy.testing.assert_allclose(results['active_objective'].tolist(), 0.8739215069684301, rtol=1e-4, atol=1e-8)
+
+        task.model.changes.append(sedml_data_model.ModelAttributeChange(
+            target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='R_EX_glc__D_e_lower_bound']/@value",
+            target_namespaces=self.NAMESPACES,
+            new_value=-1,
+        ))
+        results2, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
+        self.assertLess(results2['active_objective'].tolist(), results['active_objective'].tolist())
+
+        task.model.changes[-1].new_value = '-2'
+        results3, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
+        self.assertLess(results3['active_objective'].tolist(), results['active_objective'].tolist())
+        self.assertGreater(results3['active_objective'].tolist(), results2['active_objective'].tolist())
+
+        task.model.source = 'not a file'
+        with self.assertRaises(FileNotFoundError):
+            core.preprocess_sed_task(task, variables)
+
     def test_exec_sed_task_error_handling(self):
         # unsupported algorithm
         with self.assertRaisesRegex(ValueError, 'invalid KiSAO id'):
