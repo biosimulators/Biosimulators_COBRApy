@@ -118,6 +118,40 @@
           ]
         }
       ],
+      "modelChangePatterns": [
+        {
+          "name": "Change component attributes",
+          "types": ["SedAttributeModelChange", "SedComputeAttributeChangeModelChange", "SedSetValueAttributeModelChange"],
+          "target": {
+            "value": "//*/@*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Add components",
+          "types": ["SedAddXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Remove components",
+          "types": ["SedRemoveXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Change components",
+          "types": ["SedChangeXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        }        
+      ],
       "simulationFormats": [
         {
           "namespace": "EDAM",
@@ -126,6 +160,7 @@
           "supportedFeatures": []
         }
       ],
+      "simulationTypes": ["SedSteadyStateSimulation"],
       "archiveFormats": [
         {
           "namespace": "EDAM",
@@ -174,23 +209,23 @@
           ]
         }
       ],
-      "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [
+      "outputDimensions": [],
+      "outputVariablePatterns": [
         {
-          "variables": "objective value",
-          "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
+          "name": "objective value",
+          "target": {"value": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value", "grammar": "XPath"}
         },
         {
-          "variables": "reaction fluxes",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux"
+          "name": "reaction fluxes",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux", "grammar": "XPath"}
         },
         {
-          "variables": "reaction reduced costs",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@reducedCost"
+          "name": "reaction reduced costs",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@reducedCost", "grammar": "XPath"}
         },
         {
-          "variables": "species shadow prices",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice"
+          "name": "species shadow prices",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice", "grammar": "XPath"}
         }
       ],
       "availableSoftwareInterfaceTypes": [
@@ -245,6 +280,40 @@
           ]
         }
       ],
+      "modelChangePatterns": [
+        {
+          "name": "Change component attributes",
+          "types": ["SedAttributeModelChange", "SedComputeAttributeChangeModelChange", "SedSetValueAttributeModelChange"],
+          "target": {
+            "value": "//*/@*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Add components",
+          "types": ["SedAddXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Remove components",
+          "types": ["SedRemoveXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Change components",
+          "types": ["SedChangeXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        }        
+      ],
       "simulationFormats": [
         {
           "namespace": "EDAM",
@@ -253,6 +322,7 @@
           "supportedFeatures": []
         }
       ],
+      "simulationTypes": ["SedSteadyStateSimulation"],
       "archiveFormats": [
         {
           "namespace": "EDAM",
@@ -364,23 +434,23 @@
           ]
         }
       ],
-      "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [
+      "outputDimensions": [],
+      "outputVariablePatterns": [
         {
-          "variables": "objective value",
-          "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
+          "name": "objective value",
+          "target": {"value": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value", "grammar": "XPath"}
         },
         {
-          "variables": "reaction fluxes",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux"
+          "name": "reaction fluxes",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux", "grammar": "XPath"}
         },
         {
-          "variables": "reaction reduced costs",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@reducedCost"
+          "name": "reaction reduced costs",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@reducedCost", "grammar": "XPath"}
         },
         {
-          "variables": "species shadow prices",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice"
+          "name": "species shadow prices",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice", "grammar": "XPath"}
         }
       ],
       "availableSoftwareInterfaceTypes": [
@@ -435,6 +505,40 @@
           ]
         }
       ],
+      "modelChangePatterns": [
+        {
+          "name": "Change component attributes",
+          "types": ["SedAttributeModelChange", "SedComputeAttributeChangeModelChange", "SedSetValueAttributeModelChange"],
+          "target": {
+            "value": "//*/@*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Add components",
+          "types": ["SedAddXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Remove components",
+          "types": ["SedRemoveXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Change components",
+          "types": ["SedChangeXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        }        
+      ],
       "simulationFormats": [
         {
           "namespace": "EDAM",
@@ -443,6 +547,7 @@
           "supportedFeatures": []
         }
       ],
+      "simulationTypes": ["SedSteadyStateSimulation"],
       "archiveFormats": [
         {
           "namespace": "EDAM",
@@ -505,15 +610,15 @@
           ]
         }
       ],
-      "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [
+      "outputDimensions": [],
+      "outputVariablePatterns": [
         {
-          "variables": "minimum reaction fluxes",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@minFlux"
+          "name": "minimum reaction fluxes",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@minFlux", "grammar": "XPath"}
         },
         {
-          "variables": "maximum reaction fluxes",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@maxFlux"
+          "name": "maximum reaction fluxes",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@maxFlux", "grammar": "XPath"}
         }
       ],
       "availableSoftwareInterfaceTypes": [
@@ -568,6 +673,40 @@
           ]
         }
       ],
+      "modelChangePatterns": [
+        {
+          "name": "Change component attributes",
+          "types": ["SedAttributeModelChange", "SedComputeAttributeChangeModelChange", "SedSetValueAttributeModelChange"],
+          "target": {
+            "value": "//*/@*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Add components",
+          "types": ["SedAddXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Remove components",
+          "types": ["SedRemoveXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        },
+        {
+          "name": "Change components",
+          "types": ["SedChangeXmlModelChange"],
+          "target": {
+            "value": "//*",
+            "grammar": "XPath"
+          }
+        }        
+      ],
       "simulationFormats": [
         {
           "namespace": "EDAM",
@@ -576,6 +715,7 @@
           "supportedFeatures": []
         }
       ],
+      "simulationTypes": ["SedSteadyStateSimulation"],
       "archiveFormats": [
         {
           "namespace": "EDAM",
@@ -670,23 +810,23 @@
           ]
         }
       ],
-      "dependentDimensions": [],
-      "dependentVariableTargetPatterns": [        
+      "outputDimensions": [],
+      "outputVariablePatterns": [        
         {
-          "variables": "objective value",
-          "targetPattern": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"
+          "name": "objective value",
+          "target": {"value": "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value", "grammar": "XPath"}
         },
         {
-          "variables": "reaction fluxes",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux"
+          "name": "reaction fluxes",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux", "grammar": "XPath"}
         },
         {
-          "variables": "reaction reduced costs",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@reducedCost"
+          "name": "reaction reduced costs",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@reducedCost", "grammar": "XPath"}
         },
         {
-          "variables": "species shadow prices",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice"
+          "name": "species shadow prices",
+          "target": {"value": "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@shadowPrice", "grammar": "XPath"}
         }
       ],
       "availableSoftwareInterfaceTypes": [
