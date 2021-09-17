@@ -19,7 +19,6 @@ from biosimulators_utils.sedml import validation
 from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, ModelAttributeChange, SteadyStateSimulation,  # noqa: F401
                                                   Variable)
 from biosimulators_utils.sedml.exec import exec_sed_doc as base_exec_sed_doc
-from biosimulators_utils.sedml.utils import apply_changes_to_xml_model
 from biosimulators_utils.simulator.utils import get_algorithm_substitution_policy
 from biosimulators_utils.utils.core import raise_errors_warnings
 from biosimulators_utils.warnings import warn, BioSimulatorsWarning
@@ -30,7 +29,6 @@ from lxml import etree
 import cobra.io
 import copy
 import os
-import tempfile
 
 __all__ = [
     'exec_sedml_docs_in_combine_archive',
@@ -139,39 +137,22 @@ def exec_sed_task(task, variables, preprocessed_task=None, log=None, config=None
     if preprocessed_task is None:
         preprocessed_task = preprocess_sed_task(task, variables, config=config)
 
+    # get model
+    cobra_model = preprocessed_task['model']['model']
+
     # modify model
-    raise_errors_warnings(validation.validate_model_change_types(task.model.changes, (ModelAttributeChange, )),
-                          error_summary='Changes for model `{}` are not supported.'.format(task.model.id))
     if task.model.changes:
-        model_etree = preprocessed_task['model']['etree']
+        raise_errors_warnings(validation.validate_model_change_types(task.model.changes, (ModelAttributeChange, )),
+                              error_summary='Changes for model `{}` are not supported.'.format(task.model.id))
 
-        model = copy.deepcopy(task.model)
-        for change in model.changes:
-            change.new_value = str(change.new_value)
-
-        apply_changes_to_xml_model(model, model_etree, sed_doc=None, working_dir=None)
-
-        model_file, model_filename = tempfile.mkstemp(suffix='.xml')
-        os.close(model_file)
-
-        model_etree.write(model_filename,
-                          xml_declaration=True,
-                          encoding="utf-8",
-                          standalone=False,
-                          pretty_print=False)
-    else:
-        model_filename = task.model.source
-
-    # get the model
-    cobra_model = cobra.io.read_sbml_model(model_filename)
-    if task.model.changes:
-        os.remove(model_filename)
+        model_change_obj_attr_map = preprocessed_task['model']['model_change_obj_attr_map']
+        for change in task.model.changes:
+            model_obj, attr_name = model_change_obj_attr_map[change.target]
+            new_value = float(change.new_value)
+            setattr(model_obj, attr_name, new_value)
 
     variable_xpath_sbml_id_map = preprocessed_task['model']['variable_xpath_sbml_id_map']
     variable_xpath_sbml_fbc_id_map = preprocessed_task['model']['variable_xpath_sbml_fbc_id_map']
-
-    # set solver
-    cobra_model.solver = preprocessed_task['simulation']['solver']
 
     # Load the simulation method specified by ``sim.algorithm``
     method_props = preprocessed_task['simulation']['method_props']
@@ -241,6 +222,50 @@ def preprocess_sed_task(task, variables, config=None):
     model_etree = etree.parse(model.source)
     namespaces = get_namespaces_for_xml_doc(model_etree)
 
+    # Read the model
+    cobra_model = cobra.io.read_sbml_model(model.source)
+
+    # preprocess model changes
+    model_change_sbml_id_map = validation.validate_target_xpaths(
+        model.changes, model_etree, attr='id')
+    model_change_obj_attr_map = {}
+    sbml_id_model_obj_map = {'R_' + reaction.id: reaction for reaction in cobra_model.reactions}
+    namespaces_list = namespaces.values()
+    invalid_changes = []
+    for change in model.changes:
+        sbml_id = model_change_sbml_id_map[change.target]
+        model_obj = sbml_id_model_obj_map.get(sbml_id, None)
+
+        attr_name = None
+
+        if model_obj is not None:
+            _, sep, attr = change.target.partition('/@')
+            ns, _, attr = attr.partition(':')
+            if change.target_namespaces.get(ns, None) in namespaces_list:
+                if attr == 'lowerFluxBound':
+                    attr_name = 'lower_bound'
+                elif attr == 'upperFluxBound':
+                    attr_name = 'upper_bound'
+
+        if attr_name:
+            model_change_obj_attr_map[change.target] = (model_obj, attr_name)
+        else:
+            invalid_changes.append(change.target)
+
+    if invalid_changes:
+        valid_changes = []
+        for reaction in cobra_model.reactions:
+            valid_changes.append(
+                "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_{}']/@fbc:lowerFluxBound".format(reaction.id))
+            valid_changes.append(
+                "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_{}']/@fbc:upperFluxBound".format(reaction.id))
+
+        msg = 'The following changes are invalid:\n  {}\n\nThe following targets are valid:\n  {}'.format(
+            '\n  '.join(sorted(invalid_changes)),
+            '\n  '.join(sorted(valid_changes)),
+        )
+        raise ValueError(msg)
+
     # preprocess variables
     variable_xpath_sbml_id_map = validation.validate_target_xpaths(
         variables, model_etree, attr='id')
@@ -255,9 +280,6 @@ def preprocess_sed_task(task, variables, config=None):
             'name': 'id',
         }
     )
-
-    # Read the model
-    cobra_model = cobra.io.read_sbml_model(model.source)
 
     # get the SBML-FBC id of the active objective
     active_objective_sbml_fbc_id = get_active_objective_sbml_fbc_id(model.source)
@@ -306,8 +328,9 @@ def preprocess_sed_task(task, variables, config=None):
     # Return processed information about the task
     return {
         'model': {
-            'etree': model_etree,
+            'model': cobra_model,
             'active_objective_sbml_fbc_id': active_objective_sbml_fbc_id,
+            'model_change_obj_attr_map': model_change_obj_attr_map,
             'variable_xpath_sbml_id_map': variable_xpath_sbml_id_map,
             'variable_xpath_sbml_fbc_id_map': variable_xpath_sbml_fbc_id_map,
         },
@@ -315,6 +338,5 @@ def preprocess_sed_task(task, variables, config=None):
             'algorithm_kisao_id': exec_kisao_id,
             'method_props': method_props,
             'method_kw_args': method_kw_args,
-            'solver': cobra_model.solver,
         }
     }

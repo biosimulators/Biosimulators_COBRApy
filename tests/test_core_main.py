@@ -226,13 +226,24 @@ class CliTestCase(unittest.TestCase):
                 task=task),
         ]
 
+        task.model.changes.append(sedml_data_model.ModelAttributeChange(
+            target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_EX_glc__D_e']/@fbc:lowerFluxBound",
+            target_namespaces=self.NAMESPACES,
+            new_value=-1,
+        ))
+        task.model.changes.append(sedml_data_model.ModelAttributeChange(
+            target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_EX_glc__D_e']/@fbc:upperFluxBound",
+            target_namespaces=self.NAMESPACES,
+            new_value=10,
+        ))
         preprocessed_task = core.preprocess_sed_task(task, variables)
 
+        task.model.changes = []
         results, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
         numpy.testing.assert_allclose(results['active_objective'].tolist(), 0.8739215069684301, rtol=1e-4, atol=1e-8)
 
         task.model.changes.append(sedml_data_model.ModelAttributeChange(
-            target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='R_EX_glc__D_e_lower_bound']/@value",
+            target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_EX_glc__D_e']/@fbc:lowerFluxBound",
             target_namespaces=self.NAMESPACES,
             new_value=-1,
         ))
@@ -243,6 +254,26 @@ class CliTestCase(unittest.TestCase):
         results3, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
         self.assertLess(results3['active_objective'].tolist(), results['active_objective'].tolist())
         self.assertGreater(results3['active_objective'].tolist(), results2['active_objective'].tolist())
+
+        task.model.changes = [
+            sedml_data_model.ModelAttributeChange(
+                target="/sbml:sbml",
+                target_namespaces=self.NAMESPACES,
+                new_value=10,
+            ),
+            sedml_data_model.ModelAttributeChange(
+                target="/sbml:sbml/sbml:model/sbml:listOfParameters/sbml:parameter[@id='R_EX_glc__D_e_lower_bound']/@value",
+                target_namespaces=self.NAMESPACES,
+                new_value=10,
+            ),
+            sedml_data_model.ModelAttributeChange(
+                target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_EX_glc__D_e']/@fbc:id",
+                target_namespaces=self.NAMESPACES,
+                new_value=10,
+            ),
+        ]
+        with self.assertRaises(ValueError):
+            core.preprocess_sed_task(task, variables)
 
         task.model.source = 'not a file'
         with self.assertRaises(FileNotFoundError):
