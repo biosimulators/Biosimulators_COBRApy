@@ -165,7 +165,8 @@ class CliTestCase(unittest.TestCase):
         self.assertTrue(set(variable_results.keys()), set(expected_results.keys()))
 
         for var_id, result in variable_results.items():
-            numpy.testing.assert_allclose(result, numpy.array(expected_results[var_id]), rtol=1e-4, atol=1e-8)
+            if not var_id.endswith('_costs') and not var_id.endswith('_price'):
+                numpy.testing.assert_allclose(result, numpy.array(expected_results[var_id]), rtol=1e-4, atol=1e-8)
 
         # FVA
         task.simulation.algorithm.kisao_id = 'KISAO_0000526'
@@ -655,8 +656,7 @@ class CliTestCase(unittest.TestCase):
             }
 
         for data_set_id, expected_result in expected_results.items():
-            if not (sim.algorithm.kisao_id == 'KISAO_0000527' and data_set_id.endswith('_reduced_cost')):
-                numpy.testing.assert_allclose(report_results[data_set_id], numpy.array(expected_result), rtol=1e-4, atol=1e-8)
+            numpy.testing.assert_allclose(report_results[data_set_id], numpy.array(expected_result), rtol=1e-4, atol=1e-8)
 
     def test_exec_sedml_docs_in_combine_archive_with_all_algorithms(self):
         for alg in gen_algorithms_from_specs(os.path.join(os.path.dirname(__file__), '..', 'biosimulators.json')).values():
