@@ -8,7 +8,6 @@ to COBRApy methods and their arguments
 """
 
 from biosimulators_utils.data_model import ValueType
-from numpy import nan
 import cobra.flux_analysis
 import collections
 import enum
@@ -43,33 +42,77 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = collections.OrderedDict([
                 'description': 'objective value',
                 'target_type': 'objective',
                 'target': r'^/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective(\[.*?\])?(/@value)?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.objective_value if el_fbc_id == active_obj_fbc_id else nan,
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    (
+                        [
+                            (None, objective_sbml_fbc_id, None,
+                                'objective_value' if objective_sbml_fbc_id == active_obj_fbc_id else None, None)
+                            for objective_sbml_fbc_id in objective_sbml_fbc_ids
+                        ] +
+                        [
+                            (None, objective_sbml_fbc_id, 'value',
+                                'objective_value' if objective_sbml_fbc_id == active_obj_fbc_id else None, None)
+                            for objective_sbml_fbc_id in objective_sbml_fbc_ids
+                        ]
+                    ),
             },
             {
                 'description': 'reaction flux',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?(/@flux)?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.fluxes.get(el_id[2:] if el_id.startswith('R_') else el_id),
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    [
+                        ('R_' + reaction.id, None, None, 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        ('R_' + reaction.id, None, 'flux', 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        (reaction.id, None, None, 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        (reaction.id, None, 'flux', 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ],
             },
             {
                 'description': 'reaction reduced cost',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@reducedCost$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.reduced_costs.get(el_id[2:] if el_id.startswith('R_') else el_id),
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    [
+                        ('R_' + reaction.id, None, 'reducedCost', 'reduced_costs', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        (reaction.id, None, 'reducedCost', 'reduced_costs', (reaction.id,))
+                        for reaction in model.reactions
+                    ],
             },
             {
                 'description': 'species shadow price',
                 'target_type': 'species',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species(\[.*?\])?(/@shadowPrice)?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.shadow_prices.get(el_id[2:] if el_id.startswith('M_') else el_id),
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    [
+                        ('M_' + metabolite.id, None, None, 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ] +
+                    [
+                        ('M_' + metabolite.id, None, 'shadowPrice', 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ] +
+                    [
+                        (metabolite.id, None, None, 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ] +
+                    [
+                        (metabolite.id, None, 'shadowPrice', 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ],
             },
         ]
     }),
@@ -98,33 +141,77 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = collections.OrderedDict([
                 'description': 'objective value',
                 'target_type': 'objective',
                 'target': r'^/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective(\[.*?\])?(/@value)?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.objective_value if el_fbc_id == active_obj_fbc_id else nan,
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    (
+                        [
+                            (None, objective_sbml_fbc_id, None,
+                                'objective_value' if objective_sbml_fbc_id == active_obj_fbc_id else None, None)
+                            for objective_sbml_fbc_id in objective_sbml_fbc_ids
+                        ] +
+                        [
+                            (None, objective_sbml_fbc_id, 'value',
+                                'objective_value' if objective_sbml_fbc_id == active_obj_fbc_id else None, None)
+                            for objective_sbml_fbc_id in objective_sbml_fbc_ids
+                        ]
+                    ),
             },
             {
                 'description': 'reaction flux',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?(/@flux)?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.fluxes.get(el_id[2:] if el_id.startswith('R_') else el_id),
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    [
+                        ('R_' + reaction.id, None, None, 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        ('R_' + reaction.id, None, 'flux', 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        (reaction.id, None, None, 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        (reaction.id, None, 'flux', 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ],
             },
             {
                 'description': 'reaction reduced cost',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@reducedCost$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.reduced_costs.get(el_id[2:] if el_id.startswith('R_') else el_id),
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    [
+                        ('R_' + reaction.id, None, 'reducedCost', 'reduced_costs', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        (reaction.id, None, 'reducedCost', 'reduced_costs', (reaction.id,))
+                        for reaction in model.reactions
+                    ],
             },
             {
                 'description': 'species shadow price',
                 'target_type': 'species',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species(\[.*?\])?(/@shadowPrice)?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.shadow_prices.get(el_id[2:] if el_id.startswith('M_') else el_id),
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    [
+                        ('M_' + metabolite.id, None, None, 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ] +
+                    [
+                        ('M_' + metabolite.id, None, 'shadowPrice', 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ] +
+                    [
+                        (metabolite.id, None, None, 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ] +
+                    [
+                        (metabolite.id, None, 'shadowPrice', 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ],
             },
         ]
     }),
@@ -165,33 +252,77 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = collections.OrderedDict([
                 'description': 'objective value',
                 'target_type': 'objective',
                 'target': r'^/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective(\[.*?\])?(/@value)?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.objective_value if el_fbc_id == active_obj_fbc_id else nan,
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    (
+                        [
+                            (None, objective_sbml_fbc_id, None,
+                                'objective_value' if objective_sbml_fbc_id == active_obj_fbc_id else None, None)
+                            for objective_sbml_fbc_id in objective_sbml_fbc_ids
+                        ] +
+                        [
+                            (None, objective_sbml_fbc_id, 'value',
+                                'objective_value' if objective_sbml_fbc_id == active_obj_fbc_id else None, None)
+                            for objective_sbml_fbc_id in objective_sbml_fbc_ids
+                        ]
+                    ),
             },
             {
                 'description': 'reaction flux',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?(/@flux)?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.fluxes.get(el_id[2:] if el_id.startswith('R_') else el_id),
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    [
+                        ('R_' + reaction.id, None, None, 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        ('R_' + reaction.id, None, 'flux', 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        (reaction.id, None, None, 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        (reaction.id, None, 'flux', 'fluxes', (reaction.id,))
+                        for reaction in model.reactions
+                    ],
             },
             {
                 'description': 'reaction reduced cost',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@reducedCost$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        nan,
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    [
+                        ('R_' + reaction.id, None, 'reducedCost', 'reduced_costs', (reaction.id,))
+                        for reaction in model.reactions
+                    ] +
+                    [
+                        (reaction.id, None, 'reducedCost', 'reduced_costs', (reaction.id,))
+                        for reaction in model.reactions
+                    ],
             },
             {
                 'description': 'species shadow price',
                 'target_type': 'species',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species(\[.*?\])?(/@shadowPrice)?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        nan,
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                    [
+                        ('M_' + metabolite.id, None, None, 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ] +
+                    [
+                        ('M_' + metabolite.id, None, 'shadowPrice', 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ] +
+                    [
+                        (metabolite.id, None, None, 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ] +
+                    [
+                        (metabolite.id, None, 'shadowPrice', 'shadow_prices', (metabolite.id,))
+                        for metabolite in model.metabolites
+                    ],
             },
         ]
     }),
@@ -238,17 +369,29 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = collections.OrderedDict([
                 'description': 'reaction flux',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@minFlux?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.loc[el_id[2:] if el_id.startswith('R_') else el_id, 'minimum'],
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                [
+                    ('R_' + reaction.id, None, 'minFlux', 'loc', (reaction.id, 'minimum'))
+                    for reaction in model.reactions
+                ] +
+                [
+                    (reaction.id, None, 'minFlux', 'loc', (reaction.id, 'minimum'))
+                    for reaction in model.reactions
+                ],
             },
             {
                 'description': 'reaction flux',
                 'target_type': 'reaction',
                 'target': r'^/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction(\[.*?\])?/@maxFlux?$',
-                'get_result':
-                    lambda active_obj_fbc_id, el_id, el_fbc_id, solution:
-                        solution.loc[el_id[2:] if el_id.startswith('R_') else el_id, 'maximum'],
+                'get_target_results_paths': lambda model, active_obj_fbc_id, objective_sbml_fbc_ids:
+                [
+                    ('R_' + reaction.id, None, 'maxFlux', 'loc', (reaction.id, 'maximum'))
+                    for reaction in model.reactions
+                ] +
+                [
+                    (reaction.id, None, 'maxFlux', 'loc', (reaction.id, 'minimum'))
+                    for reaction in model.reactions
+                ],
             },
         ],
     }),

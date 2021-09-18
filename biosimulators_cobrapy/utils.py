@@ -12,30 +12,36 @@ from biosimulators_utils.utils.core import validate_str_value, parse_value
 import cobra  # noqa: F401
 import libsbml
 import numpy
-import re
 
 __all__ = [
-    'get_active_objective_sbml_fbc_id',
+    'get_objective_sbml_fbc_ids',
     'set_simulation_method_arg',
     'apply_variables_to_simulation_method_args',
     'validate_variables',
+    'get_results_paths_for_variables',
     'get_results_of_variables',
 ]
 
 
-def get_active_objective_sbml_fbc_id(model_source):
+def get_objective_sbml_fbc_ids(model_source):
     """ Get the SBML-FBC id of the active objective
 
     Args:
         model_source (:obj:`str`): path to model
 
     Returns:
-        :obj:`str`: SBML-FBC id of the active objective
+        :obj:`tuple`:
+
+            * :obj:`str`: SBML-FBC id of the active objective
+            * :obj:`list` of :obj:`str`: SBML-FBC id of the objectives
     """
     doc = libsbml.readSBMLFromFile(model_source)
     model = doc.getModel()
     model_fbc = model.getPlugin("fbc")
-    return model_fbc.getListOfObjectives().getActiveObjective()
+    return (
+        model_fbc.getListOfObjectives().getActiveObjective(),
+        [objective.getId() for objective in model_fbc.getListOfObjectives()],
+    )
 
 
 def set_simulation_method_arg(method_props, argument_change, model, model_method_kw_args):
@@ -113,13 +119,28 @@ def apply_variables_to_simulation_method_args(target_x_paths_ids, method_props, 
         model_method_kw_args['reaction_list'] = sorted(reaction_list)
 
 
-def validate_variables(method, variables):
+def validate_variables(model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids,
+                       method, variables, target_sbml_id_map, target_sbml_fbc_id_map, sbml_fbc_uri):
     """ Validate the desired output variables of a simulation
 
     Args:
+        model (:obj:`cobra.core.model.Model`): model
+        active_objective_sbml_fbc_id (:obj:`str`): SBML-FBC id of the active objective
+        objective_sbml_fbc_ids (:obj:`list` of :obj:`str`): SBML-FBC id of the objectives
         method (:obj:`dict`): properties of desired simulation method
         variables (:obj:`list` of :obj:`Variable`): variables that should be recorded
+        target_sbml_id_map (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
+            SBML id of the corresponding model object
+        target_sbml_fbc_id_map (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
+            SBML-FBC id of the corresponding model object
+        sbml_fbc_uri (:obj:`str`): URI for SBML FBC package
     """
+    possible_target_results_path_map = set()
+    for variable_pattern in method['variables']:
+        for sbml_id, fbc_id, attr, result_type, result_name in variable_pattern['get_target_results_paths'](
+                model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids):
+            possible_target_results_path_map.add((sbml_id, fbc_id, attr))
+
     invalid_symbols = set()
     invalid_targets = set()
     for variable in variables:
@@ -127,13 +148,18 @@ def validate_variables(method, variables):
             invalid_symbols.add(variable.symbol)
 
         else:
-            valid = False
-            for variable_pattern in method['variables']:
-                if re.match(variable_pattern['target'], variable.target):
-                    valid = True
-                    break
+            valid = True
 
-            if not valid:
+            target = variable.target
+            variable_target_id = target_sbml_id_map.get(target, None)
+            variable_target_fbc_id = target_sbml_fbc_id_map.get(target, None)
+            target_attr = target.partition('/@')[2] or None
+            if target_attr:
+                target_ns, _, target_attr = target_attr.rpartition(':')
+                if target_ns and variable.target_namespaces.get(target_ns, None) != sbml_fbc_uri:
+                    valid = False
+
+            if not valid or (variable_target_id, variable_target_fbc_id, target_attr) not in possible_target_results_path_map:
                 invalid_targets.add(variable.target)
 
     if invalid_symbols:
@@ -154,16 +180,47 @@ def validate_variables(method, variables):
         raise ValueError(msg)
 
 
-def get_results_of_variables(target_x_paths_ids, target_x_paths_fbc_ids, active_objective_fbc_id, method, variables, solution):
+def get_results_paths_for_variables(model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids,
+                                    method, variables, target_sbml_id_map, target_sbml_fbc_id_map):
+    """ Get the path to results for the desired variables
+
+    Args:
+        model (:obj:`cobra.core.model.Model`): model
+        active_objective_sbml_fbc_id (:obj:`str`): SBML-FBC id of the active objective
+        objective_sbml_fbc_ids (:obj:`list` of :obj:`str`): SBML-FBC id of the objectives
+        method (:obj:`dict`): properties of desired simulation method
+        variables (:obj:`list` of :obj:`Variable`): variables that should be recorded
+        target_sbml_id_map (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
+            SBML id of the corresponding model object
+        target_sbml_fbc_id_map (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
+            SBML-FBC id of the corresponding model object
+
+    Returns:
+        :obj:`dict`: path to results of desired variables
+    """
+    possible_target_results_path_map = {}
+    for variable_pattern in method['variables']:
+        for sbml_id, fbc_id, attr, result_type, result_name in variable_pattern['get_target_results_paths'](
+                model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids):
+            possible_target_results_path_map[(sbml_id, fbc_id, attr)] = (result_type, result_name)
+
+    target_results_path_map = {}
+    for variable in variables:
+        target = variable.target
+        variable_target_id = target_sbml_id_map[target]
+        variable_target_fbc_id = target_sbml_fbc_id_map[target]
+        target_attr = target.partition('/@')[2].rpartition(':')[2] or None
+        target_results_path_map[variable.target] = possible_target_results_path_map[(
+            variable_target_id, variable_target_fbc_id, target_attr)]
+
+    return target_results_path_map
+
+
+def get_results_of_variables(target_results_path_map, variables, solution):
     """ Get the results of the desired variables
 
     Args:
-        target_x_paths_ids (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
-            SBML id of the corresponding model object
-        target_x_paths_fbc_ids (:obj:`dict` of :obj:`str` to :obj:`str`): dictionary that maps each XPath to the
-            SBML-FBC id of the corresponding model object
-        active_objective_fbc_id (:obj:`str`): SBML-FBC id of the active objective
-        method (:obj:`dict`): properties of desired simulation method
+        target_results_path_map (:obj:`dict`): path to results of desired variables
         variables (:obj:`list` of :obj:`Variable`): variables that should be recorded
         solution (:obj:`cobra.core.solution.Solution`): solution of method
 
@@ -171,17 +228,17 @@ def get_results_of_variables(target_x_paths_ids, target_x_paths_fbc_ids, active_
         :obj:`VariableResults`: the results of desired variables
     """
     variable_results = VariableResults()
-
     for variable in variables:
-        target = variable.target
-        for variable_pattern in method['variables']:
-            if re.match(variable_pattern['target'], target):
-                variable_target_id = target_x_paths_ids[target]
-                variable_target_fbc_id = target_x_paths_fbc_ids[target]
-                result = variable_pattern['get_result'](active_objective_fbc_id, variable_target_id,
-                                                        variable_target_fbc_id, solution)
-
-                break
+        result_type, result_name = target_results_path_map[variable.target]
+        if result_type:
+            result = getattr(solution, result_type)
+            if result_name:
+                if hasattr(result, 'get'):
+                    result = result.get(*result_name)
+                else:
+                    result = result[result_name]
+        else:
+            result = numpy.nan
 
         variable_results[variable.id] = numpy.array(result)
 

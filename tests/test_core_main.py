@@ -154,10 +154,10 @@ class CliTestCase(unittest.TestCase):
         expected_results = {
             'ACONTa_flux': 6.007250e+00,
             'TALA_flux': 1.496984e+00,
-            'ACALD_costs': numpy.nan,
-            'THD2_cost': numpy.nan,
-            '13dpg_c_price': numpy.nan,
-            'succ_c_price': numpy.nan,
+            'ACALD_costs': 0.,
+            'THD2_cost': 0.,
+            '13dpg_c_price': 0.,
+            'succ_c_price': 0.,
             'active_objective': 0.8739215069684301,
             'inactive_objective': numpy.nan,
         }
@@ -640,10 +640,10 @@ class CliTestCase(unittest.TestCase):
             expected_results = {
                 'data_set_ACONTa_flux': 6.007250e+00,
                 'data_set_TALA_flux': 1.496984e+00,
-                'data_set_ACALD_reduced_cost': numpy.nan,
-                'data_set_THD2_reduced_cost': numpy.nan,
-                'data_set_13dpg_c_shadow_price': numpy.nan,
-                'data_set_succ_c_shadow_price': numpy.nan,
+                'data_set_ACALD_reduced_cost': 0.,
+                'data_set_THD2_reduced_cost': 0.,
+                'data_set_13dpg_c_shadow_price': -0.107187,
+                'data_set_succ_c_shadow_price': -0.679621,
             }
 
         elif sim.algorithm.kisao_id == 'KISAO_0000526':

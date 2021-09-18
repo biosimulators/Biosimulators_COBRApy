@@ -7,8 +7,9 @@
 """
 
 from .data_model import KISAO_ALGORITHMS_PARAMETERS_MAP
-from .utils import (get_active_objective_sbml_fbc_id, set_simulation_method_arg,
-                    apply_variables_to_simulation_method_args, validate_variables, get_results_of_variables)
+from .utils import (get_objective_sbml_fbc_ids, set_simulation_method_arg,
+                    apply_variables_to_simulation_method_args, validate_variables,
+                    get_results_of_variables, get_results_paths_for_variables)
 from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive
 from biosimulators_utils.config import get_config, Config  # noqa: F401
 from biosimulators_utils.licensing.gurobi import GurobiLicenseManager
@@ -152,14 +153,12 @@ def exec_sed_task(task, variables, preprocessed_task=None, log=None, config=None
             new_value = float(change.new_value)
             setattr(model_obj, attr_name, new_value)
 
-    variable_xpath_sbml_id_map = preprocessed_task['model']['variable_xpath_sbml_id_map']
-    variable_xpath_sbml_fbc_id_map = preprocessed_task['model']['variable_xpath_sbml_fbc_id_map']
-
     # Load the simulation method specified by ``sim.algorithm``
     method_props = preprocessed_task['simulation']['method_props']
     method_kw_args = copy.copy(preprocessed_task['simulation']['method_kw_args'])
 
     # encode variables into arguments of the simulation methods
+    variable_xpath_sbml_id_map = preprocessed_task['model']['variable_xpath_sbml_id_map']
     apply_variables_to_simulation_method_args(variable_xpath_sbml_id_map, method_props, variables, method_kw_args)
 
     # execute simulation
@@ -175,9 +174,8 @@ def exec_sed_task(task, variables, preprocessed_task=None, log=None, config=None
             solution.objective_value = cobra_model.optimize().objective_value
 
     # Get the results of each variable
-    variable_results = get_results_of_variables(variable_xpath_sbml_id_map, variable_xpath_sbml_fbc_id_map,
-                                                preprocessed_task['model']['active_objective_sbml_fbc_id'],
-                                                method_props, variables, solution)
+    variable_results = get_results_of_variables(preprocessed_task['model']['variable_target_results_path_map'],
+                                                variables, solution)
 
     # log action
     if config.LOG:
@@ -283,7 +281,7 @@ def preprocess_sed_task(task, variables, config=None):
     )
 
     # get the SBML-FBC id of the active objective
-    active_objective_sbml_fbc_id = get_active_objective_sbml_fbc_id(model.source)
+    active_objective_sbml_fbc_id, objective_sbml_fbc_ids = get_objective_sbml_fbc_ids(model.source)
 
     # Load the simulation method specified by ``sim.algorithm``
     algorithm_substitution_policy = get_algorithm_substitution_policy(config=config)
@@ -324,7 +322,12 @@ def preprocess_sed_task(task, variables, config=None):
         cobra_model.solver = 'gurobi'
 
     # validate variables
-    validate_variables(method_props, variables)
+    validate_variables(cobra_model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids,
+                       method_props, variables, variable_xpath_sbml_id_map, variable_xpath_sbml_fbc_id_map,
+                       sbml_fbc_uri)
+    variable_target_results_path_map = get_results_paths_for_variables(cobra_model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids,
+                                                                       method_props, variables,
+                                                                       variable_xpath_sbml_id_map, variable_xpath_sbml_fbc_id_map)
 
     # Return processed information about the task
     return {
@@ -332,6 +335,7 @@ def preprocess_sed_task(task, variables, config=None):
             'model': cobra_model,
             'active_objective_sbml_fbc_id': active_objective_sbml_fbc_id,
             'model_change_obj_attr_map': model_change_obj_attr_map,
+            'variable_target_results_path_map': variable_target_results_path_map,
             'variable_xpath_sbml_id_map': variable_xpath_sbml_id_map,
             'variable_xpath_sbml_fbc_id_map': variable_xpath_sbml_fbc_id_map,
         },

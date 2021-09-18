@@ -1,7 +1,7 @@
 from biosimulators_cobrapy.data_model import KISAO_ALGORITHMS_PARAMETERS_MAP
-from biosimulators_cobrapy.utils import (get_active_objective_sbml_fbc_id, set_simulation_method_arg,
+from biosimulators_cobrapy.utils import (get_objective_sbml_fbc_ids, set_simulation_method_arg,
                                          apply_variables_to_simulation_method_args,
-                                         validate_variables, get_results_of_variables)
+                                         validate_variables, get_results_of_variables, get_results_paths_for_variables)
 from biosimulators_utils.sedml.data_model import AlgorithmParameterChange, Variable
 from unittest import mock
 import attrdict
@@ -15,8 +15,8 @@ import unittest
 class UtilsTestCase(unittest.TestCase):
     MODEL_FILENAME = os.path.join(os.path.dirname(__file__), 'fixtures', 'textbook.xml')
 
-    def test_get_active_objective_sbml_fbc_id(self):
-        self.assertEqual(get_active_objective_sbml_fbc_id(self.MODEL_FILENAME), 'obj')
+    def test_get_objective_sbml_fbc_ids(self):
+        self.assertEqual(get_objective_sbml_fbc_ids(self.MODEL_FILENAME), ('obj', ['obj', 'inactive_obj']))
 
     def test_set_simulation_method_arg(self):
         method_props = KISAO_ALGORITHMS_PARAMETERS_MAP['KISAO_0000526']
@@ -123,39 +123,71 @@ class UtilsTestCase(unittest.TestCase):
             'sbml': 'http://www.sbml.org/sbml/level3/version1/core',
             'fbc': 'http://www.sbml.org/sbml/level3/version1/fbc/version2',
         }
+        model = cobra.io.read_sbml_model(self.MODEL_FILENAME)
+        active_objective_sbml_fbc_id = 'obj'
+        objective_sbml_fbc_ids = ['obj', 'inactive_obj']
+        target_sbml_id_map = {
+            "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value": None,
+            "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:type='maximize']/@value": None,
+            "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']": None,
+            "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@flux": 'R_ACALD',
+            "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost": 'R_ACALD',
+            "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@metaid='R_ACALD']/@flux": 'R_ACALD',
+            "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']": 'R_ACALD',
+            "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice": 'M_13dpg_c',
+            "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@metaid='M_13dpg_c']/@shadowPrice": 'M_13dpg_c',
+            "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']": 'M_13dpg_c',
+        }
+        target_sbml_fbc_id_map = {
+            "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value": 'obj',
+            "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:type='maximize']/@value": 'obj',
+            "/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']": 'obj',
+            "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@flux": None,
+            "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost": None,
+            "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@metaid='R_ACALD']/@flux": None,
+            "/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']": None,
+            "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice": None,
+            "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@metaid='M_13dpg_c']/@shadowPrice": None,
+            "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']": None,
+        }
+        sbml_fbc_uri = ns['fbc']
         method_props = KISAO_ALGORITHMS_PARAMETERS_MAP['KISAO_0000437']
         variables = [
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']/@value"),
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:type='maximize']/@value"),
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective[@fbc:id='obj']"),
-            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective/@value"),
-            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/fbc:listOfObjectives/fbc:objective"),
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@flux"),
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']/@reducedCost"),
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@metaid='R_ACALD']/@flux"),
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction[@id='R_ACALD']"),
-            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction/@flux"),
-            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfReactions/sbml:reaction"),
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']/@shadowPrice"),
             Variable(target_namespaces=ns,
                      target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@metaid='M_13dpg_c']/@shadowPrice"),
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species[@id='M_13dpg_c']"),
-            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species/@shadowPrice"),
-            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"),
         ]
-        validate_variables(method_props, variables)
+        validate_variables(model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids,
+                           method_props, variables, target_sbml_id_map, target_sbml_fbc_id_map, sbml_fbc_uri)
 
         variables = [
             Variable(symbol='urn:sedml:symbol:time'),
         ]
         with self.assertRaises(NotImplementedError):
-            validate_variables(method_props, variables)
+            validate_variables(model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids,
+                               method_props, variables, target_sbml_id_map, target_sbml_fbc_id_map, sbml_fbc_uri)
 
         variables = [
             Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='c']")
         ]
         with self.assertRaises(ValueError):
-            validate_variables(method_props, variables)
+            validate_variables(model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids,
+                               method_props, variables, target_sbml_id_map, target_sbml_fbc_id_map, sbml_fbc_uri)
+
+        variables = [
+            Variable(target_namespaces=ns, target="/sbml:sbml/sbml:model/sbml:listOfCompartments/sbml:compartment[@id='c']/@sbml:id")
+        ]
+        with self.assertRaises(ValueError):
+            validate_variables(model, active_objective_sbml_fbc_id, objective_sbml_fbc_ids,
+                               method_props, variables, target_sbml_id_map, target_sbml_fbc_id_map, sbml_fbc_uri)
 
     def test_get_results_of_variables(self):
         ns = {
@@ -218,7 +250,10 @@ class UtilsTestCase(unittest.TestCase):
             variables[3].target: None,
             variables[4].target: None,
         }
-        result = get_results_of_variables(target_to_id, target_to_fbc_id, 'obj', method_props, variables, solution)
+        model = cobra.io.read_sbml_model(self.MODEL_FILENAME)
+        target_results_path_map = get_results_paths_for_variables(
+            model, 'obj', ['obj', 'inactive_obj'], method_props, variables, target_to_id, target_to_fbc_id)
+        result = get_results_of_variables(target_results_path_map, variables, solution)
         self.assertEqual(set(result.keys()), set(var.id for var in variables))
         numpy.testing.assert_allclose(result['obj'], numpy.array(1.0))
         numpy.testing.assert_allclose(result['inactive_obj'], numpy.array(numpy.nan))
@@ -226,6 +261,7 @@ class UtilsTestCase(unittest.TestCase):
         numpy.testing.assert_allclose(result['R_ACALD_reduced_cost'], numpy.array(3.0))
         numpy.testing.assert_allclose(result['M_13dpg_c_shadow_price'], numpy.array(4.0))
 
-        model = cobra.io.read_sbml_model(self.MODEL_FILENAME)
         solution = model.optimize()
-        result = get_results_of_variables(target_to_id, target_to_fbc_id, 'obj', method_props, variables, solution)
+        target_results_path_map = get_results_paths_for_variables(
+            model, 'obj', ['obj', 'inactive_obj'], method_props, variables, target_to_id, target_to_fbc_id)
+        result = get_results_of_variables(target_results_path_map, variables, solution)
