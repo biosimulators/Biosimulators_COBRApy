@@ -13,6 +13,7 @@ from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive
 from biosimulators_utils.config import get_config, Config  # noqa: F401
 from biosimulators_utils.licensing.gurobi import GurobiLicenseManager
 from biosimulators_utils.log.data_model import CombineArchiveLog, TaskLog, StandardOutputErrorCapturerLevel  # noqa: F401
+from biosimulators_utils.model_lang.sbml.utils import get_package_namespace as get_sbml_package_namespace
 from biosimulators_utils.viz.data_model import VizFormat  # noqa: F401
 from biosimulators_utils.report.data_model import ReportFormat, VariableResults, SedDocumentResults  # noqa: F401
 from biosimulators_utils.sedml import validation
@@ -269,13 +270,14 @@ def preprocess_sed_task(task, variables, config=None):
     # preprocess variables
     variable_xpath_sbml_id_map = validation.validate_target_xpaths(
         variables, model_etree, attr='id')
+    sbml_fbc_prefix, sbml_fbc_uri = get_sbml_package_namespace('fbc', namespaces)
     variable_xpath_sbml_fbc_id_map = validation.validate_target_xpaths(
         variables,
         model_etree,
         attr={
             'namespace': {
-                'prefix': 'fbc',
-                'uri': namespaces['fbc'],
+                'prefix': sbml_fbc_prefix,
+                'uri': sbml_fbc_uri,
             },
             'name': 'id',
         }
