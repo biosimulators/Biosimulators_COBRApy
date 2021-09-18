@@ -655,7 +655,7 @@ class CliTestCase(unittest.TestCase):
             }
 
         for data_set_id, expected_result in expected_results.items():
-            if data_set_id not in ['data_set_13dpg_c_shadow_price', 'data_set_succ_c_shadow_price']:
+            if not (sim.algorithm.kisao_id == 'KISAO_0000527' and data_set_id.endswith('_reduced_cost')):
                 numpy.testing.assert_allclose(report_results[data_set_id], numpy.array(expected_result), rtol=1e-4, atol=1e-8)
 
     def test_exec_sedml_docs_in_combine_archive_with_all_algorithms(self):
