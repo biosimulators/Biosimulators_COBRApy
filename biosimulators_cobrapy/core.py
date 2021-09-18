@@ -222,6 +222,7 @@ def preprocess_sed_task(task, variables, config=None):
         raise FileNotFoundError('Model source `{}` is not a file.'.format(model.source))
     model_etree = etree.parse(model.source)
     namespaces = get_namespaces_for_xml_doc(model_etree)
+    sbml_fbc_prefix, sbml_fbc_uri = get_sbml_package_namespace('fbc', namespaces)
 
     # Read the model
     cobra_model = cobra.io.read_sbml_model(model.source)
@@ -231,7 +232,6 @@ def preprocess_sed_task(task, variables, config=None):
         model.changes, model_etree, attr='id')
     model_change_obj_attr_map = {}
     sbml_id_model_obj_map = {'R_' + reaction.id: reaction for reaction in cobra_model.reactions}
-    namespaces_list = namespaces.values()
     invalid_changes = []
     for change in model.changes:
         sbml_id = model_change_sbml_id_map[change.target]
@@ -240,9 +240,9 @@ def preprocess_sed_task(task, variables, config=None):
         attr_name = None
 
         if model_obj is not None:
-            _, sep, attr = change.target.partition('/@')
+            _, _, attr = change.target.partition('/@')
             ns, _, attr = attr.partition(':')
-            if change.target_namespaces.get(ns, None) in namespaces_list:
+            if change.target_namespaces.get(ns, None) == sbml_fbc_uri:
                 if attr == 'lowerFluxBound':
                     attr_name = 'lower_bound'
                 elif attr == 'upperFluxBound':
@@ -270,7 +270,6 @@ def preprocess_sed_task(task, variables, config=None):
     # preprocess variables
     variable_xpath_sbml_id_map = validation.validate_target_xpaths(
         variables, model_etree, attr='id')
-    sbml_fbc_prefix, sbml_fbc_uri = get_sbml_package_namespace('fbc', namespaces)
     variable_xpath_sbml_fbc_id_map = validation.validate_target_xpaths(
         variables,
         model_etree,
