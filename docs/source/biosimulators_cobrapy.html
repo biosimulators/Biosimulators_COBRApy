@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>biosimulators_cobrapy package &#8212; BioSimulators-COBRApy 0.1.17 documentation</title>
+    <title>biosimulators_cobrapy package &#8212; BioSimulators-COBRApy 0.1.18 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -555,35 +555,34 @@ for the model</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="biosimulators_cobrapy.utils.get_active_objective_sbml_fbc_id">
-<span class="sig-prename descclassname"><span class="pre">biosimulators_cobrapy.utils.</span></span><span class="sig-name descname"><span class="pre">get_active_objective_sbml_fbc_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_source</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/biosimulators_cobrapy/utils.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biosimulators_cobrapy.utils.get_active_objective_sbml_fbc_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="biosimulators_cobrapy.utils.get_objective_sbml_fbc_ids">
+<span class="sig-prename descclassname"><span class="pre">biosimulators_cobrapy.utils.</span></span><span class="sig-name descname"><span class="pre">get_objective_sbml_fbc_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_source</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/biosimulators_cobrapy/utils.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biosimulators_cobrapy.utils.get_objective_sbml_fbc_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the SBML-FBC id of the active objective</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>model_source</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – path to model</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>SBML-FBC id of the active objective</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>: SBML-FBC id of the active objective</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>: SBML-FBC id of the objectives</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="biosimulators_cobrapy.utils.get_results_of_variables">
-<span class="sig-prename descclassname"><span class="pre">biosimulators_cobrapy.utils.</span></span><span class="sig-name descname"><span class="pre">get_results_of_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_x_paths_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_x_paths_fbc_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active_objective_fbc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solution</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/biosimulators_cobrapy/utils.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biosimulators_cobrapy.utils.get_results_of_variables" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">biosimulators_cobrapy.utils.</span></span><span class="sig-name descname"><span class="pre">get_results_of_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_results_path_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solution</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/biosimulators_cobrapy/utils.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biosimulators_cobrapy.utils.get_results_of_variables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the results of the desired variables</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>target_x_paths_ids</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – dictionary that maps each XPath to the
-SBML id of the corresponding model object</p></li>
-<li><p><strong>target_x_paths_fbc_ids</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – dictionary that maps each XPath to the
-SBML-FBC id of the corresponding model object</p></li>
-<li><p><strong>active_objective_fbc_id</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – SBML-FBC id of the active objective</p></li>
-<li><p><strong>method</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>) – properties of desired simulation method</p></li>
+<li><p><strong>target_results_path_map</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>) – path to results of desired variables</p></li>
 <li><p><strong>variables</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – variables that should be recorded</p></li>
 <li><p><strong>solution</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">cobra.core.solution.Solution</span></code>) – solution of method</p></li>
 </ul>
@@ -593,6 +592,33 @@ SBML-FBC id of the corresponding model object</p></li>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">VariableResults</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="biosimulators_cobrapy.utils.get_results_paths_for_variables">
+<span class="sig-prename descclassname"><span class="pre">biosimulators_cobrapy.utils.</span></span><span class="sig-name descname"><span class="pre">get_results_paths_for_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active_objective_sbml_fbc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_sbml_fbc_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_sbml_id_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_sbml_fbc_id_map</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/biosimulators_cobrapy/utils.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biosimulators_cobrapy.utils.get_results_paths_for_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the path to results for the desired variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">cobra.core.model.Model</span></code>) – model</p></li>
+<li><p><strong>active_objective_sbml_fbc_id</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – SBML-FBC id of the active objective</p></li>
+<li><p><strong>objective_sbml_fbc_ids</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – SBML-FBC id of the objectives</p></li>
+<li><p><strong>method</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>) – properties of desired simulation method</p></li>
+<li><p><strong>variables</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – variables that should be recorded</p></li>
+<li><p><strong>target_sbml_id_map</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – dictionary that maps each XPath to the
+SBML id of the corresponding model object</p></li>
+<li><p><strong>target_sbml_fbc_id_map</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – dictionary that maps each XPath to the
+SBML-FBC id of the corresponding model object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>path to results of desired variables</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -623,13 +649,21 @@ for the model</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="biosimulators_cobrapy.utils.validate_variables">
-<span class="sig-prename descclassname"><span class="pre">biosimulators_cobrapy.utils.</span></span><span class="sig-name descname"><span class="pre">validate_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/biosimulators_cobrapy/utils.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biosimulators_cobrapy.utils.validate_variables" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">biosimulators_cobrapy.utils.</span></span><span class="sig-name descname"><span class="pre">validate_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active_objective_sbml_fbc_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_sbml_fbc_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_sbml_id_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_sbml_fbc_id_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sbml_fbc_uri</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_COBRApy/blob/dev/biosimulators_cobrapy/utils.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biosimulators_cobrapy.utils.validate_variables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Validate the desired output variables of a simulation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">cobra.core.model.Model</span></code>) – model</p></li>
+<li><p><strong>active_objective_sbml_fbc_id</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – SBML-FBC id of the active objective</p></li>
+<li><p><strong>objective_sbml_fbc_ids</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – SBML-FBC id of the objectives</p></li>
 <li><p><strong>method</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>) – properties of desired simulation method</p></li>
 <li><p><strong>variables</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – variables that should be recorded</p></li>
+<li><p><strong>target_sbml_id_map</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – dictionary that maps each XPath to the
+SBML id of the corresponding model object</p></li>
+<li><p><strong>target_sbml_fbc_id_map</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> to <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – dictionary that maps each XPath to the
+SBML-FBC id of the corresponding model object</p></li>
+<li><p><strong>sbml_fbc_uri</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – URI for SBML FBC package</p></li>
 </ul>
 </dd>
 </dl>
