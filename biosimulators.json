@@ -19,10 +19,16 @@
     },
     "operatingSystemType": "Linux"
   },
+  "cli": {
+    "packageRepository": "PyPI",
+    "package": "biosimulators-cobrapy",
+    "command": "biosimulators-cobrapy",
+    "installationInstructions": null
+  },
   "pythonApi": {
     "package": "biosimulators-cobrapy",
     "module": "biosimulators_cobrapy",
-      "installationInstructions": null
+    "installationInstructions": null
   },
   "authors": [
     {
