@@ -6,31 +6,33 @@
 :License: MIT
 """
 
-from .data_model import KISAO_ALGORITHMS_PARAMETERS_MAP
-from .utils import (get_objective_sbml_fbc_ids, set_simulation_method_arg,
+from biosimulators_utils.licensing.gurobi import GurobiLicenseManager
+GurobiLicenseManager().save_keys_to_license_file()
+
+from .data_model import KISAO_ALGORITHMS_PARAMETERS_MAP  # noqa: E402
+from .utils import (get_objective_sbml_fbc_ids, set_simulation_method_arg,  # noqa: E402
                     apply_variables_to_simulation_method_args, validate_variables,
                     get_results_of_variables, get_results_paths_for_variables)
-from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive
-from biosimulators_utils.config import get_config, Config  # noqa: F401
-from biosimulators_utils.licensing.gurobi import GurobiLicenseManager
-from biosimulators_utils.log.data_model import CombineArchiveLog, TaskLog, StandardOutputErrorCapturerLevel  # noqa: F401
-from biosimulators_utils.model_lang.sbml.utils import get_package_namespace as get_sbml_package_namespace
-from biosimulators_utils.viz.data_model import VizFormat  # noqa: F401
-from biosimulators_utils.report.data_model import ReportFormat, VariableResults, SedDocumentResults  # noqa: F401
-from biosimulators_utils.sedml import validation
-from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, ModelAttributeChange, SteadyStateSimulation,  # noqa: F401
+from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive  # noqa: E402
+from biosimulators_utils.config import get_config, Config  # noqa: F401, E402
+from biosimulators_utils.log.data_model import CombineArchiveLog, TaskLog, StandardOutputErrorCapturerLevel  # noqa: F401, E402
+from biosimulators_utils.model_lang.sbml.utils import get_package_namespace as get_sbml_package_namespace  # noqa: E402
+from biosimulators_utils.viz.data_model import VizFormat  # noqa: F401, E402
+from biosimulators_utils.report.data_model import ReportFormat, VariableResults, SedDocumentResults  # noqa: F401, E402
+from biosimulators_utils.sedml import validation  # noqa: E402
+from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, ModelAttributeChange, SteadyStateSimulation,  # noqa: F401, E402
                                                   Variable)
-from biosimulators_utils.sedml.exec import exec_sed_doc as base_exec_sed_doc
-from biosimulators_utils.simulator.utils import get_algorithm_substitution_policy
-from biosimulators_utils.utils.core import raise_errors_warnings
-from biosimulators_utils.warnings import warn, BioSimulatorsWarning
-from biosimulators_utils.xml.utils import get_namespaces_for_xml_doc
-from kisao.data_model import AlgorithmSubstitutionPolicy, ALGORITHM_SUBSTITUTION_POLICY_LEVELS
-from kisao.utils import get_preferred_substitute_algorithm_by_ids
-from lxml import etree
-import cobra.io
-import copy
-import os
+from biosimulators_utils.sedml.exec import exec_sed_doc as base_exec_sed_doc  # noqa: E402
+from biosimulators_utils.simulator.utils import get_algorithm_substitution_policy  # noqa: E402
+from biosimulators_utils.utils.core import raise_errors_warnings  # noqa: E402
+from biosimulators_utils.warnings import warn, BioSimulatorsWarning  # noqa: E402
+from biosimulators_utils.xml.utils import get_namespaces_for_xml_doc  # noqa: E402
+from kisao.data_model import AlgorithmSubstitutionPolicy, ALGORITHM_SUBSTITUTION_POLICY_LEVELS  # noqa: E402
+from kisao.utils import get_preferred_substitute_algorithm_by_ids  # noqa: E402
+from lxml import etree  # noqa: E402
+import cobra.io  # noqa: E402
+import copy  # noqa: E402
+import os  # noqa: E402
 
 __all__ = [
     'exec_sedml_docs_in_combine_archive',
