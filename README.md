@@ -2,6 +2,7 @@
 [![PyPI](https://img.shields.io/pypi/v/biosimulators_cobrapy)](https://pypi.org/project/biosimulators_cobrapy/)
 [![CI status](https://github.com/biosimulators/Biosimulators_COBRApy/workflows/Continuous%20integration/badge.svg)](https://github.com/biosimulators/Biosimulators_COBRApy/actions?query=workflow%3A%22Continuous+integration%22)
 [![Test coverage](https://codecov.io/gh/biosimulators/Biosimulators_COBRApy/branch/dev/graph/badge.svg)](https://codecov.io/gh/biosimulators/Biosimulators_COBRApy)
+[![All Contributors](https://img.shields.io/github/all-contributors/biosimulators/Biosimulators_COBRApy/HEAD)](#contributors-)
 
 # BioSimulators-COBRApy
 BioSimulators-compliant command-line interface and Docker image for the [COBRApy](https://opencobra.github.io/cobrapy/) simulation program.
@@ -82,7 +83,7 @@ Documentation is available at https://docs.biosimulators.org/Biosimulators_COBRA
 This package is released under the [MIT license](LICENSE).
 
 ## Development team
-This package was developed by the [Center for Reproducible Biomedical Modeling](http://reproduciblebiomodels.org) and the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai.
+This package was developed by the [Center for Reproducible Biomedical Modeling](http://reproduciblebiomodels.org) and the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai with assistance from the contributors listed [here](CONTRIBUTORS.md).
 
 ## Questions and comments
 Please contact the [BioSimulators Team](mailto:info@biosimulators.org) with any questions or comments.
