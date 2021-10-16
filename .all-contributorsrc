@@ -13,6 +13,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Midnighter",
+      "name": "Moritz E. Beber",
+      "avatar_url": "https://avatars.githubusercontent.com/u/135653?v=4",
+      "profile": "https://unseenbio.com/",
+      "contributions": [
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -20,5 +29,6 @@
   "projectOwner": "biosimulators",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "none"
 }

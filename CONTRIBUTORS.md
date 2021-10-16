@@ -7,7 +7,8 @@ BioSimulators-COBRApy was developed with help from the following people:
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.karrlab.org"><img src="https://avatars.githubusercontent.com/u/2848297?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Karr</b></sub></a><br /><a href="https://github.com/biosimulators/Biosimulators_utils/commits?author=jonrkarr" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.karrlab.org"><img src="https://avatars.githubusercontent.com/u/2848297?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Karr</b></sub></a><br /><a href="https://github.com/biosimulators/Biosimulators_COBRApy/commits?author=jonrkarr" title="Code">💻</a></td>
+    <td align="center"><a href="https://unseenbio.com/"><img src="https://avatars.githubusercontent.com/u/135653?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Moritz E. Beber</b></sub></a><br /><a href="#tool-Midnighter" title="Tools">🔧</a></td>
   </tr>
 </table>
 
