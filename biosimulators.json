@@ -83,7 +83,7 @@
         "title": "COBRApy: COnstraints-Based Reconstruction and Analysis for Python",
         "authors": "Ali Ebrahim, Joshua A. Lerman, Bernhard Ø. Palsson & Daniel R. Hyduke",
         "journal": "BMC Systems Biology",
-        "volume": 7,
+        "volume": "7",
         "pages": "74",
         "year": 2013,
         "identifiers": [
@@ -180,8 +180,8 @@
           "title": "What is flux balance analysis?",
           "authors": "Jeffrey D. Orth, Ines Thiele & Bernhard Ø. Palsson",
           "journal": "Nature Biotechnology",
-          "volume": 28,
-          "issue": 3,
+          "volume": "28",
+          "issue": "3",
           "pages": "245-248",
           "year": 2010,
           "identifiers": [
@@ -342,8 +342,8 @@
           "title": "The effects of alternate optimal solutions in constraint-based genome-scale metabolic models",
           "authors": "Radhakrishnan Mahadevan & Christophe. H. Schilling",
           "journal": "Metabolic Engineering",
-          "volume": 5,
-          "issue": 4,
+          "volume": "5",
+          "issue": "4",
           "pages": "264-276",
           "year": 2003,
           "identifiers": [
@@ -567,7 +567,7 @@
           "title": "Omic data from evolved E. coli are consistent with computed optimal growth from genome‐scale models",
           "authors": "Nathan E. Lewis, Kim K. Hixson, Tom M. Conrad, Joshua A. Lerman, Pep Charusanti, Ashoka D. Polpitiya, Joshua N. Adkins, Gunnar Schramm, Samuel O. Purvine, Daniel Lopez‐Ferrer, Karl K. Weitz, Roland Eils, Rainer König, Richard D. Smith & Bernhard Ø. Palsson",
           "journal": "Molecular Systems Biology",
-          "volume": 6,
+          "volume": "6",
           "pages": "390",
           "year": 2010,
           "identifiers": [
@@ -735,7 +735,7 @@
           "title": "Flux balance analysis: A geometric perspective",
           "authors": "Kieran Smallbone & Evangelos Simeonidis",
           "journal": "Journal of Theoretical Biology",
-          "volume": 258,
+          "volume": "258",
           "pages": "311-315",
           "year": 2009,
           "identifiers": [
