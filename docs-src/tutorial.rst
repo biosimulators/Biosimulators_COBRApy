@@ -7,7 +7,7 @@ BioSimulators-COBRApy is available as a command-line program and as a command-li
 Creating COMBINE/OMEX archives and encoding simulation experiments into SED-ML
 ------------------------------------------------------------------------------
 
-Information about how to create COMBINE/OMEX archives which can be executed by BioSimulators-COBRApy is available at `BioSimulators <https://biosimulators.org/help>`_.
+Information about how to create COMBINE/OMEX archives which can be executed by BioSimulators-COBRApy is available `here <`https://docs.biosimulations.org/users/creating-projects/>`_.
 
 A list of the algorithms and algorithm parameters supported by COBRApy is available at `BioSimulators <https://biosimulators.org/simulators/cobrapy>`_.
 
@@ -29,7 +29,7 @@ BioSimulators-COBRApy recognizes the following targets for simulation prediction
   * Minimum reaction flux: ``sbml:reaction/@minFlux``
   * Maximum reaction flux: ``sbml:reaction/@maxFlux``
 
-Please see `https://biosimulators.org/conventions/simulation-experiments <https://biosimulators.org/conventions/simulation-experiments>`_ for more information.
+Please see `https://docs.biosimulations.org <https://docs.biosimulations.org/concepts/conventions/simulation-experiments/>`_ for more information.
 
 Command-line program
 --------------------
