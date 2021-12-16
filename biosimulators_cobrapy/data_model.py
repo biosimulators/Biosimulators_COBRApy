@@ -8,6 +8,7 @@ to COBRApy methods and their arguments
 """
 
 from biosimulators_utils.data_model import ValueType
+import cobra
 import cobra.flux_analysis
 import collections
 import enum
@@ -27,6 +28,7 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = collections.OrderedDict([
         'kisao_id': 'KISAO_0000437',
         'name': 'flux-balance analysis (FBA)',
         'method': lambda model, **args: model.optimize(**args),
+        'raw_method': cobra.Model.optimize,
         'parameters': {
             'KISAO_0000553':  {
                 'name': 'solver',
@@ -120,6 +122,7 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = collections.OrderedDict([
         'kisao_id': 'KISAO_0000528',
         'name': 'parsimonious flux-balance analysis (pFBA)',
         'method': cobra.flux_analysis.pfba,
+        'raw_method': cobra.flux_analysis.pfba,
         'parameters': {
             'KISAO_0000531': {
                 'name': 'fraction of optimum',
@@ -219,6 +222,7 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = collections.OrderedDict([
         'kisao_id': 'KISAO_0000527',
         'name': 'geometric flux-balance analysis (gFBA)',
         'method': cobra.flux_analysis.geometric_fba,
+        'raw_method': cobra.flux_analysis.geometric_fba,
         'parameters': {
             'KISAO_0000209': {
                 'name': 'epsilon',
@@ -330,6 +334,7 @@ KISAO_ALGORITHMS_PARAMETERS_MAP = collections.OrderedDict([
         'kisao_id': 'KISAO_0000526',
         'name': 'flux variability analysis (FVA)',
         'method': cobra.flux_analysis.flux_variability_analysis,
+        'raw_method': cobra.flux_analysis.flux_variability_analysis,
         'parameters': {
             'KISAO_0000532': {
                 'name': 'loopless',

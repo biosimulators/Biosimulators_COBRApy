@@ -183,7 +183,7 @@ def exec_sed_task(task, variables, preprocessed_task=None, log=None, config=None
     if config.LOG:
         log.algorithm = preprocessed_task['simulation']['algorithm_kisao_id']
         log.simulator_details = {
-            'method': method_props['method'].__module__ + '.' + method_props['method'].__name__,
+            'method': method_props['raw_method'].__module__ + '.' + method_props['raw_method'].__name__,
             'arguments': method_kw_args,
         }
 
